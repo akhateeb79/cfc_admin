@@ -1,0 +1,47 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .loading {
+    font-weight: bold;
+    color: #0069d9;
+  }
+  
+  .error {
+    font-size: 16px;
+    font-weight: bold;
+    color: #dc3545;
+  }
+  .accepted{
+    font-size: 16px;
+    font-weight: bold;
+    color: #20c000;
+    margin-bottom: 10px;
+  }
+  .warn{
+    font-size: 16px;
+    font-weight: bold;
+    color: #eba500;
+    margin-bottom: 10px;
+  }
+  .content{
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+  .balance {
+    margin-top: 20px;
+  }
+  
+  .balance p {
+    margin-bottom: 10px;
+  }
+  

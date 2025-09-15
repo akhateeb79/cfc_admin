@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">{{LANG.Campaign_List}}</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                    <li class="breadcrumb-item active">{{LANG.Campaign_List}}</li>
+                </ol>
+                <!-- <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addKYC()"><i
+                    class="fa fa-plus-circle"></i> Create New</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="example23"
+                            class="display nowrap table table-hover table-striped table-bordered"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>CIF</th>
+                                    <th>User Id</th>
+                                    <th>{{LANG.Tagline}}</th>
+                                    <th>{{LANG.Minimum_Investment}}</th>
+                                    <th>{{LANG.Maximum_Investment}}</th>
+                                    <th>{{LANG.Share_price}}</th>
+                                    <th>{{LANG.Total_Valuation}}</th>
+                                    <th>Attachment</th>
+                                    <th>Created At</th>
+                                    <th>{{LANG.Status}}</th>
+                                    <th>Campaign Detail</th>
+                                    <th>Investors</th>
+                                    <th>Prgram Details</th>
+                                    <th>{{LANG.Action}}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of campaignList; let i=index;">
+                                    <td>{{data?.id || '-'}}</td>
+                                    <td>{{data?.user_id || '-'}}</td>
+                                    <td>{{data?.tagline || '-'}}</td>
+                                    <td>{{data?.min_investment || '-'}}</td>
+                                    <td>{{data?.max_investment || '-'}}</td>
+                                    <td>{{data?.share_price || '-'}}</td>
+                                    <td>{{data?.total_valuation || '-'}}</td>
+                                    <td><a href="javascript:void(0);" (click)="attachment(data)">Attachment</a></td>
+                                    <td>{{data?.created_at || '-'}}</td>
+                                    <td>{{data?.status == '1' ? LANG.Publish : LANG.Pending  || '-'}}</td>
+                                    <td><a (click)="detailsCampaign(data)"><i class="fas fa-plus-circle"></i></a></td>
+                                    <td><button style="border-style: none;background-color: #7460ee;color: white;padding: 5px 10px;border-radius: 2px;cursor: pointer;" (click)="viewInvestors(data)">View Investors</button></td>
+                                    <td>
+                                        <button 
+                                                            style="border-style: none; background-color: #7460ee; color: white; padding: 5px 10px; border-radius: 2px; cursor: pointer;"
+                                          (click)="fetchProgramById(data)"
+                                        
+                                        >
+                                          View program
+                                        </button>
+                                      </td>
+                                    <td>
+                                        <span class="del mr-1" (click)="showDeleteModal(data)"><i class="fa fa-trash"></i></span>
+                                        <a class="del mr-1" (click)="edit(data)"><i class="fas fa-edit"></i></a>
+                                        <span class="del" (click)="openModal(data.id)"><i class="fas fa-clipboard"></i></span>
+
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>{{LANG.Are_you_sure_you_want_to_delete_this}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" *ngIf="!load" data-dismiss="modal" class="btn btn-primary btn-danger loader-btn w-30" id="delete" (click)="delete()">{{LANG.Delete}}</button>
+            <button type="button" *ngIf="load" class="btn btn-primary btn-danger loader-btn w-30"><loader></loader></button>
+            <button type="button" data-dismiss="modal" class="btn loader-btn w-30" (click)="cancel()" [disabled]="load">{{LANG.Cancel}}</button>
+        </div>
+      </div>
+    </div>
+</div>

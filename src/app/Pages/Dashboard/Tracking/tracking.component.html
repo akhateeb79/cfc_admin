@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">{{ LANG.Tracking }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <input
+        type="text"
+        placeholder="Filter By Actions"
+        (input)="filterByActions($event.target.value)"
+      />
+      <input
+        type="text"
+        placeholder="Filter By Time & Date"
+        (input)="filterByTimeDate($event.target.value)"
+      />
+      <input
+        type="text"
+        placeholder="Filter By Page"
+        (input)="filterByPage($event.target.value)"
+      />
+      <div
+        class="card"
+        style="height: 100%; max-height: 550px; overflow-y: scroll"
+      >
+        <h3>All Records</h3>
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>user ID</th>
+              <th>Action Type</th>
+              <th>Log Date Time</th>
+              <th>Page Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of paginatedRecords">
+              <td>{{ record.id }}</td>
+              <td>{{ record.UserID }}</td>
+              <td>{{ record.ActionType }}</td>
+              <td>{{ record.created_at }}</td>
+              <td>{{ record.LogDateTime }}</td>
+              <td>
+                <button (click)="toggleDetailView(record)">
+                  {{ record.isOpen ? "Close" : "View" }}
+                </button>
+              </td>
+            </tr>
+            <tr *ngFor="let record of paginatedRecords">
+              <td colspan="4" *ngIf="record.isOpen">
+                <div class="card-body" id="pdfContent">
+                  <h3>Detail View</h3>
+                  <p><strong>ID:</strong> {{ record.id }}</p>
+                  <p><strong>User ID:</strong> {{ record.UserID }}</p>
+                  <p><strong>Name:</strong> {{ record.UserName }}</p>
+                  <p *ngIf="adminEmail!==''"><strong>Email:</strong>{{ adminEmail }}</p>
+                  <p><strong>Action Type:</strong> {{ record.ActionType }}</p>
+                  <p>
+                    <strong>Log Date Time:</strong> {{ record.created_at }}
+                  </p>
+                  <p><strong>Page Type:</strong> {{ record.LogDateTime }}</p>
+                  <button id="downloadPDFButton" (click)="downloadPDF(record)">Download PDF</button>
+                  <div class="table-responsive m-t-40">
+                    <table
+                      class="display nowrap table table-hover table-striped table-bordered"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Field</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of record.log">
+                          <td>{{ item.Field }}</td>
+                          <td>{{ item.Value }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination-controls">
+          <button (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <span>Page {{ currentPage }} of {{ totalPages }}</span>
+          <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_Admin}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{LANG.Add_Admin}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.User_Type}}</label>
+                    <select class="form-control" name="user_type" [(ngModel)]="user_type_id">
+                      <option selected disabled value="">{{LANG.Select_User_Type}}</option>
+                      <option *ngFor="let data of user_type;" value="{{data.id}}">{{data.title}}</option>
+                    </select>
+                    <span class="error" *ngIf="error.user_type">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Name}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="name"
+                      placeholder="{{LANG.Enter_Name}}"
+                      [(ngModel)]="name"
+                    />
+                    <span class="error" *ngIf="error.name">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Department_Type}}</label>
+                    <select class="form-control" name="department_type" [(ngModel)]="department_type" (change)="changeDepartmentType()">
+                      <option selected disabled value="">{{LANG.Select_Department_Type}}</option>
+                      <option value="1">{{LANG.Menu}}</option>
+                      <option value="2">{{LANG.Role}}</option>
+                    </select>
+                    <span class="error" *ngIf="error.name">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label d-block">{{LANG.Role_Type}}</label>
+                  <select
+                    class="js-example-basic-multiple"
+                    name="role_type[]"
+                    multiple="multiple"
+                    id="role_type"
+                  >
+                    <option *ngFor="let data of roles; let i = index" value="{{ data.id }}">
+                      {{ data.title }}
+                    </option>
+                  </select>
+                  <span class="error" *ngIf="error.role_type">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Mobile_Number}}</label>
+                    <div class="country-code d-flex">
+                      <select class="form-control" name="country_code" [(ngModel)]="country_code">
+                        <option value="+966">+966</option>
+                        <option value="+91">+91</option>
+                      </select>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="mobile_number"
+                        placeholder="{{LANG.Enter_Mobile_Number}}"
+                        [(ngModel)]="mobile_number"
+                      />
+                    </div>
+                    
+                    <span class="error" *ngIf="error.mobile_number">{{LANG.This_field_is_required}}</span>
+                    <span class="error" *ngIf="error.mobile_number_valid && country_code == '+966'">{{LANG.Enter_valid_Mobile_Number}} (Ex: 0551234567 or 551235678)</span>
+                    <span class="error" *ngIf="error.mobile_number_valid && country_code == '+91'">{{LANG.Enter_valid_Mobile_Number}}</span>
+  
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Email}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="email"
+                      placeholder="{{LANG.Enter_Email}}"
+                      [(ngModel)]="email"
+                    />
+                            <span class="error" *ngIf="error.email_valid">{{LANG.Enter_valid_email_id}}</span>
+  
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Password}}</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        placeholder="{{LANG.Enter_password}}"
+                        [(ngModel)]="password"
+                        [disabled]="editable"
+                      />
+                    <span class="error" *ngIf="error.password">{{LANG.This_field_is_required}}</span>
+                    <span class="error" *ngIf="error.password_valid">{{LANG.Password_must_be_characters_or_more}}</span>
+  
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Department_Type}}</label>
+                    <select
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                  </select>
+  
+                  </div>
+                </div>
+              </div>
+
+
+              <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="addUsers()">{{id ? LANG.Update : LANG.Submit}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

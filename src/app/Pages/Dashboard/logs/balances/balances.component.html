@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>CFC bank accounts balances</h1>
+  
+    <div class="form-group">
+        <label for="accountNumber">Select Account Number:</label>
+        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="accountNumber">
+          <option value="0190095517580017">0190095517580017</option>
+          <option value="0108095517580016">0108095517580016</option>
+          <option value="0190095517580024"> 0190095517580024</option>
+        </select>
+    </div>
+  
+    <button class="btn btn-primary" (click)="getBalance()">Get Balance</button>
+    <button *ngIf="balance" style="border-radius: 2px;background-color: #00a200;color: white;border: none; margin-left: 10px;padding: 6px 7px;" (click)="exportToExcel()">Export to Excel</button>
+    <div *ngIf="loading" class="loading">Loading...</div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+  
+    <div *ngIf="balance" class="balance">
+   
+      <p><strong>Account Number:</strong> {{ balance.accountNumber }}</p>
+      <p><strong>Currency:</strong> {{ balance.currency }}</p>
+      <p><strong>Cleared Balance:</strong> {{ balance.clearedBalance }}</p>
+    </div>
+  </div>
+  

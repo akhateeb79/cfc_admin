@@ -1,0 +1,90 @@
+<div class="container">
+    <h1>Payments</h1>
+    <div class="form-group">
+        <label for="accountNumber">opportunity to pay for:</label>
+     
+          
+        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="fromAccount"  (change)="onAccountChange($event.target.value)">
+            <option *ngFor="let account of userList" [value]="account.id">
+                {{ account.tagline }}
+            </option>
+        </select>
+    </div>
+  
+    <div *ngIf="isLoading" class="spinner-container" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.3); z-index: 9999;">
+        <div class="custom-spinner"></div>
+      </div>
+      
+
+
+      <table *ngIf="selectedAccountData" class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>Due Date</th>
+            <th>Total Amount</th>
+            <th>Profit Amount</th>
+            <th>Tax Fees</th>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let statement of selectedAccountData.investor_statement">
+            <td>{{ statement.date }}</td>
+            <td>{{ statement.total }}</td>
+            <td>{{ statement.profit }}</td>
+            <td>{{ statement.tax || 'N/A' }}</td>
+            <td>{{ statement.email }}</td>
+            <td>{{ statement.username || 'N/A' }}</td>
+            <td>{{ statement.name }}</td>
+          </tr>
+        </tbody>
+        <button [disabled]="fromAccount==null" class="btn btn-primary" style="margin-bottom: 20px;" (click)="addWorkflowInstance()">
+            Payment
+          </button>
+      </table>
+      
+      
+    <!-- <ng-container *ngIf="this.pickedAccountData" >
+        <div *ngIf="toAccount" class="content">ID:{{ this.pickedAccountData.user_id }}</div>
+        <div *ngIf="toAccount" class="content">Name: {{ this.pickedAccountData.name }}</div>
+        <div *ngIf="toAccount" class="content">Account Number: {{ this.pickedAccountData.creditAccount }}</div>
+        <div *ngIf="toAccount" class="content">Bank: {{ this.pickedAccountData.bank }}</div>
+    </ng-container> -->
+  
+    <!-- <div class="form-group" *ngIf="toAccount">
+        <label for="bank">Choose the user's bank: (must be same as user bank)</label>
+        <select id="bank" name="bank" class="form-control" [(ngModel)]="pickedBank" (change)="selectedBank()">
+            <option *ngFor="let bank of banks" [value]="bank.bic">
+                {{ bank.nameAr }}
+            </option>
+        </select>
+    </div> -->
+    <!-- <div class="form-group">
+        <label for="debitAccount">Enter Amount:</label>
+        <input type="number" id="amount" name="amount" class="form-control" step="1" oncopy="return false;"
+            oncut="return false;" onpaste="return false;" [min]="1" (keydown)="validateKey($event)"
+            [(ngModel)]="amount" />
+    </div> -->
+    <!-- <button [disabled]="amount==0||amount==null||toAccount==null||fromAccount==null||pickedBank==null"
+        class="btn btn-primary" style="margin-bottom: 20px;" (click)="addWorkflowInstance()">
+        Transfer Amount
+    </button> -->
+    <!-- <div *ngIf="info">
+        <div *ngIf="info?.status=='INITIATED'" class="accepted">Status: {{ info?.status }}</div>
+    <div *ngIf="info?.status!='INITIATED'" class="warn">Status: {{ info?.status }}</div>
+    <hr>
+    </div>
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="info" class="content">ID:{{ info.id }}</div>
+    <div *ngIf="info" class="content">Sequence Number: {{ info.sequenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Reference Number: {{ info.transactionReferenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Comment: {{ info.transactionComment }}</div>
+    <div *ngIf="info" class="content">External Reference Number: {{ info.externalReferenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Comment: {{ info.transactionComment }}</div>
+    <div *ngIf="info" class="content">createdAt: {{ info.createdAt }}</div>
+    <div *ngIf="info" class="content">updatedAt: {{ info.updatedAt }}</div>
+    <div *ngIf="error" class="error">{{ error }}</div> -->
+</div>
+<ng-content></ng-content>

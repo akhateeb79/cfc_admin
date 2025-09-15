@@ -1,0 +1,133 @@
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Section List</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                    <li class="breadcrumb-item active">Section List</li>
+                </ol>
+                <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addSection()" *ngIf="type == '9'"><i
+                    class="fa fa-plus-circle"></i> {{LANG.Create_New}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="page_loaded">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+
+                    <form class="mt-4" *ngIf="type == '5' || type == '8'">
+                        <ng-container *ngFor="let data of sectionList;let i= index">
+                            <ng-container  *ngIf="data.flag == 1">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="exampleInputEmail1">{{LANG.TITLE}}</label>
+                                      <input
+                                        type="email"
+                                        class="form-control"
+                                        name="title"
+                                        placeholder="{{LANG.Enter_Title}}"
+                                        [(ngModel)]="data.title"
+                                      />
+                                      <span class="error" *ngIf="error.title">{{LANG.This_field_is_required}}</span>
+                    
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="exampleInputPassword1"
+                                        >{{LANG.AR_TITLE}}</label
+                                      >
+                                      <input
+                                        type="text"
+                                        class="form-control text-right"
+                                        name="title_ar"
+                                        placeholder="{{LANG.Enter_Ar_title}}"
+                                        [(ngModel)]="data.ar_title"
+                                      />
+                                      <span class="error" *ngIf="error.title_ar">{{LANG.This_field_is_required}}</span>
+                    
+                                    </div>
+                                  </div>
+                                </div>
+                                <button *ngIf="!load" type="submit" class="btn btn-primary" (click)="addSectionHeader(data)">{{LANG.Update}}</button>
+                                <button class="btn btn-primary" *ngIf="load">                                
+                                    <loader></loader>
+                                </button>
+                            </ng-container>
+                        </ng-container>
+                        
+            
+                      </form>
+
+
+
+                    <div class="table-responsive m-t-40">
+                        <table id="example23"
+                            class="display nowrap table table-hover table-striped table-bordered"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>{{LANG.TITLE}}</th>
+                                    <th>{{LANG.AR_TITLE}}</th>
+                                    <ng-container *ngIf="type !='3' && type != '8'">
+                                        <th>{{LANG.description}}</th>
+                                        <th>{{LANG.ar_description}}</th>
+                                    </ng-container>
+                                    <th>{{LANG.STATUS}}</th>
+                                    <th>{{LANG.Action}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let data of sectionList; let i=index;">
+                                    <tr  *ngIf="data.flag != 1">
+                                        <td>{{data.title}}</td>
+                                        <td>{{data.ar_title}}</td>
+    
+                                        <ng-container *ngIf="type !='3' && type != '8'">
+                                            <td>{{data.description}}</td>
+                                            <td>{{data.ar_description}}</td>
+                                        </ng-container>
+    
+                                        <td>{{data.status == '1' ? LANG.Active : LANG.Inactive}}</td>
+                                        <td> 
+                                            <span class="del mr-3" (click)="showDeleteModal(data)" *ngIf="type == '9'"><i class="fa fa-trash"></i></span>
+                                            <a (click)="edit(data)"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                    </tr>   
+                                </ng-container>
+                                    
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>{{LANG.Are_you_sure_you_want_to_delete_this}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" *ngIf="!load" data-dismiss="modal" class="btn btn-primary btn-danger loader-btn w-30" id="delete" (click)="delete()">{{LANG.Delete}}</button>
+            <button type="button" *ngIf="load" class="btn btn-primary btn-danger loader-btn w-30"><loader></loader></button>
+            <button type="button" data-dismiss="modal" class="btn loader-btn w-30" (click)="cancel()" [disabled]="load">{{LANG.Cancel}}</button>
+        </div>
+      </div>
+    </div>
+</div>

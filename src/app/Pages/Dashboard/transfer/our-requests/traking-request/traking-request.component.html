@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">Traking Level Workflow</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <div>
+        <div *ngIf="previewData && previewData.length > 0">
+            <h3>Reviewer</h3>
+            <div *ngFor="let user of previewData">
+              <p>Username: {{ user.username }}</p>
+              <p>Email: {{ user.email }}</p>
+              <p>Updated At: {{ user.updatedAt }}</p>
+            </div>
+          </div>
+        <div *ngIf="initiatorData">
+            <h3>Apporver </h3>
+            <div *ngFor="let user of initiatorData">
+              <p>Username: {{ user.username }}</p>
+              <p>Email: {{ user.email }}</p>
+              <p>Updated At: {{ user.updatedAt }}</p>
+            </div>
+          </div>
+          
+         
+          
+      </div>
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+  
+    <!-- Accept and Reject buttons only if status is Pending -->
+ 
+  </div>
+  

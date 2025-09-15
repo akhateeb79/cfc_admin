@@ -1,0 +1,220 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">{{id ? LANG.Edit : LANG.Add}} {{LANG.Product_Attributes}}</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+          <li class="breadcrumb-item active">{{id ? LANG.Edit : LANG.Add}} {{LANG.Product_Attributes}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">{{LANG.Product_Attribute_Name}}</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="attribute_name"
+                    placeholder="{{LANG.Enter_Your_Product_Attribute_Name}}"
+                    [(ngModel)]="attribute_name"
+                  />
+                  <span class="error" *ngIf="error.attribute_name">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputPassword1"
+                    >{{LANG.Product_Attribute_Ar_Name}}</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control text-right"
+                    name="attribute_name_ar"
+                    placeholder="{{LANG.Enter_Your_Product_Attribute_Ar_Name}}"
+                    [(ngModel)]="attribute_name_ar"
+                  />
+                  <span class="error" *ngIf="error.attribute_name_ar">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+            </div>
+            <div class="row p-t-20">
+              <div class="col-md-4">
+                <div class="form-group has-success">
+                  <label class="control-label">{{LANG.Multiselect}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="multiselect"
+                    [(ngModel)]="multiselect"
+                  >
+                    <option value="1">{{LANG.Yes}}</option>
+                    <option value="2">{{LANG.No}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group has-success mb-0">
+                  <label class="control-label">{{LANG.Status}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group has-success">
+                  <label class="control-label">{{LANG.Position}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="position"
+                    [(ngModel)]="position"
+                  >
+                    <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">{{LANG.Product_Attribute_Details}}</h4>
+
+                <div
+                  class="row border-class form-group mb-0 p-2"
+                  *ngFor="let data of product_details; let i = index"
+                >
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="title{{i}}"
+                        [(ngModel)]="data.title"
+                        placeholder="{{LANG.Enter_Product_Attribute_Detail_Title}}"
+                      />
+                    <span class="error" *ngIf="data.title_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="ar_title{{i}}"
+                        [(ngModel)]="data.ar_title"
+                        placeholder="{{LANG.Enter_Ar_Product_Attribute_Detail_Title}}"
+                      />
+                        <span class="error" *ngIf="data.ar_title_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="detail_subtitle{{i}}"
+                        [(ngModel)]="data.subtitle"
+                        placeholder="{{LANG.Enter_Additional_details}}"
+                      />
+                      <span class="error" *ngIf="data.subtitle_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="detail_ar_subtitle{{i}}"
+                        [(ngModel)]="data.subtitle_ar"
+                        placeholder="{{LANG.Enter_Ar_Additional_details}}"
+                      />
+                      <span class="error" *ngIf="data.subtitle_ar_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        id="detail_position{{i}}"
+                        name="detail_position{{i}}"
+                        [(ngModel)]="data.position"
+                      >
+                        <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <select
+                          class="form-control"
+                          name="detail_status{{i}}"
+                          [(ngModel)]="data.status"
+                        >
+                          <option value="1">{{LANG.Active}}</option>
+                          <option value="0">{{LANG.Inactive}}</option>
+                        </select>
+                        <div class="input-group-append">
+                          <button
+                            *ngIf="i == 0"
+                            class="btn btn-success"
+                            type="button"
+                            (click)="addMore()"
+                          >
+                            <i class="fa fa-plus"></i>
+                          </button>
+                          <button
+                            *ngIf="i != 0"
+                            class="btn btn-danger"
+                            type="button"
+                            (click)="remove(i)"
+                          >
+                            <i class="fa fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="custom-control custom-checkbox mr-sm-2 mb-3">
+                            <input type="checkbox" class="custom-control-input" id="checkbox0" value="check">
+                            <label class="custom-control-label" for="checkbox0">Check Me Out !</label>
+                        </div> -->
+            <button *ngIf="!load" type="submit" class="btn btn-primary" (click)="addProductAttribute()">{{id ? LLANG.Update : LANG.Submit}}</button>
+            <button class="btn btn-primary" *ngIf="load">                                
+                <loader></loader>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

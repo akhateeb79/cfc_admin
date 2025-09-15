@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h4 class="modal-title" style="color: white;">Edit Program</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <form [formGroup]="programForm" (ngSubmit)="onSubmit()">
+     
+
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div>
+                    <label for="psd_director_name">director_name</label>
+                    <input id="psd_director_name" formControlName="psd_director_name" type="text" class="form-control custom-input" />
+                    <div *ngIf="programForm.get('psd_director_name').invalid && programForm.get('psd_director_name').touched"  class="error-message">
+                        <small class="text-danger">psd_director_name is required.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div>
+                    <label for="psd_director_relation">psd_director_relation</label>
+                    <input id="psd_director_relation" formControlName="psd_director_relation" type="text" class="form-control custom-input" />
+                    <div *ngIf="programForm.get('psd_director_relation').invalid && programForm.get('psd_director_relation').touched"  class="error-message">
+                        <small class="text-danger">psd_director_relation is required.</small>
+                    </div>
+                </div>
+
+            </div>
+
+          
+        </div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div>
+            <label for="psd_director_nationality">psd_director_nationality</label>
+            <input id="psd_director_nationality" formControlName="psd_director_nationality" type="text" class="form-control custom-input" />
+            <div *ngIf="programForm.get('psd_director_nationality').invalid && programForm.get('psd_director_nationality').touched"  class="error-message">
+                <small class="text-danger">psd_director_nationality is required.</small>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+    <button type="button"  class="my-3 btn btn-primary" [disabled]="programForm.invalid" (click)="save()"  [ngClass]="{'valid-button': programForm.valid, 'disabled-button': programForm.invalid}">Save</button>
+  </div>
+  

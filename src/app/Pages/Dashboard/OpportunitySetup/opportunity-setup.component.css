@@ -1,0 +1,10 @@
+.static{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.static h3{
+    margin-top: 15px;
+    margin-bottom: 0;
+}

@@ -1,0 +1,149 @@
+<div class="container">
+    <h1>CFC accounts statements</h1>
+  
+    <form #statementForm="ngForm" (ngSubmit)="getStatement()">
+      <div class="form-group">
+        <label for="accountNumber">Select Account Number:</label>
+        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="account">
+          <option value="0190095517580017">0190095517580017</option>
+          <option value="0108095517580016">0108095517580016</option>
+          <option value="0190095517580024">0190095517580024</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" class="form-control" [(ngModel)]="startDate">
+      </div>
+  
+      <div class="form-group">
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" class="form-control" [(ngModel)]="endDate">
+      </div>
+      <div class="form-group">
+        <label for="accountNumber">Select Partial Transaction Type:</label>
+        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="TransactionType">
+          <option value="CREDIT">CREDIT</option>
+          <option value="DEBIT">DEBIT</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="TransactionType=='CREDIT'">
+        <label for="to_account">To Account Number: </label>
+        <input type="text" id="to_account" name="to_account" class="form-control" [(ngModel)]="toAccount">
+      </div>
+      <button type="submit" class="btn btn-primary">Get Statement</button>
+    </form>
+    <button *ngIf="filteredData.length>0" style="border-radius: 2px;background-color: #00a200;color: white;border: none; margin-left: 0px;padding: 6px 15px;margin-top: 10px; margin-bottom: 10px;" (click)="exportAccountRecordsToExcel()">Export to Excel</button>
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="message" class="error">{{ message }}</div>
+  
+    <div *ngIf="filteredData.length>0" class="statement">
+      <p><strong>Account Number:</strong> {{ account }}</p>
+      <p><strong>From Date:</strong> {{ startDate }}</p>
+      <p><strong>To Date:</strong> {{ endDate }}</p>
+      <p><strong>Number of Transactions:</strong> {{ filteredData.length }}</p>
+  
+      <h2>Transactions</h2>
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Account Number</th>
+              <th>From Date</th>
+              <th>To Date</th>
+              <th>Number of Records</th>
+              <th>Completed</th>
+              <th>Offset</th>
+              <th>Brought Forward Balance Amount</th>
+              <th>Brought Forward Balance Currency Code</th>
+              <th>Opening Clear Balance Amount</th>
+              <th>Page Open Balance Amount</th>
+              <th>Page Open Balance Currency Code</th>
+              <th>Closing Balance Amount</th>
+              <th>Closing Balance Currency Code</th>
+              <th>Unique ID</th>
+              <th>Post Date</th>
+              <th>Posting Time</th>
+              <th>Value Date</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Currency Code</th>
+              <th>Narrative 1</th>
+              <th>Narrative 2</th>
+              <th>Narrative 3</th>
+              <th>Reference Number</th>
+              <th>Counter</th>
+              <th>Statement</th>
+              <th>Partial Transaction Type</th>
+              <th>Partial Transaction Serial Number</th>
+              <th>Running Balance Amount</th>
+              <th>Running Balance Currency Code</th>
+              <th>Ordering Party</th>
+              <th>SAMA Narrative</th>
+              <th>Network</th>
+              <th>Channel</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Source Account Number</th>
+              <th>POI Number</th>
+              <th>IBAN</th>
+              <th>Particulars Code</th>
+              <th>Beneficiary Name</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of filteredData">
+              <td>{{ record.id }}</td>
+              <td>{{ record.accountNumber }}</td>
+              <td>{{ record.fromDate }}</td>
+              <td>{{ record.toDate }}</td>
+              <td>{{ record.numberOfRecords }}</td>
+              <td>{{ record.completed }}</td>
+              <td>{{ record.offset }}</td>
+              <td>{{ record["broughtFrwdBalance-amount"] }}</td>
+              <td>{{ record["broughtFrwdBalance-currencyCode"] }}</td>
+              <td>{{ record["openingClrBalance-amount"] }}</td>
+              <td>{{ record["pageOpenBalance-amount"] }}</td>
+              <td>{{ record["pageOpenBalance-currencyCode"] }}</td>
+              <td>{{ record["closingBalance-amount"] }}</td>
+              <td>{{ record["closingBalance-currencyCode"] }}</td>
+              <td>{{ record.uniqueId }}</td>
+              <td>{{ record.postDate }}</td>
+              <td>{{ record.postingTime }}</td>
+              <td>{{ record.valueDate }}</td>
+              <td>{{ record.type }}</td>
+              <td>{{ record.amount }}</td>
+              <td>{{ record.currencyCode }}</td>
+              <td>{{ record.narr1 }}</td>
+              <td>{{ record.narr2 }}</td>
+              <td>{{ record.narr3 }}</td>
+              <td>{{ record.refNum }}</td>
+              <td>{{ record.counter }}</td>
+              <td>{{ record.stmt }}</td>
+              <td>{{ record.partTrnType }}</td>
+              <td>{{ record.partTrnSrlNum }}</td>
+              <td>{{ record["runningBalance-amount"] }}</td>
+              <td>{{ record["runningBalance-currencyCode"] }}</td>
+              <td>{{ record.orderingParty }}</td>
+              <td>{{ record.samaNarr }}</td>
+              <td>{{ record.network }}</td>
+              <td>{{ record.channel }}</td>
+              <td>{{ record.category }}</td>
+              <td>{{ record.subCategory }}</td>
+              <td>{{ record.srcAcctNum }}</td>
+              <td>{{ record.poiNum }}</td>
+              <td>{{ record.iban }}</td>
+              <td>{{ record.prtclrsCode }}</td>
+              <td>{{ record.beneficiaryName }}</td>
+              <td>{{ record.created_at }}</td>
+              <td>{{ record.updated_at }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,25 @@
+
+
+/* Adjust modal width for tablet screens */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+ overflow: scroll;
+  }
+}
+
+@media (min-width: 1000px) {
+  .modal-content {
+    width: 150%;
+ 
+  }
+}
+/* Full-width modal for mobile screens */
+@media (max-width: 576px) {
+  .modal-content {
+    width: 80%;
+    margin: 0 10px; /* Adds margin for padding on mobile */
+    overflow-x: scroll; /* Enables horizontal scrolling */
+    white-space: nowrap; /* Prevents wrapping of content */
+  }
+}

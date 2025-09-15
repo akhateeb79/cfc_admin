@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">{{LANG.Add_Info_Type}}</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+          <li class="breadcrumb-item active">{{LANG.Add_Info_Type}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">{{LANG.Info_Type_Name}}</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="title"
+                    placeholder="{{LANG.Enter_Your_Info_Type_Name}}"
+                    [(ngModel)]="title"
+                  />
+                  <span class="error" *ngIf="error.title">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputPassword1"
+                    >{{LANG.Info_Type_Ar_Name}}</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control text-right"
+                    name="title_ar"
+                    placeholder="{{LANG.Enter_Your_Info_Type_Ar_Name}}"
+                    [(ngModel)]="title_ar"
+                  />
+                  <span class="error" *ngIf="error.title_ar">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+            </div>
+            <div class="row p-t-20">
+              <div class="col-md-6">
+                <div class="form-group has-success mb-0">
+                  <label class="control-label">{{LANG.Status}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group has-success">
+                  <label class="control-label">{{LANG.Position}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="position"
+                    [(ngModel)]="position"
+                  >
+                    <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button *ngIf="!load" type="submit" class="btn btn-primary" (click)="addProductAttribute()">{{id ? LANG.Update : LANG.Submit}}</button>
+            <button class="btn btn-primary" *ngIf="load">                                
+                <loader></loader>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

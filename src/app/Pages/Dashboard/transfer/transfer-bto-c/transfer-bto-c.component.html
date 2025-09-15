@@ -1,0 +1,64 @@
+<div style="height: 200vh;">
+    <div class="container mt-5">
+        <div class="row">
+            <!-- <button class="btn btn-link" (click)="openModal()"
+                style="border-style: none; background-color: rgb(60, 13, 124); color: white; padding: 15px 25px; border-radius: 5px; cursor: pointer;">
+                ADD NEW WORKFLOW
+            </button> -->
+            <div class=" mt-4">
+                <div>
+                    <div class="table-responsive">
+
+                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th> Actions</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created_at</th>
+                                    <th>Updated_at</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of paginatedRecords" class="navigte" placement="bottom"
+                                    ngbTooltip="Click to navigate to workflow : {{ item.name }}"
+                                    (click)="navigateToTransferB2B(item.id)">
+                                    <td>
+                                        <button class="btn btn-link" (click)="editProgram(item.program.id)">
+                                            <i class="fas fa-edit" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-link text-danger" (click)="deleteProgram(item.id)">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.description }}</td>
+                                    <td>{{ item.created_at | date:'short' }}</td>
+                                    <td>{{ item.updated_at | date:'short' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination-controls my-4" style="text-align: center;">
+                        <button (click)="previousPage()" class="btn" [disabled]="currentPage === 1">
+                            Previous
+                        </button>
+                        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                        <button (click)="nextPage()" class="btn" [disabled]="currentPage === totalPages">
+                            Next
+                        </button>
+                    </div>
+                </div>
+                <ng-template #noData>
+                    <div class="alert alert-warning text-center mt-4" role="alert">
+                        No program data found.
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

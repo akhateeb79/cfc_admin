@@ -1,0 +1,960 @@
+<div class="business tab-background tab-pad col-md-12 mt-3">
+  <!-- <ng-container *ngFor="let result of details"> -->
+  <h2>{{ LANG.Registration_Details }}</h2>
+  <div class="weight pb-0">
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label>{{ LANG.Name }}</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="details.name" (focus)="storeOriginalValue(details.name)" (change)="onFieldChange(LANG.Name,originalValue, $event.target.value)"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>{{ LANG.Mobile_Number }}</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="details.display_mobile_number" (focus)="storeOriginalValue(details.display_mobile_number)" (change)="onFieldChange(LANG.Mobile_Number,originalValue, $event.target.value)"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Registration Type</label>
+        <input
+          type="text"
+          *ngIf="details.type == 1"
+          class="form-control"
+          disabled
+          value="Individual"
+        />
+        <input
+          type="text"
+          *ngIf="details.type == 2"
+          class="form-control"
+          disabled
+          value="Coorporate"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>{{ LANG.Email }}</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="details.email" (focus)="storeOriginalValue(details.email)" (change)="onFieldChange(LANG.Email,originalValue, $event.target.value)"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>{{ LANG.Account_Number }}</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="details.account_number" (focus)="storeOriginalValue(details.account_number)" (change)="onFieldChange(LANG.Account_Number,originalValue, $event.target.value)"
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngFor="let data of details?.detail">
+    <div *ngIf="data.id != 9">
+      <h2>{{ data.title }} ({{ data.id }})</h2>
+      <div class="weight pb-0">
+        <ng-container *ngFor="let item of data.info_type; let j = index">
+          <p *ngIf="item.detail?.length != ''">
+            {{ item.title }} ({{ item.id }})
+          </p>
+          <div class="row">
+            <ng-container *ngFor="let fields of item.detail; let k = index">
+              <div class="form-group col-md-4">
+                <label>{{ fields.title }} ({{ fields.id }})</label>
+                <input
+                  *ngIf="
+                    fields.type == field_types.Email ||
+                    fields.type == field_types.Mobile ||
+                    fields.type == field_types.Characters ||
+                    fields.type == field_types.Number
+                  "
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ fields.title }}"
+                  name="field{{ i }}{{ j }}{{ k }}"
+                  [(ngModel)]="fields.value" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(fields.title,originalValue, $event.target.value)"
+                  disabled
+                />
+                <input
+                  *ngIf="
+                    fields.type == field_types.Date &&
+                    fields.id != 115 &&
+                    fields.id != 116
+                  "
+                  type="date"
+                  class="form-control"
+                  placeholder="{{ fields.title }}"
+                  name="field{{ i }}{{ j }}{{ k }}"
+                  [(ngModel)]="fields.value" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(fields.title,originalValue, $event.target.value)"
+                  disabled
+                />
+                <input
+                  *ngIf="
+                    fields.type == field_types.Date &&
+                    (fields.id == 115 || fields.id == 116)
+                  "
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ fields.title }}"
+                  name="field{{ i }}{{ j }}{{ k }}"
+                  [(ngModel)]="fields.value" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(fields.title,originalValue, $event.target.value)"
+                  disabled
+                />
+                <textarea
+                  *ngIf="fields.type == field_types.Textarea"
+                  class="form-control"
+                  placeholder="{{ LANG.Tell_about_your }} {{ fields.title }}"
+                  name="textarea{{ i }}{{ j }}{{ k }}"
+                  [(ngModel)]="fields.value" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(LANG.Tell_about_your,originalValue, $event.target.value)"
+                  disabled
+                ></textarea>
+                <div
+                  class="row campaign-row"
+                  *ngIf="fields.type == field_types.Yes_No"
+                >
+                  <div class="form-check">
+                    <div class="radio-1">
+                      <input
+                        type="radio"
+                        class="radio-buttons"
+                        id="yes{{ i }}{{ j }}{{ k }}"
+                        name="field{{ i }}{{ j }}{{ k }}"
+                        value="{{ fields.value }}"
+                        [checked]="fields.value == '1'" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(fields.title,originalValue , '1')"
+                      />
+                      <label name="gender" for="yes{{ i }}{{ j }}{{ k }}">{{
+                        LANG.Yes
+                      }}</label>
+                    </div>
+                    <div class="radio-2">
+                      <input
+                        type="radio"
+                        class="radio-buttons"
+                        id="no{{ i }}{{ j }}{{ k }}"
+                        name="field{{ i }}{{ j }}{{ k }}"
+                        value="{{ fields.value }}"
+                        [checked]="fields.value == '0'" (focus)="storeOriginalValue(details.value)" (change)="onFieldChange(fields.title,originalValue , '0')"
+                      />
+                      <label name="gender" for="no{{ i }}{{ j }}{{ k }}">{{
+                        LANG.No
+                      }}</label>
+                    </div>
+                  </div>
+                </div>
+                <ng-container *ngIf="fields.type == field_types.Fileupload">
+                  <div class="add-image">
+                    <span *ngIf="fields.value && pdfUrl$ == false">
+                      <!-- <iframe [src]="pdfUrl$" type="application/pdf" width="100%" height="600"></iframe> -->
+                      <!-- <a href="{{fields.value}}" target="_blank">  <img src="{{fields.value}}" alt="Open File"></a> -->
+                      <a href="{{ fields.value }}" target="_blank">
+                        <img
+                          src="../../../../../assets/images/open_file.png"
+                          alt="Open File"
+                      /></a>
+                      <!-- <button class="btn" (click)="downloadPdf()">View</button> -->
+                    </span>
+                    <!-- C:\CFC-Work\angular\admin\admin-Angular\ice-web\src\assets\images\pdfimg.png
+                                        ice-web\src\assets\images\pdfimg.png -->
+                    <span *ngIf="fields.value && pdfUrl$ == true">
+                      <!-- <iframe [src]="pdfUrl$" type="application/pdf" width="100%" height="600"></iframe> -->
+                      <a href="{{ fields.value }}" target="_blank">
+                        <img
+                          src="../../../../../assets/images/pdfimg.png"
+                          alt="Open file"
+                        />
+                      </a>
+                      <!-- <button class="btn" (click)="downloadPdf()">View</button> -->
+                    </span>
+                
+                  </div>
+                </ng-container>
+              </div>
+              
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div *ngIf="data.id == 9">
+      <ng-container>
+        <h2>{{ data.title }} ({{ data.id }})</h2>
+        <div *ngIf="watheqDataFromUser" class="table-container col-md-6">
+          <div class="row">
+            <div class="cell">ID</div>
+            <div class="cell">{{ watheqDataFromUser.id }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">User ID</div>
+            <div class="cell">{{ watheqDataFromUser.user_id }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Commercial Registration</div>
+            <div class="cell">
+              {{ watheqDataFromUser.commerical_regestration }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell">Company Name</div>
+            <div class="cell">{{ watheqDataFromUser.company_name }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">CE Entity Number</div>
+            <div class="cell">{{ watheqDataFromUser.ceEntityNumber }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Job Type</div>
+            <div class="cell">{{ watheqDataFromUser.job_type }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Release Date</div>
+            <div class="cell">{{ watheqDataFromUser.release_date }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Expire Date</div>
+            <div class="cell">{{ watheqDataFromUser.expire_date }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Email</div>
+            <div class="cell">{{ watheqDataFromUser.email }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Phone Number</div>
+            <div class="cell">{{ watheqDataFromUser.phone_number }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Company Address</div>
+            <div class="cell">{{ watheqDataFromUser.company_address }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Verified From Watheq</div>
+            <div class="cell">
+              {{
+                watheqDataFromUser.verfired == "1" ? "Verified" : "Not Verified"
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell">Created At</div>
+            <div class="cell">{{ watheqDataFromUser.created_at }}</div>
+          </div>
+          <div class="row">
+            <div class="cell">Updated At</div>
+            <div class="cell">{{ watheqDataFromUser.updated_at }}</div>
+          </div>
+        </div>
+        <div
+          *ngIf="details.role_type == 3 && watheqDataFromUser"
+          class="button-wrapper col-md-6 mt-0"
+          style="margin: 10px 0; display: flex; justify-content: center"
+        >
+          <button
+            class="btn success col-md-3"
+            style="margin-left: 4%; background-color: #f3ad33"
+            *ngIf="watheqDataFromUser?.verfired != '1'"
+            data-toggle="modal"
+             (click)="comercialReg(watheqDataFromUser.commerical_regestration)"
+            [disabled]="load"
+          >
+          Verify User Data
+          </button>
+          <button
+            class="btn success col-md-3"
+            style="margin-left: 4%"
+            data-toggle="modal"
+            *ngIf="watheqDataFromUser?.verfired == '1'"
+            data-target="#watheqData"
+            [disabled]="load"
+          >
+            Watheq Data
+          </button>
+        </div>
+        <div
+          *ngIf="!watheqDataFromUser"
+          style="color: #d10000; font-weight: 600; margin: 20px"
+        >
+          The user has not entered his data yet
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+  <br /><br />
+  <ng-container
+    id="QualifiedInvestor"
+    *ngIf="details.role_type == 2 && qualifiedInvestor.id != 0"
+  >
+    <div class="row weight pb-0">
+      <div class="form-group col-md-8">
+        <h2><label>Qualified Investor Data</label></h2>
+        <div class="add-image qualified-card">
+          <span>
+            <a
+              href="{{ qualifiedInvestor.min3WorkYear_url }}"
+              *ngIf="qualifiedInvestor.min3WorkYear_url != ''"
+              title="ملف يثبت انه سبق لك العمل مدة لا تقل عن ثلاث سنوات في القطاع المالي."
+              target="_blank"
+            >
+              <img
+                src="../../../../../assets/images/open_file.png"
+                alt="Open file"
+              />
+            </a>
+          </span>
+          <span>
+            <a
+              href="{{ qualifiedInvestor.certificateCME1_url }}"
+              *ngIf="qualifiedInvestor.certificateCME1_url != ''"
+              title="شهادتك المعتمدة للتعامل في الاوراق المالية من قبل الهيئة (CME-1)."
+              target="_blank"
+            >
+              <img
+                src="../../../../../assets/images/open_file.png"
+                alt="Open file"
+              />
+            </a>
+          </span>
+          <span>
+            <a
+              href="{{ qualifiedInvestor.professionalCertificate_url }}"
+              *ngIf="qualifiedInvestor.professionalCertificate_url != ''"
+              title="شهادتك المهنية المتخصصة في مجال أعمال الاوراق المالية شريطة ان تكون معتمدة من جهة دولية معترف بها."
+              target="_blank"
+            >
+              <img
+                src="../../../../../assets/images/open_file.png"
+                alt="Open file"
+              />
+            </a>
+          </span>
+          <span>
+            <a
+              href="{{ qualifiedInvestor.investTenOpport_url }}"
+              *ngIf="qualifiedInvestor.investTenOpport_url != ''"
+              title="ثبات انك قمت بعمل صفقات في اسواق الاوراق المالية لا يقل مجموع قيمها عن اربعين مليون ريال سعودي ولا تقل عن عشر صفقات في كل ربع سنة خلال الاثني عشرة شهرا الماضية."
+              target="_blank"
+            >
+              <img
+                src="../../../../../assets/images/open_file.png"
+                alt="Open file"
+              />
+            </a>
+          </span>
+          <span>
+            <a
+              href="{{ qualifiedInvestor.netOrigin_url }}"
+              *ngIf="qualifiedInvestor.netOrigin_url != ''"
+              title="إثبات بقيمة صافي الأصول شريطة ان لا تقل عن خمسة ملايين ريال سعودي."
+              target="_blank"
+            >
+              <img
+                src="../../../../../assets/images/open_file.png"
+                alt="Open file"
+              />
+            </a>
+          </span>
+          <div class="row inner">
+            <div *ngIf="is_qualified==0||is_qualified==2" class="button-wrapper col-md-4 mt-0">
+              <button
+                *ngIf="!load"
+                class="btn success"
+                (click)="setIsQualified(1)" 
+              >
+                {{ LANG.Approve }}
+              </button>
+              <button *ngIf="load" class="btn success loader-btn">
+                <loader></loader>
+              </button>
+            </div>
+            <div *ngIf="is_qualified==0||is_qualified==1" class="button-wrapper col-md-4 mt-0">
+              <button
+                class="btn cancel"
+                data-toggle="modal"
+                (click)="setIsQualified(2)"
+              >
+                {{ LANG.Reject }}
+              </button>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </ng-container>
+
+  <br /><br />
+  <br />
+  <div
+    class="col-md-12"
+    style="margin-bottom: 75px"
+    *ngIf="details.detail?.length > 0"
+  >
+    <div class="row">
+      <div class="button-wrapper col-md-4 mt-0">
+        <button
+          *ngIf="!load"
+          class="btn success"
+          (click)="approveRejectKYC('1');setActionType('approve')" 
+        >
+          {{ LANG.Approve }}
+        </button>
+        <button *ngIf="load" class="btn success loader-btn">
+          <loader></loader>
+        </button>
+      </div>
+      <div class="button-wrapper col-md-4 mt-0">
+        <button
+          class="btn cancel"
+          data-toggle="modal"
+          data-target="#reject"
+          [disabled]="load" 
+        >
+          {{ LANG.Reject }}
+        </button>
+      </div>
+      <div class="button-wrapper col-md-4 mt-0">
+        <button
+          *ngIf="!pending_load"
+          class="btn pending"
+          (click)="approveRejectKYC('0');setActionType('pending')"
+        >
+          {{ LANG.Pending }}
+        </button>
+        <button *ngIf="pending_load" class="btn pending loader-btn">
+          <loader></loader>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="reject"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reject">{{ LANG.Reject_KYC }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <label>{{ LANG.Reason_for_rejection }}</label>
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="{{ LANG.Reason }}"
+              name="reason"
+              [(ngModel)]="reason" (focus)="storeOriginalValue(reason)" (change)="onFieldChange(LANG.Reason_for_rejection,originalValue, $event.target.value)"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary loader-btn"
+          data-dismiss="modal"
+          [disabled]="load"
+        >
+          {{ LANG.Close }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary loader-btn w-50"
+          *ngIf="!load"
+          (click)="approveRejectKYC('2');setActionType('reject')"
+        >
+          {{ LANG.Save_changes }}
+        </button>
+        <button
+          type="button"
+          *ngIf="load"
+          class="btn btn-primary loader-btn w-50"
+        >
+          <loader></loader>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Qaysar start work here for CrEntity Object to display the value of company information from Watheq webservice -->
+<div
+  *ngIf="details.role_type == 3"
+  class="modal fade"
+  id="watheqData"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" style="min-width: 1000px;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="watheqData">Watheq Company Information</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="weight pb-0">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>CR Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.crName" (focus)="storeOriginalValue(crNumber.crName)" (change)="onFieldChange('CR Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>CR Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.crNumber" (focus)="storeOriginalValue(crNumber.crNumber)" (change)="onFieldChange('CR Number',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>CR Entity Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.crEntityNumber" (focus)="storeOriginalValue(crNumber.crEntityNumber)"  (change)="onFieldChange('CR Entity Number',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Issue Date</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.issueDate" (focus)="storeOriginalValue(crNumber.issueDate)" (change)="onFieldChange('Issue Date',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Expiry Date</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.expiryDate" (focus)="storeOriginalValue(crNumber.expiryDate)" (change)="onFieldChange('Expiry Date',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>CR Main Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.crMainNumber" (focus)="storeOriginalValue(crNumber.crMainNumber)" (change)="onFieldChange('CR Main Number',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>CR Main Entity Number</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.crMainEntityNumber" (focus)="storeOriginalValue(crNumber.crMainEntityNumber)" (change)="onFieldChange('CR Main Entity Number',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Business Type ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.businessType.id" (focus)="storeOriginalValue(crNumber.businessType.id)"  (change)="onFieldChange('Business Type ID',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Business Type Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.businessType.name"  (focus)="storeOriginalValue(crNumber.businessType.name)" (change)="onFieldChange('Business Type Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fiscal month</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.fiscalYear.month" (focus)="storeOriginalValue(crNumber.fiscalYear.month)" (change)="onFieldChange('Fiscal month',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fiscal day</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.fiscalYear.day"  (focus)="storeOriginalValue(crNumber.fiscalYear.day)"  (change)="onFieldChange('Fiscal day',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fiscal Year Calendar Type ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.fiscalYear.calendarType.id" (focus)="storeOriginalValue(crNumber.fiscalYear.calendarType.id)"  (change)="onFieldChange('Fiscal Year Calendar Type ID',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Fiscal Year Calendar Type Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.fiscalYear.calendarType.name" (change)="onFieldChange('Fiscal Year Calendar Type Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Status ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.status.id" (focus)="storeOriginalValue(crNumber.status.id)" (change)="onFieldChange('Status ID',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Status Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.status.name" (focus)="storeOriginalValue(crNumber.status.name)"  (change)="onFieldChange('Status Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Status English Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.status.nameEn" (focus)="storeOriginalValue(crNumber.status.nameEn)"  (change)="onFieldChange('Status English Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Cancellation</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.cancellation" (focus)="storeOriginalValue(crNumber.cancellation)" (change)="onFieldChange('Cancellation',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Website</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.website" (focus)="storeOriginalValue(crNumber.address.general.website)" (change)="onFieldChange('Website',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <!--old commit <div class="form-group col-md-4">
+                <label>address.general.address</label>
+                <input type="text" class="form-control" [(ngModel)]="crNumber.address.general.address" disabled>
+              </div> -->
+            <div class="form-group col-md-4">
+              <label>Email</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.email" (focus)="storeOriginalValue(crNumber.address.general.email)" (change)="onFieldChange('Email',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Zipcode</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.zipcode" (focus)="storeOriginalValue(crNumber.address.general.zipcode)" (change)="onFieldChange('Zipcode',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>First Fax</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.fax1" (focus)="storeOriginalValue(crNumber.address.general.fax1)" (change)="onFieldChange('First Fax',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>First Telephone</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.telephone1" (focus)="storeOriginalValue(crNumber.address.general.telephone1)" (change)="onFieldChange('First Telephone',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Second Telephone</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.telephone2" (focus)="storeOriginalValue(crNumber.address.general.telephone2)" (change)="onFieldChange('Second Telephone',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>First Postal Box</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.postalBox1" (focus)="storeOriginalValue(crNumber.address.general.postalBox1)" (change)="onFieldChange('First Postal Box',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Second Postal Box</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.general.postalBox2" (focus)="storeOriginalValue(crNumber.address.general.postalBox2)" (change)="onFieldChange('Second Postal Box',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>National</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.address.national" (focus)="storeOriginalValue(crNumber.address.national)" (change)="onFieldChange('National',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>isEcommerce</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.isEcommerce" (focus)="storeOriginalValue(crNumber.isEcommerce)" (change)="onFieldChange('isEcommerce',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>urls</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.urls" (focus)="storeOriginalValue(crNumber.urls)" (change)="onFieldChange('urls',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Location ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.location.id" (focus)="storeOriginalValue(crNumber.location.id)" (change)="onFieldChange('Location ID',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Location Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.location.name" (focus)="storeOriginalValue(crNumber.location.name)" (change)="onFieldChange('Location Name',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Company Period</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.company.period" (focus)="storeOriginalValue(crNumber.company.period)" (change)="onFieldChange('Company Period',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Company StartDate</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.company.startDate" (focus)="storeOriginalValue(crNumber.company.startDate)" (change)="onFieldChange('Company StartDate',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Company EndDate</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.company.endDate" (focus)="storeOriginalValue(crNumber.company.endDate)" (change)="onFieldChange('Company EndDate',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Capital Paid Amount</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.capital.paidAmount" (focus)="storeOriginalValue(crNumber.capital.paidAmount)" (change)="onFieldChange('Capital Paid Amount',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Capital Subscribed Amount</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.capital.subscribedAmount" (focus)="storeOriginalValue(crNumber.capital.subscribedAmount)" (change)="onFieldChange('Capital Subscribed Amount',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label>Capital Announced Amount</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.capital.announcedAmount" (focus)="storeOriginalValue(crNumber.capital.announcedAmount)" (change)="onFieldChange('Capital Announced Amount',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <!--old comment <div class="form-group col-md-4">
+                <label>capital.share.sharePrice</label>
+                <input type="text" class="form-control" [(ngModel)]="crNumber.capital.share.sharePrice" disabled>
+              </div>
+              <div class="form-group col-md-4">
+                <label>capital.share.sharesCount</label>
+                <input type="text" class="form-control" [(ngModel)]="crNumber.capital.share.sharesCount" disabled>
+              </div> -->
+
+            <div class="form-group col-md-4">
+              <label>Activities Description</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.activities.description" (focus)="storeOriginalValue(crNumber.activities.description)" (change)="onFieldChange('Activities Description',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+
+            <div class="form-group col-md-4">
+              <label>Activities ISIC ID</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="crNumber.activities.isic.description" (focus)="storeOriginalValue(crNumber.activities.isic.description)" (change)="onFieldChange('Activities ISIC ID',originalValue, $event.target.value)"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-12">
+              <label>Activities ISIC Name</label>
+              <textarea
+                type="text"
+                class="form-control"
+                name="isicname"
+                [(ngModel)]="crNumber.activities.isic.name" (focus)="storeOriginalValue(crNumber.activities.isic.name)" (change)="onFieldChange('Activities ISIC Name',originalValue, $event.target.value)"
+                disabled
+              ></textarea>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Activities ISIC English Name</label>
+              <textarea
+                type="text"
+                class="form-control"
+                name="isicnameEn" 
+                [(ngModel)]="crNumber.activities.isic.nameEn" (focus)="storeOriginalValue(crNumber.activities.isic.nameEn)" (change)="onFieldChange('Activities ISIC English Name',originalValue, $event.target.value)"
+                disabled
+              ></textarea>
+            </div>
+            <div class="form-group col-md-12">
+              <label>Parties</label>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">BirthDate</th>
+                    <th scope="col">SharesCount</th>
+                    <th scope="col">Gross</th>
+                    <th scope="col">Identity</th>
+                    <th scope="col">Relation</th>
+                    <th scope="col">Nationality</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let part of crNumber.parties">
+                    <td>{{ part.name }}</td>
+                    <td>{{ part.birthDate }}</td>
+                    <td>{{ part.sharesCount }}</td>
+                    <td>{{ part.gross }}</td>
+                    <td>{{ part.identity.id }}</td>
+                    <td>{{ part.relation.name }}</td>
+                    <td>{{ part.nationality.name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary loader-btn"
+          data-dismiss="modal"
+        >
+          {{ LANG.Close }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-invsetor-agreement 
+[name]="name"
+[investorId]="this.id"
+[dateH]="dateH"
+[date]="date"
+[location]="companyLocation"
+[isSaudi]="isSaudi"
+></app-invsetor-agreement>

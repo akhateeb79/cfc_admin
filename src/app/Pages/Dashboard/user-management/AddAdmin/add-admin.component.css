@@ -1,0 +1,7 @@
+::ng-deep .select2-container{
+    width: 100% !important;
+}
+
+.country-code select{
+    width: 20%;
+}

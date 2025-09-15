@@ -1,0 +1,156 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_page}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{LANG.Add_page}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4" [formGroup]="descriptionForm">
+              <div class="row">
+             
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.TITLE}}</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="title"
+                      placeholder="{{LANG.Enter_Title}}"
+                      [(ngModel)]="title"
+                      formControlName="title"
+                    >
+                    <span class="error" *ngIf="error.title">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1"
+                      >{{LANG.AR_TITLE}}</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control text-right"
+                      name="ar_title"
+                      placeholder="{{LANG.Enter_Ar_title}}"
+                      [(ngModel)]="ar_title"
+                    formControlName="ar_title"
+                    />
+                    <span class="error" *ngIf="error.ar_title">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+               
+              </div>
+              <div class="row mb-3">
+                
+  
+                <div class="col-md-6">
+                  <div class="form-group has-success mb-0">
+                    <label class="control-label">{{LANG.Status}}</label>
+                    <select
+                      class="form-control custom-select"
+                      name="status"
+                      [(ngModel)]="status"
+                    >
+                      <option value="1">{{LANG.Active}}</option>
+                      <option value="2">{{LANG.Inactive}}</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">{{LANG.Position}}</label>
+                    <select
+                      class="form-control custom-select"
+                      name="position"
+                      [(ngModel)]="position"
+                     
+                    >
+                      <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">Type</label>
+                    <select (change)="selectedType($event.target.value)"
+                      class="form-control custom-select"
+                      name="type"
+                    >
+                      <option *ngFor="let number of types" value="{{number.id}}">{{number.title}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">Attachment</label>
+                    <input type="file" class="form-control file-input" (change)="changeImage($event)" id="fileInput" [disabled]="disabled_inputs">
+                  </div>
+                  <img src="{{image}}" width="100px" height="100px"/>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.description}}</label>
+                    <textarea
+                      type="text-right"
+                      class="form-control"
+                      name="description"
+                      placeholder="{{LANG.enter_description}}"
+                      [(ngModel)]="description"
+                    id="editor"
+                    ></textarea>
+                    <span class="error" *ngIf="error.description">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword2"
+                      >{{LANG.ar_description}}</label
+                    >
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      name="ar_description"
+                      placeholder="{{LANG.enter_ar_description}}"
+                      [(ngModel)]="ar_description"
+                    id="editor1"
+                      
+
+                    ></textarea>
+              
+                    <span class="error" *ngIf="error.ar_description">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              
+              </div>
+              <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="addProductAttribute()">{{id ? LANG.Update : LANG.Submit}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

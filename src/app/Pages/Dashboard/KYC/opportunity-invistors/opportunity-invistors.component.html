@@ -1,0 +1,43 @@
+<div class="table-responsive mt-4">
+  <table class="table table-striped table-hover align-middle">
+    <thead class="bg-primary text-white">
+      <tr>
+        <!-- <th>Status</th> -->
+        <th>CIF</th>
+        <th>Name</th>
+        <th>Open Date</th>
+        <th>Close Date</th>
+        <th>Status</th>
+        <th>Total Valuation</th>
+        <th>Investment Status</th>
+
+
+
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let campaign of campaigns; let i = index" class="text-center">
+        <td>{{ campaign.user_id }}</td>
+        <td>{{ campaign.tagline }}</td>
+        <td>{{ campaign.open_date }}</td>
+        <td>{{ campaign.close_date }}</td>
+        <td>{{campaign.status == '1' ? LANG.Publish : LANG.Pending}}</td>
+        <td>{{campaign.total_valuation}}</td>
+        <td>{{campaign.investment_status}}</td>
+
+
+
+
+
+
+
+        <td>
+          <button class="btn btn-outline-primary btn-sm" (click)="openModal(campaign.id)">
+            Edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

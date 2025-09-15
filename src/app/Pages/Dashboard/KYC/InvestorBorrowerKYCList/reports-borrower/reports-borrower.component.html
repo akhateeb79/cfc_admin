@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">{{LANG.Borrower_Report}}</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                    <li class="breadcrumb-item active">{{LANG.Borrower_Report}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example23"
+                            class="display nowrap table table-hover table-striped table-bordered" 
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>{{LANG.FinTech_Business_Model}}</th>
+                                    <th>{{LANG.Commercial_Registration}}</th>
+                                    <th>{{LANG.Submission_Date}}</th>
+                                    <th>{{LANG.End_of_Quarter_Date}}</th>
+                                    <th>{{LANG.Company_Name}}</th>
+                                    <th>{{LANG.Address_line_1}}</th>
+                                    <th>{{LANG.Address_line_2}}</th>
+                                    <th>{{LANG.City}}</th>
+                                    <th>{{LANG.District}}</th>
+                                    <th>{{LANG.State}}</th>
+                                    <th>{{LANG.Country}}</th>
+                                    <th>{{LANG.Contact_Person}}</th>
+                                    <th>{{LANG.Name_of_CEO}}</th>
+                                    <th>{{LANG.Name_of_CFO}}</th>
+                                    <th>{{LANG.Total_Number_of_Issuer_Beneficiary_Accounts}}</th>
+                                    <th>{{LANG.Total_Number_of_Investor_Accounts}}</th>
+                                    <th>{{LANG.Total_Number_of_Active_Investors}}</th>
+                                    <th>{{LANG.Income_from_Crowdfunding_Campaigns}}</th>
+                                    <th>{{LANG.Other_Income}}</th>
+                                    <th>{{LANG.Salaries_and_Wages}}</th>
+                                    <th>{{LANG.Third_Party_Fees}}</th>
+                                    <th>{{LANG.Other_Fees_xpenses}}</th>
+                                    <th>{{LANG.Total_Operating_Expenses}}</th>
+                                    <th>{{LANG.Net_Income}}</th>
+                                    <th>{{LANG.Fixed_Assets}}</th>
+                                    <th>{{LANG.Depreciation_of_Fixed_Assets}}</th>
+                                    <th>{{LANG.Cash_and_Bank}}</th>
+                                    <th>{{LANG.Other_Investments}}</th>
+                                    <th>{{LANG.Other_Current_Assets}}</th>
+                                    <th>{{LANG.Total_Long_Term_Liabilities}}</th>
+                                    <th>{{LANG.Total_Current_Liabilities}}</th>
+                                    <th>{{LANG.Paid_up_Capital}}</th>
+                                    <th>{{LANG.Total_Retained_Earnings_or_Losses}}</th>
+                                    <th>{{LANG.Total_Shareholders_Equity}}</th>
+                                    <th>{{LANG.Total_Assets}}</th>
+                                    <th>{{LANG.Total_Liabilities_and_Equity}}</th>
+                                 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of kycList; let i=index;">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.name}}</td>
+                                    <td>{{data.country_code}}{{data.mobile_number}}</td>
+                                    <td>{{data.email}}</td>
+                                    <td>{{data.account_number ? data.account_number : 'N/A'}}</td>
+                                    <td>must be from API</td>
+                                    <td>{{data.kyc_approved_status == '1' ? LANG.Approved : data.kyc_approved_status == '0' ? LANG.Pending : LANG.Rejected}}</td>
+                                    <td>
+                                        <span class="del mr-3" (click)="showDeleteModal(data)"><i class="fa fa-trash"></i></span>
+                                        <a (click)="edit(data)"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>{{LANG.Are_you_sure_you_want_to_delete_this}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" *ngIf="!load" data-dismiss="modal" class="btn btn-primary btn-danger loader-btn w-30" id="delete" (click)="delete()">{{LANG.Delete}}</button>
+            <button type="button" *ngIf="load" class="btn btn-primary btn-danger loader-btn w-30"><loader></loader></button>
+            <button type="button" data-dismiss="modal" class="btn loader-btn w-30" (click)="cancel()" [disabled]="load">{{LANG.Cancel}}</button>
+        </div>
+      </div>
+    </div>
+</div>
+

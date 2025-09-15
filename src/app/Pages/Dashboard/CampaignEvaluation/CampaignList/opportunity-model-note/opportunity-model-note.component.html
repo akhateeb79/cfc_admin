@@ -1,0 +1,84 @@
+<div class="modal-content" style="width: 150%;">
+<div class="modal-header">
+    <h4 class="modal-title">Add Notes</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    <!-- Top Section: Add Notes Fields -->
+    <div class="row">
+      <div class="col-12">
+        <form class="p-4 border rounded bg-light">
+          <!-- ID Field -->
+          <div class="form-group d-flex align-items-center">
+            <label for="Id" class="font-weight-bold mr-2" style="width: 30%;">ID</label>
+            <input type="text" id="Id" class="form-control" placeholder="Enter ID" [value]="id" readonly style="width: 70%;">
+          </div>
+  
+          <!-- Admin ID Field -->
+          <div class="form-group d-flex align-items-center">
+            <label for="admin_Id" class="font-weight-bold mr-2" style="width: 30%;">Admin ID</label>
+            <input type="text" id="admin_Id" class="form-control" placeholder="Enter Admin ID" [value]="Admin_Id" readonly style="width: 70%;">
+          </div>
+  
+          <!-- Admin Email Field -->
+          <div class="form-group d-flex align-items-center">
+            <label for="admin_email" class="font-weight-bold mr-2" style="width: 30%;">Admin Email</label>
+            <input type="email" id="admin_email" class="form-control" placeholder="Enter Admin Email" [value]="Admin_name" readonly style="width: 70%;">
+          </div>
+  
+          <!-- Note Field -->
+          <div class="form-group">
+            <label for="Note" class="font-weight-bold">Note</label>
+            <textarea id="Note" name="Note" class="form-control" rows="4" placeholder="Add your note here" [(ngModel)]="note"></textarea>
+          </div>
+  
+          <!-- Current Screen Field -->
+          <div class="form-group d-flex align-items-center">
+            <label for="Current_Screen" class="font-weight-bold mr-2" style="width: 30%;">Current Screen</label>
+            <input type="text" id="Current_Screen" class="form-control" placeholder="Enter Current Screen" [value]="type" readonly style="width: 70%;">
+          </div>
+  
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary btn-block mt-3" (click)="saveNote()">Submit</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Bottom Section: Notes Display -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="form-group">
+          <label class="font-weight-bold">Notes</label>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th>Admin ID</th>
+                  <th>Admin Name</th>
+                  <th>Note</th>
+                  <th>Created Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let note of notes">
+                  <td>{{ note.admin_id }}</td>
+                  <td>{{ note.admin_email }}</td>
+                  <td>{{ note.notes }}</td>
+                  <td>{{ note.created_at | date: 'short' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+  </div>
+
+  </div>
+</div>

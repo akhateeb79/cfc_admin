@@ -1,0 +1,227 @@
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { KYCService } from 'src/app/shared/Services/kyc.service';
+import { UsersService } from 'src/app/shared/Services/user.service';
+import { environment } from 'src/environments/environment';
+
+
+@Component({
+  selector: 'app-pay',
+  templateUrl: './pay.component.html',
+  styleUrls: ['./pay.component.css']
+})
+export class PayComponent implements OnInit {
+
+  fromAccount: string = "";
+  toAccount: any = null;
+  loading: boolean = false;
+  error: string = "";
+  info: any = null;
+  fromAccounts: any = ["0190095517580017"];
+  toAccounts: any = ["0108095517580016", "0190095517580017", "0108095517580018"];
+  amount: any = 0;
+  userList: any[] = [];
+  pickedAccountData: any;
+  public LANG=environment.english_translations;
+  selectedAccountData: any = null;
+
+  @Input()itemId:any;
+  @Input()approvalLevelId:any;
+  userId: number;
+  requestNumber: number;
+  pickedBank:any;
+  isLoading: boolean=false;  // Tracks if the data is loading
+banks =[
+    { nameEn: 'Saudi Awwal Bank', nameAr: 'البنك السعودي الأول', bic: 'SABBSARI' },
+    { nameEn: 'BANQUE SAUDI FRANSI', nameAr: 'البنك السعودي الفرنسي', bic: 'BSFRSARI' },
+    { nameEn: 'Al-Inma Bank', nameAr: 'بنك الإنماء', bic: 'INMASARI' },
+    { nameEn: 'ARAB NATIONAL BANK', nameAr: 'البنك العربي الوطني', bic: 'ARNBSARI' },
+    { nameEn: 'AL RAJHI BANK', nameAr: 'مصرف الراجحي', bic: 'RJHISARI' },
+    { nameEn: 'BANK AL-JAZIRA', nameAr: 'البنك الجزيرة', bic: 'BJAZSAJE' },
+    { nameEn: 'Bank Muscat', nameAr: 'بنك مسقط', bic: 'BMUSSARI' },
+    { nameEn: 'Emirates (NBD)', nameAr: 'بنك الإمارات الدولي', bic: 'EBILSARI' },
+    { nameEn: 'FIRST ABU DHABI BANK', nameAr: 'بنك أبوظبي الأول', bic: 'FABMSARI' },
+    { nameEn: 'JP Morgan Chase Bank N.A (Riyadh Branch)', nameAr: 'بنك جي بي مورغان تشيس (فرع الرياض)', bic: 'CHASSARI' },
+    { nameEn: 'BNP PARIBAS', nameAr: 'بي ان بي باريبا', bic: 'BNPASARI' },
+    { nameEn: 'Gulf International Bank', nameAr: 'بنك الخليج الدولي', bic: 'GULFSARI' },
+    { nameEn: 'BANK AL BILAD', nameAr: 'بنك البلاد', bic: 'ALBISARI' },
+    { nameEn: 'NATIONAL BANK OF BAHRAIN', nameAr: 'بنك البحرين الوطني', bic: 'NBOBSARI' },
+    { nameEn: 'NATIONAL BANK OF KUWAIT', nameAr: 'بنك الكويت الوطني', bic: 'NBOKSAJE' },
+    { nameEn: 'SAUDI NATIONAL BANK', nameAr: 'البنك الأهلي السعودي', bic: 'NCBKSAJE' },
+    { nameEn: 'RIYAD BANK', nameAr: 'بنك الرياض', bic: 'RIBLSARI' },
+    { nameEn: 'SAUDI BRITISH BANK', nameAr: 'البنك السعودي البريطاني', bic: 'SABBSARI' },
+    { nameEn: 'Saudi Central Bank', nameAr: 'البنك المركزي السعودي', bic: 'SAMASARI' },
+    { nameEn: 'SAUDI INVESTMENT BANK', nameAr: 'البنك السعودي للإستثمار', bic: 'SIBCSARI' },
+    { nameEn: 'STC Bank', nameAr: 'بنك اس تي سي', bic: 'STCJSARI' },
+    { nameEn: 'D360 Bank', nameAr: 'دال ثلاثمائة وستون', bic: 'DBAKSARI' },
+    { nameEn: 'Standard Chartered Bank KSA Br', nameAr: 'بنك ستاندر شارتر', bic: 'SCBLSAR2' },
+    { nameEn: 'National Bank of Iraq', nameAr: 'المصرف الأهلي العراقي', bic: 'NBIQSARI' },
+    { nameEn: 'Deutsche Bank', nameAr: 'دويتشة بنك أي جي', bic: 'DEUTSARI' },
+    { nameEn: 'National Bank of Pakistan', nameAr: 'بنك باكستان', bic: 'NBPASARI' },
+    { nameEn: 'T.C.ZIRAAT BANKASI A.S.', nameAr: 'بنك زراعات التركي', bic: 'TCZBSARI' },
+    { nameEn: 'Industrial and Commercial BANK of CHINA', nameAr: 'البنك الصناعي والتجاري الصيني', bic: 'ICBKSARI' },
+    { nameEn: 'MUFG Bank', nameAr: 'بنك ميستوبيشي', bic: 'BOTKSARI' },
+    { nameEn: 'Credit Suisse AG', nameAr: 'كريدي سويس', bic: 'CRESSARY' },
+    { nameEn: 'Sohar International Bank', nameAr: 'بنك صحار', bic: 'BSHRSARI' },
+    { nameEn: 'VISION BANK', nameAr: 'بنك فيجن', bic: 'VIIOSARI' },
+    { nameEn: 'Qatar National Bank', nameAr: 'بنك قطر الوطني', bic: 'QNBASARI' },
+  ];
+  constructor(private http: HttpClient,private changeDetectorRef: ChangeDetectorRef, private usersService: UsersService,private kycService: KYCService,private toast: ToastrManager) { }
+  validateKey(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    if (target) {
+      const invalidKeys = ["-", ".", "e", "E"];
+      const isInvalidKey = invalidKeys.includes(event.key);
+      const isNotNumberKey = isNaN(Number(event.key)) && event.key !== "Backspace" && event.key !== "Tab";
+      if (isInvalidKey || isNotNumberKey) {
+        event.preventDefault();
+      }
+    }
+  }
+
+  ngOnInit() {
+    this.usersService.getcompaninglist().subscribe((res:any)=>{
+      if (res.status) {
+       this.userList=res.response
+      
+      }
+      
+    })
+
+    const storedUserId = localStorage.getItem('user-id');
+
+
+    if (storedUserId) {
+      this.userId = +storedUserId;
+      console.error('User ID not found in localStorage');
+
+    } else {
+      console.error('User ID not found in localStorage');
+      return;
+    }
+
+
+  }
+
+  onAccountChange(accountId: string) {
+    this.isLoading = true;
+  
+    this.usersService.getstatment(accountId).subscribe(
+      (response: any) => {
+        this.selectedAccountData = response.response;
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();  // Manually trigger change detection
+      },
+      (error) => {
+        console.error('Error fetching statement:', error);
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();  // Trigger change detection on error
+      }
+    );
+  }
+  
+  
+
+    // Called when the user selects an item from the dropdown or clicks a button
+    onUserSelect(opportunity_id: any) {
+
+      this.usersService.getotppertinityById(opportunity_id).subscribe((response: any) => {
+        this.toast.successToastr(this.LANG.updated_successfully);
+
+        // Handle the response data here
+      });
+    }
+  pickedUser() {
+    this.usersService.getAccountData(this.toAccount).subscribe((res: any) => {
+      if (res.status) {
+
+        this.pickedAccountData={
+          user_id:res.response.filter(field=>field.kyc_detail_id===37)[0].user_id,
+          name:res.response.filter(field=>field.kyc_detail_id===137)[0].value,
+          creditAccount:res.response.filter(field=>field.kyc_detail_id===37)[0].value,
+          bank:res.response.filter(field=>field.kyc_detail_id===121)[0].value,
+        }
+      }
+    })
+  }
+  selectedBank(){
+    this.pickedAccountData.bic=this.pickedBank;
+  }
+  transferBalance() {
+    this.loading = true;
+    this.error = "";
+    this.info = null;
+    this.usersService
+      .transferBetweenTwoAccounts(this.amount,this.pickedAccountData.creditAccount,this.fromAccount,this.pickedAccountData.bic ,this.pickedAccountData.user_id)
+      .subscribe(
+        (data:any) => {
+          this.loading = false;
+          if(data.status){
+            this.info = data.response;
+          }
+          
+        },
+        (error) => {
+          this.loading = false;
+          this.error = "An error occurred while fetching data.";
+        }
+      );
+  }
+  addWorkflowInstance() {
+    const status = '2';
+    this.requestNumber = Date.now();
+
+
+    const requestPayload = {
+      request: (this.selectedAccountData?.investor_statement || []).reduce(
+        (acc: { id: number; date: string; totalProfit: number; tax: number; email: string; name: string }[], item: any) => {
+          if (!acc.some(existingItem => existingItem.id === item.id)) {
+            acc.push({
+              id: item.id,
+              date: item.date,
+              totalProfit: item.totalProfit,
+              tax: item.tax,
+              email: item.email,
+              name: item.name
+            });
+          }
+          return acc;
+        },
+        []
+      )
+    };
+    
+    
+
+    
+
+    // Call the service method and pass all the parameters
+    this.kycService.addWorkflowInstance(
+      this.itemId, // work_flow_id
+      this.userId, // user_id
+      this.requestNumber, // request_number
+      'initi', // approval_level_id
+      status, // status
+      requestPayload // request JSON object
+    ).subscribe(
+      (response) => {
+        // Update requestData with the new response item
+
+        this.kycService.notifyWorkflowDataUpdated();
+      this.fromAccount = null;
+
+      
+        this.toAccount = null;
+        this.amount = null;
+        this.toast.successToastr(this.LANG.updated_successfully);
+
+      },
+      (error) => {
+        console.error('Error adding workflow instance:', error);
+        this.toast.errorToastr(this.LANG.Something_went_wrong_Please_try_again_later);
+      }
+    );
+  }
+  
+}

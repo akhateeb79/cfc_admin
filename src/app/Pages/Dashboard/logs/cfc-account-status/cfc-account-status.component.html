@@ -1,0 +1,72 @@
+<div class="container">
+    <h1>CFC Account Status</h1>
+  
+    <form #statementForm="ngForm" (ngSubmit)="getStatement()">
+
+  
+      <div class="form-group">
+        <label for="debitAccount">Enter IBAN:</label>
+        <input type="text" id="debitAccount" name="debitAccount" class="form-control" [(ngModel)]="debitAccount">
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Get Status</button>
+      <button *ngIf="transactions" style="border-radius: 2px;background-color: #00a200;color: white;border: none; margin-left: 10px;padding: 6px 7px;" (click)="exportTableToExcel()">Export to Excel</button>
+    </form>
+  
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="message" class="error">{{ message }}</div>
+  
+    <div *ngIf="transactions" class="statement">
+    
+  
+      <h2>Transactions</h2>
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>id</th>
+                <th>transaction_id</th>
+                <th>sequenceNumber</th>
+                <th>transactionReferenceNumber</th>
+                <th>status</th>
+                <th>campgin_id</th>
+                <th>user_ids</th>
+                <th>amount</th>
+                <th>sequence</th>
+                <th>debitAccount</th>
+                <th>creditAccount</th>
+                <th>narrative</th>
+                <th>destinationBankBIC</th>
+                <th>valueDate</th>
+                <th>column</th>
+                <th>created_at</th>
+                <th>updated_at</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions">
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.transaction_id }}</td>
+                <td>{{ transaction.sequenceNumber }}</td>
+                <td>{{ transaction.transactionReferenceNumber }}</td>
+                <td>{{ transaction.status }}</td>
+                <td>{{ transaction.campgin_id }}</td>
+                <td>{{ transaction.user_ids }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.sequence }}</td>
+                <td>{{ transaction.debitAccount }}</td>
+                <td>{{ transaction.creditAccount }}</td>
+                <td>{{ transaction.narrative }}</td>
+                <td>{{ transaction.destinationBankBIC }}</td>
+                <td>{{ transaction.valueDate }}</td>
+                <td>{{ transaction.column }}</td>
+                <td>{{ transaction.created_at }}</td>
+                <td>{{ transaction.updated_at }}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

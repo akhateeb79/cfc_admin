@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h4 class="modal-title" style="color: white;">ADD New workflow Level</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="workflowForm" (ngSubmit)="save()">
+      <div class="mt-3">
+        <label for="name">{{ LANG.Status }}</label>
+        <select id="name" formControlName="name" class="form-control">
+          <option value="Initiator">{{ LANG.Initiator }}</option>
+          <option value="Reviewer">{{ LANG.Reviewer }}</option>
+          <option value="Approver">{{ LANG.Approver }}</option>
+         
+          <!-- Add more options as necessary -->
+        </select>
+        <div *ngIf="workflowForm.get('name').invalid && workflowForm.get('name').touched" class="error-message">
+          {{ LANG.Status_is_required }}
+        </div>
+      </div>
+      
+        <div class="mt-3">
+            <label for="type_role">Type Role</label>
+            <select id="type_role" formControlName="type_role" class="form-control" >
+                <option selected disabled value="">{{ LANG.Select_User_Type }}</option>
+                <!-- <option value="1">{{ LANG.Menu }}</option> -->
+                <option value="2">{{ LANG.Role }}</option>
+            </select>
+            <div *ngIf="workflowForm.get('type_role').invalid && (workflowForm.get('type_role').touched || workflowForm.get('type_role').dirty)" class="error-message">
+                Please enter a valid type role
+            </div>
+        </div>
+        <!-- New Dropdown Menu -->
+        <div class="mt-3">
+          <label for="selectedOptions">Select Options</label>
+        
+          <!-- Multi-select dropdown using checkboxes -->
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select Options
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div *ngFor="let option of menuOptions" class="dropdown-item" (click)="$event.stopPropagation()">
+                <label>
+                  <input
+                    type="checkbox"
+                    [checked]="isSelected(option)"
+                    (change)="toggleSelection(option)"
+                  />
+                  {{ option.title }}
+                </label>
+              </div>
+            </div>
+            
+          </div>
+        
+          <!-- Validation message for type_department -->
+          <div *ngIf="workflowForm.get('type_department')?.invalid && workflowForm.get('type_department')?.touched" class="error-message">
+            Please select at least one option.
+          </div>
+        
+          <!-- Display selected options as chips -->
+          <div class="mt-3">
+            <span *ngFor="let option of selectedOptions" class="chip">
+              {{ option.title }}
+              <button (click)="removeOption(option)" class="close-btn">&times;</button>
+            </span>
+          </div>
+        </div>
+        
+      </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+    <button type="submit" class="my-3 btn btn-primary" [disabled]="workflowForm.invalid" (click)="save()"
+        [ngClass]="{'valid-button': workflowForm.valid, 'disabled-button': workflowForm.invalid}">Save</button>
+</div>

@@ -1,0 +1,246 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">{{LANG.Add_KYC}}</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+          <li class="breadcrumb-item active">{{LANG.Add_KYC}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">{{LANG.KYC_Name}}</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="kyc_name"
+                    placeholder="{{LANG.Enter_Your_KYC_Name}}"
+                    [(ngModel)]="kyc_name"
+                  />
+                  <span class="error" *ngIf="error.kyc_name">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputPassword1"
+                    >{{LANG.KYC_Ar_Name}}</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control text-right"
+                    name="kyc_name_ar"
+                    placeholder="{{LANG.Enter_Your_KYC_Ar_Name}}"
+                    [(ngModel)]="kyc_name_ar"
+                  />
+                  <span class="error" *ngIf="error.kyc_name_ar">{{LANG.This_field_is_required}}</span>
+
+                </div>
+              </div>
+            </div>
+            <div class="row p-t-20">
+
+
+              <div class="col-md-6">
+                <div class="form-group has-success mb-0">
+                  <label class="control-label">{{LANG.Status}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group has-success">
+                  <label class="control-label">{{LANG.Position}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="position"
+                    [(ngModel)]="position"
+                  >
+                    <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">{{LANG.KYC_Details}}</h4>
+
+                <div
+                  class="row border-class form-group mb-0 p-2 kyc-section"
+                  *ngFor="let data of kyc_details; let i = index;"
+                >
+                <div class="col-md-12 mb-2">
+                  <div class="input-group-append justify-content-end">
+                    <button
+                      *ngIf="i == 0"
+                      class="btn btn-success"
+                      type="button"
+                      (click)="addMore()"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <button
+                      *ngIf="i != 0 && data.is_present !=20"
+                      class="btn btn-danger"
+                      type="button"
+                      (click)="remove(i)"
+                    >
+                      <i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+
+                </div>
+                  <div class="col-sm-6 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="detail_title{{i}}"
+                        [(ngModel)]="data.title"
+                        placeholder="{{LANG.Enter_KYC_Detail_Title}}"
+                      />
+                    <span class="error" *ngIf="data.title_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-6 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="detail_ar_title{{i}}"
+                        [(ngModel)]="data.ar_title"
+                        placeholder="{{LANG.Enter_Ar_KYC_Detail_Title}}"
+                      />
+                        <span class="error" *ngIf="data.ar_title_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        id="fieldType{{i}}"
+                        name="fieldType{{i}}"
+                        [(ngModel)]="data.type"
+                      >
+                      <option value="" selected disabled>{{LANG.Select_Field_Type}}</option>
+
+                        <option *ngFor="let data of fieldType;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                      <span class="error" *ngIf="data.type_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        name="infoTypeList{{i}}"
+                        [(ngModel)]="data.info_type"
+                      >
+                      <option value="" selected disabled>{{LANG.Select_Information_Type}}</option>
+                        <option *ngFor="let data of infoTypeList;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                      <span class="error" *ngIf="data.info_type_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <select
+                          class="form-control"
+                          name="mandatory{{i}}"
+                          [(ngModel)]="data.mandatory"
+                        >
+                          <option value="" selected disabled>{{LANG.Select_Mandatory}}</option>
+                          <option value="1">{{LANG.Yes}}</option>
+                          <option value="0">{{LANG.No}}</option>
+                        </select>
+
+
+                      </div>
+                      <span class="error" *ngIf="data.mandatory_error">{{LANG.This_field_is_required}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="length{{i}}"
+                        [(ngModel)]="data.length"
+                        placeholder="{{LANG.Length}}"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        name="detail_position{{i}}"
+                        [(ngModel)]="data.position"
+                      >
+                        <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <select
+                          class="form-control"
+                          name="detail_status{{i}}"
+                          [(ngModel)]="data.status"
+                        >
+                          <option value="1">{{LANG.Active}}</option>
+                          <option value="0">{{LANG.Inactive}}</option>
+                        </select>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="custom-control custom-checkbox mr-sm-2 mb-3">
+                            <input type="checkbox" class="custom-control-input" id="checkbox0" value="check">
+                            <label class="custom-control-label" for="checkbox0">Check Me Out !</label>
+                        </div> -->
+            <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="addProductAttribute()">{{id ? LANG.Update : LANG.Submit}}</button>
+            <button class="btn btn-primary" *ngIf="load">
+                <loader></loader>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

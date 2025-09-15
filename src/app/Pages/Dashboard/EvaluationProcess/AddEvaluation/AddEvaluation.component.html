@@ -1,0 +1,636 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">{{LANG.Add_Evaluation_Attributes}}</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+          <li class="breadcrumb-item active">{{LANG.Add_Evaluation_Attributes}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">{{LANG.Evaluation_Name}}</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="title"
+                    placeholder="{{LANG.Enter_Your_Evaluation_Name}}"
+                    [(ngModel)]="title"
+                  />
+                  <span class="error" *ngIf="error.title"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputPassword1">{{LANG.Evaluation_Ar_Name}}</label>
+                  <input
+                    type="text"
+                    class="form-control text-right"
+                    name="title_ar"
+                    placeholder="{{LANG.Enter_Your_Evaluation_Ar_Name}}"
+                    [(ngModel)]="title_ar"
+                  />
+                  <span class="error" *ngIf="error.title_ar"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row p-t-20">
+              <div class="col-md-3">
+                <div class="form-group has-success">
+                  <label class="control-label d-block">{{LANG.Role_Type}}</label>
+                  <select
+                    class="js-example-basic-multiple"
+                    name="role_type[]"
+                    multiple="multiple"
+                    id="role_type"
+                  >
+                    <option
+                      *ngFor="let data of roleType; let i = index"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.title }}
+                    </option>
+                  </select>
+                  <span class="error" *ngIf="error.role_type"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group has-success mb-0">
+                  <label class="control-label">{{LANG.Rank_Type}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="rankType"
+                    [(ngModel)]="rank_type"
+                  >
+                    <option selected disabled value="">{{LANG.Select_Rank_Type}}</option>
+                    <option
+                      *ngFor="let data of rankType; let i = index"
+                      value="{{ data.id }}"
+                    >
+                      {{ data.title }}
+                    </option>
+                  </select>
+                  <span class="error" *ngIf="error.rank_type"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group has-success mb-0">
+                  <label class="control-label">{{LANG.Status}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group has-success">
+                  <label class="control-label">{{LANG.Position}}</label>
+                  <select
+                    class="form-control custom-select"
+                    name="position"
+                    [(ngModel)]="position"
+                  >
+                    <option
+                      *ngFor="let number of positions; let i = index"
+                      value="{{ number }}"
+                    >
+                      {{ number }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="card-title">{{LANG.Evaluation_Category_Details}}</h4>
+
+                <div
+                  class="row border-class form-group mb-0 p-2"
+                  *ngFor="let data of evaluation_details; let i = index"
+                >
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="category_title{{ i }}"
+                        [(ngModel)]="data.title"
+                        placeholder="{{LANG.Enter_Category_Title}}"
+                      />
+                      <span class="error" *ngIf="data.category_title_error"
+                        >{{LANG.This_field_is_required}}</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="category_title_ar{{ i }}"
+                        [(ngModel)]="data.ar_title"
+                        placeholder="{{LANG.Enter_Ar_Category_Title}}"
+                      />
+                      <span class="error" *ngIf="data.category_title_ar_error"
+                        >{{LANG.This_field_is_required}}</span
+                      >
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="rank_type == '3'">
+                    <div class="col-sm-4 nopadding">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="minrange{{ i }}"
+                          [(ngModel)]="data.minrange"
+                          placeholder="{{LANG.Enter_Min_Range}}"
+                          (keypress)="onlyNumbers($event)"
+                        />
+                        <span class="error" *ngIf="data.minrange_error"
+                          >{{LANG.This_field_is_required}}</span
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4 nopadding">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="maxrange{{ i }}"
+                          [(ngModel)]="data.maxrange"
+                          placeholder="{{LANG.Enter_Max_Range}}"
+                          (keypress)="onlyNumbers($event)"
+                        />
+                        <span class="error" *ngIf="data.maxrange_error"
+                          >{{LANG.This_field_is_required}}</span
+                        >
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        id="detail_position{{ i }}"
+                        name="detail_position{{ i }}"
+                        [(ngModel)]="data.position"
+                      >
+                        <option
+                          *ngFor="let number of positions; let i = index"
+                          value="{{ number }}"
+                        >
+                          {{ number }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <select
+                          class="form-control"
+                          name="detail_status{{ i }}"
+                          [(ngModel)]="data.status"
+                        >
+                          <option value="1">{{LANG.Active}}</option>
+                          <option value="0">{{LANG.Inactive}}</option>
+                        </select>
+                        <div class="input-group-append" *ngIf="!id">
+                          <button
+                            *ngIf="i == 0"
+                            class="btn btn-success"
+                            type="button"
+                            (click)="addMore()"
+                          >
+                            <i class="fa fa-plus"></i>
+                          </button>
+                          <button
+                            *ngIf="i != 0"
+                            class="btn btn-danger"
+                            type="button"
+                            (click)="remove(i)"
+                          >
+                            <i class="fa fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="custom-control custom-checkbox mr-sm-2 mb-3">
+                            <input type="checkbox" class="custom-control-input" id="checkbox0" value="check">
+                            <label class="custom-control-label" for="checkbox0">Check Me Out !</label>
+                        </div> -->
+            <button
+              *ngIf="!load"
+              type="submit"
+              class="btn btn-primary"
+              (click)="addProductAttribute()"
+            >
+              {{ id ? LANG.Update : LANG.Submit }}
+            </button>
+            <button class="btn btn-primary" *ngIf="load">
+              <loader></loader>
+            </button>
+            <button type="button" class="btn btn-dark ml-2" (click)="goBack()">
+              <i class="fa fa-arrow-left"></i> {{LANG.Back}}
+            </button>
+
+            <div class="row mt-4" *ngIf="id">
+              <div class="col-md-12">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <h4 class="card-title m-0">{{LANG.Evaluation_Category_Details}}</h4>
+
+                  <button
+                    type="button"
+                    class="btn btn-info d-none d-lg-block m-l-15"
+                    (click)="addCategory()"
+                  >
+                    <i class="fa fa-plus-circle"></i> {{LANG.Create_New}}
+                  </button>
+                </div>
+                <div
+                  class="row border-class form-group mb-0 p-2"
+                  *ngIf="show_category_form"
+                >
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="category_title"
+                        [(ngModel)]="category_title"
+                        placeholder="{{LANG.Enter_Category_Title}}"
+                      />
+                      <span class="error" *ngIf="error.category_title_error"
+                        >{{LANG.This_field_is_required}}</span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="category_title_ar"
+                        [(ngModel)]="category_title_ar"
+                        placeholder="{{LANG.Enter_Ar_Category_Title}}"
+                      />
+                      <span class="error" *ngIf="error.category_title_ar_error"
+                        >{{LANG.This_field_is_required}}</span
+                      >
+                    </div>
+                  </div>
+
+                  <ng-container *ngIf="rank_type == '3'">
+                    <div class="col-sm-4 nopadding">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="cat_minrange"
+                          [(ngModel)]="category_minrange"
+                          placeholder="{{LANG.Enter_Min_Range}}"
+                          (keypress)="onlyNumbers($event)"
+                        />
+                        <span class="error" *ngIf="error.minrange_error"
+                          >{{LANG.This_field_is_required}}</span
+                        >
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4 nopadding">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="cat_maxrange"
+                          [(ngModel)]="category_maxrange"
+                          placeholder="{{LANG.Enter_Max_Range}}"
+                          (keypress)="onlyNumbers($event)"
+                        />
+                        <span class="error" *ngIf="error.maxrange_error"
+                          >{{LANG.This_field_is_required}}</span
+                        >
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-2">
+                      <select
+                        class="form-control"
+                        id="category_position"
+                        name="category_position"
+                        [(ngModel)]="category_position"
+                      >
+                        <option
+                          *ngFor="let number of positions; let i = index"
+                          value="{{ number }}"
+                        >
+                          {{ number }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2 nopadding">
+                    <div class="form-group mb-0">
+                      <div class="input-group">
+                        <select
+                          class="form-control"
+                          name="category_status"
+                          [(ngModel)]="category_status"
+                        >
+                          <option value="1">{{LANG.Active}}</option>
+                          <option value="0">{{LANG.Inactive}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 text-center">
+                    <button
+                      *ngIf="!category_load"
+                      type="submit"
+                      class="btn btn-primary"
+                      (click)="addProductCategory()"
+                    >
+                      {{LANG.Add}}
+                    </button>
+                    <button class="btn btn-primary" *ngIf="category_load">
+                      <loader></loader>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="id && rank_type != '3'">
+    <h4 class="card-title text-center">{{LANG.Evaluation_Attribute_Details}}</h4>
+  
+    <div class="row p-0 m-0 mt-2 form__bg_color">
+      <div class="col-md-12">
+        <div class="d-flex justify-content-end mt-2">
+          <button type="button" class="btn btn-info" (click)="addAttributes()">
+            <i class="fa fa-plus"></i>{{LANG.Create_Attribute}}
+          </button>
+        </div>
+  
+        <form *ngIf="show_attribute_form"
+          class="attribute_modal"
+        >
+          
+          <div class="border-class mb-3 mt-3 p-3 row">
+            <div class="col-sm-4 nopadding">
+              <div class="form-group mb-2">
+                <select class="form-control" name="category" [(ngModel)]="initialProducts.evo_cat_id">
+                  <option value="" disabled selected>{{LANG.Select_Category}}</option>
+                  <option *ngFor="let data of evaluation_details;" value="{{data.id}}">{{data.title}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 nopadding">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="attribute_title"
+                  [(ngModel)]="initialProducts.title"
+                  placeholder="{{LANG.Enter_Attribute_Title}}"
+                />
+                <span class="error" *ngIf="error.attribute_title">{{LANG.This_field_is_required}}</span>
+              </div>
+            </div>
+  
+            <div class="col-sm-4 nopadding">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="initialProducts.ar_title"
+                  name="attribute_ar_title"
+                  placeholder="{{LANG.Enter_Ar_Attribute_Title}}"
+                />
+                <span class="error" *ngIf="error.ar_attribute_title">{{LANG.This_field_is_required}}</span>
+  
+              </div>
+            </div>
+
+            <ng-container *ngIf="rank_type == '3' || rank_type == '1'">
+              <div class="col-sm-4 nopadding">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="att_minrange"
+                    [(ngModel)]="initialProducts.minrange"
+                    placeholder="{{LANG.Enter_Min_Range}}"
+                    (keypress)="onlyNumbers($event)"
+                  />
+                  <span class="error" *ngIf="error.att_minrange_error"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+
+              <div class="col-sm-4 nopadding">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="att_maxrange"
+                    [(ngModel)]="initialProducts.maxrange"
+                    placeholder="{{LANG.Enter_Max_Range}}"
+                    (keypress)="onlyNumbers($event)"
+                  />
+                  <span class="error" *ngIf="error.att_maxrange_error"
+                    >{{LANG.This_field_is_required}}</span
+                  >
+                </div>
+              </div>
+            </ng-container>
+  
+            <!-- <div class="col-sm-2 nopadding">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="minrange"
+                  name="minrange"
+                  value=""
+                  placeholder="Enter Min Title"
+                />
+              </div>
+            </div>
+            <div class="col-sm-2 nopadding">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="maxrange"
+                  name="maxrange"
+                  value=""
+                  placeholder="Enter Max Title"
+                />
+              </div>
+            </div> -->
+  
+            <div class="col-sm-2 nopadding">
+              <div class="form-group mb-2">
+                <select
+                  class="form-control"
+                  name="attribute_position"
+                  [(ngModel)]="initialProducts.position"
+                >
+                  <option
+                    *ngFor="let number of positions; let i = index"
+                    value="{{ number }}"
+                  >
+                    {{ number }}
+                  </option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-sm-2 nopadding">
+              <div class="form-group mb-0">
+                <div class="input-group">
+                  <select
+                    class="form-control"
+                    name="attribute_status"
+                    [(ngModel)]="initialProducts.status"
+                  >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="0">{{LANG.Inactive}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-md-12 text-center">
+              <button
+                *ngIf="!attribute_load"
+                type="submit"
+                class="btn btn-primary"
+                (click)="addAttributeValue()"
+              >
+                {{LANG.Add}}
+              </button>
+              <button class="btn btn-primary" *ngIf="attribute_load">
+                <loader></loader>
+              </button>
+            </div>
+          </div>
+        </form>
+  
+        <div class="card">
+          <div class="card-body">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" *ngFor="let data of evaluation_details;let i=index;">
+                <a
+                  class="nav-link"
+                  [class.active]="i == 0"
+                  data-toggle="tab"
+                  href="#tab{{i}}"
+                  role="tab"
+                  aria-selected="false"
+                  ><span class="hidden-sm-up"></span>
+                  <span class="hidden-xs-down">{{data.title}}</span></a
+                >
+              </li>
+  
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+              <ng-container *ngFor="let data of evaluation_details;let i=index;">
+                <div class="tab-pane p-20" [class.active]="i == 0" id="tab{{i}}" role="tabpanel">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                      <caption></caption>
+    
+                      <thead>
+                        <tr>
+                          <th>{{LANG.TITLE}}</th>
+                          <th>{{LANG.AR_TITLE}}</th>
+                          
+                          <ng-container *ngIf="rank_type != '2'">
+                            <th>{{LANG.Min}}</th>
+                            <th>{{LANG.Max}}</th>
+                          </ng-container>
+    
+                          <th>{{LANG.POSITION}}</th>
+                          <th>{{LANG.STATUS}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of data.detail">
+                          <td>{{item.title}}</td>
+                          <td>{{item.ar_title}}</td>
+                          <ng-container *ngIf="rank_type != '2'">
+    
+                            <td>{{item.minrange ? item.minrange+'>' : '-'}}</td>
+                            <td>{{item.maxrange ? item.maxrange : '-'}}</td>
+                          </ng-container>
+    
+                          <td>{{item.position}}</td>
+                          <td>{{item.status == '1' ? LANG.Active : LANG.Inactive}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-container>
+  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

@@ -1,0 +1,153 @@
+.container1 {
+    margin-bottom: 100px; /* Center the form */
+    padding: 60px; /* Add padding */
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between columns */
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 20px); /* Adjust the width for two columns */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+/* Form heading style */
+h2 {
+    text-align: center; /* Center the heading */
+    color: #333; /* Dark gray color for text */
+    margin-bottom: 20px; /* Space below heading */
+}
+
+/* Row styles for input fields */
+.row {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between elements */
+    margin-bottom: 15px; /* Space below each row */
+}
+
+/* Column styles */
+.column {
+    flex: 0 0 48%; /* Each column takes up 48% of the row */
+}
+
+/* Label styles */
+label {
+    font-weight: bold; /* Bold labels */
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px; /* Space below labels */
+    color: #555; /* Medium gray color for text */
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside input */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+}
+.border-pr{
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    margin: 40px 0px; /* Margin around the border */
+    padding: 20px; /* Padding inside the border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+ 
+}
+.align-self-center h3,.border-pr h3{
+    color: rgb(60, 13, 124);
+}
+
+.form-control.ng-invalid.ng-touched {
+    border-color: red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px; /* Optional for readability */
+  }
+  
+  /* Styling for the chips inside the button */
+.selected-chips {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .chip {
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 25px;
+    padding: 2px 8px;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .chip .close-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    margin-left: 5px;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .dropdown-menu {
+    width: 100%;
+    position: absolute;
+  }
+  
+/* Input focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #7460ee; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+.breadcrumb-item:hover{
+    color: #007bff;
+    }
+/* Submit button styles */
+button {
+    background-color: rgb(60, 13, 124); /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    width: 100%; /* Full width */
+}
+
+
+
+/* Error message styles */
+.error-message {
+    color: red; /* Red text for error messages */
+    font-size: 12px; /* Smaller font size */
+    margin-bottom: 15px; /* Space below error message */
+}
+
+/* Valid and disabled button styles */
+.valid-button {
+    background-color: #3c0d7c; /* Valid button background color */
+    color: white; /* Valid button text color */
+}
+.btn-primary{
+    background-color: #3c0d7c; /* Valid button background color */
+    color: white; /* Valid button text color */
+}
+.disabled-button {
+    background-color:#ccc; /* Disabled button background color */
+    color: #3c0d7c; /* Disabled button text color */
+}
+.error-message {
+  color: red;
+  font-weight: bold;
+}

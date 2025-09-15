@@ -1,0 +1,334 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_Payment_Info}}</h4>
+      </div>
+
+
+
+      <!-- <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item active">Add Payment Info</li>
+          </ol>
+        </div>
+      </div> -->
+    </div>
+    <div class="row border-class form-group kyc-section">
+      <div class="col-md-12">
+          <h4 class="card-title">Tax Rate</h4>
+
+          <div class="row border-class form-group mb-0 p-2 kyc-section">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Investor Fees</label>
+                  <input [disabled]="input_disabled"
+                    type="text"
+                    class="form-control"
+                    name="investor_tax"
+                    placeholder="Investor Fees"
+                    [(ngModel)]="investor_tax"
+                    (keypress)="onlyNumbers($event)"
+
+                  />
+                  <span class="error" *ngIf="error.default">{{LANG.This_field_is_required}}</span>
+
+                </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Borrower Tax</label>
+                <input [disabled]="input_disabled"
+                  type="text"
+                  class="form-control"
+                  name="borrower_tax"
+                  placeholder="Borrower Tax"
+                  [(ngModel)]="borrower_tax"
+                  (keypress)="onlyNumbers($event)"
+
+                />
+                <span class="error" *ngIf="error.fundraiser_profit">{{LANG.This_field_is_required}}</span>
+
+              </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+              <label for="exampleInputEmail1">Fees</label>
+              <input [disabled]="input_disabled"
+                type="text"
+                class="form-control"
+                name="fees"
+                placeholder="Fees"
+                [(ngModel)]="fees"
+                (keypress)="onlyNumbers($event)"
+
+              />
+              <span class="error" *ngIf="error.default">{{LANG.This_field_is_required}}</span>
+
+
+
+
+            </div>
+          </div>
+  </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group has-success">
+                        <label class="control-label">{{LANG.Payment_Interval_Method}}</label>
+                        <select [disabled]="input_disabled"
+                            class="form-control custom-select"
+                            name="payment_interval_method"
+                            [(ngModel)]="payment_interval_method"
+                        >
+                        <option value="0" selected disabled>{{LANG.Select_Interval_Method}}</option>
+
+                            <option *ngFor="let data of payment_intervals;let i = index" value="{{data.id}}">{{data.title}}</option>
+                        </select>
+                        <span class="error" *ngIf="error.payment_interval_method">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="payment_interval_method && payment_interval_method != 2">
+                    <label class="control-label">{{LANG.Payments_are_made_every}}</label>
+                    <div class="row">
+
+                        <div class="col-md-4 p-0">
+                            <div class="form-group has-success">
+                                <input [disabled]="input_disabled"
+                                type="text"
+                                class="form-control"
+                                name="payment_period"
+                                placeholder="{{LANG.Enter_Payment_Period}}"
+                                [(ngModel)]="payment_period"
+                              />
+                                <span class="error" *ngIf="error.payment_period">{{LANG.This_field_is_required}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <div class="form-group">
+
+                                <select [disabled]="input_disabled"
+                                  class="form-control custom-select"
+                                  name="payment_period_id"
+                                  [(ngModel)]="payment_period_id"
+                                >
+                                  <option value="" selected disabled>{{LANG.Select_Payment_Period}}</option>
+                                  <option *ngFor="let data of payment_period_list;let i = index" value="{{data.id}}">{{data.title}}</option>
+                                </select>
+                                <span class="error" *ngIf="error.payment_period_id">{{LANG.This_field_is_required}}</span>
+
+                              </div>
+                        </div>
+                    </div>
+
+
+                </div>
+              </div>
+
+            <div class="row border-class form-group kyc-section">
+                <div class="col-md-12">
+                    <h4 class="card-title">{{LANG.Installment_Constrains}}</h4>
+
+                    <div class="row border-class form-group mb-0 p-2 kyc-section">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{LANG.no_of_installments}}</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="installments_default"
+                              placeholder="{{LANG.Enter_Default_Title}}"
+                              [(ngModel)]="installments_default"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.installments_default">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div>
+
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Min</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="installments_min_value"
+                              placeholder="Enter Minimum Value"
+                              [(ngModel)]="installments_min_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.installments_min_value">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Max</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="installments_max_value"
+                              placeholder="Enter Maximum value"
+                              [(ngModel)]="installments_max_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.installments_max_value">{{LANG.This_field_is_required}}</span>
+
+                        </div>
+                    </div> -->
+
+
+                      </div>
+                    </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="row border-class form-group kyc-section">
+                <div class="col-md-12">
+                    <h4 class="card-title">{{LANG.First_Due_date_Offest_Constrains_Days}}</h4>
+
+                    <div class="row border-class form-group mb-0 p-2 kyc-section">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{LANG.no_of_days}}</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="due_date_default"
+                              placeholder="{{LANG.Enter_Default_Title}}"
+                              [(ngModel)]="due_date_default"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.due_date_default">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div>
+
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Min</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="due_date_min_value"
+                              placeholder="Enter Minimum Value"
+                              [(ngModel)]="due_date_min_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.due_date_min_value">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Max</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="due_date_max_value"
+                              placeholder="Enter Maximum value"
+                              [(ngModel)]="due_date_max_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.due_date_max_value">{{LANG.This_field_is_required}}</span>
+
+                        </div>
+                    </div> -->
+
+
+                      </div>
+                    </div>
+            </div>
+
+            <div class="row border-class form-group kyc-section">
+                <div class="col-md-12">
+                    <h4 class="card-title">{{LANG.Other_Details}}</h4>
+
+                    <div class="row border-class form-group mb-0 p-2 kyc-section">
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{LANG.Collect_Principle_every}}</label>
+                            <div class="d-flex align-items-center">
+                                <input [disabled]="input_disabled"
+                                  type="text"
+                                  class="form-control"
+                                  name="collect_principle"
+                                  placeholder="{{LANG.Enter_Principle}}"
+                                  [(ngModel)]="collect_principle"
+                                />
+                                <span class="ml-2">{{LANG.Repayments}}</span>
+                            </div>
+                            <span class="error" *ngIf="error.collect_principle">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div> -->
+
+                    <div class="col-md-6">
+                        <div class="form-group has-success">
+                          <label class="control-label">{{LANG.Grace_Period_Type}}</label>
+                          <select [disabled]="input_disabled"
+                            class="form-control custom-select"
+                            name="grace_period_type"
+                            [(ngModel)]="grace_period_type"
+                          >
+                          <option value="0" selected disabled>{{LANG.Select_Grace_Period_Type}}</option>
+
+                            <option *ngFor="let data of grace_period_list;let i = index" value="{{data.id}}">{{data.title}}</option>
+                          </select>
+                            <span class="error" *ngIf="error.grace_period_type">{{LANG.This_field_is_required}}</span>
+
+                        </div>
+
+                        <div class="form-group has-success" *ngIf="grace_period_type && grace_period_type != 1">
+                            <label class="control-label">{{LANG.Grace_Period}}</label>
+                            <input [disabled]="input_disabled"
+                                type="text"
+                                class="form-control"
+                                name="grace_period"
+                                placeholder="{{LANG.Enter_Grace_Period}}"
+                                [(ngModel)]="grace_period"
+                                (keypress)="onlyNumbers($event)"
+                            />
+                              <span class="error" *ngIf="error.grace_period">{{LANG.This_field_is_required}}</span>
+
+                          </div>
+                    </div>
+
+
+
+
+                      </div>
+                    </div>
+            </div>
+
+
+              <!-- <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="addLoan()">{{id ? 'Update' : 'Submit'}}</button>
+              <button class="btn btn-primary" *ngIf="load">
+                  <loader></loader>
+              </button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

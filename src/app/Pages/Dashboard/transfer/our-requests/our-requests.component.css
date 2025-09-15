@@ -1,0 +1,175 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: rgb(60, 13, 124);
+}
+
+h2 {
+    color: rgb(60, 13, 124);
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    min-width: 170px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #dee2e6;
+}
+.align-self-center h3{
+    color: rgb(60, 13, 124);
+}
+.table th ,.pagination-controls button {
+    background-color: rgb(60, 13, 124);
+    color: #ffffff;
+}
+.breadcrumb-item:hover{
+color: #007bff;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+.text-danger{
+    color: red !important;
+}
+.table-dark {
+    background-color: #343a40;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Action Buttons */
+.action-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.action-icons i {
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.action-icons i:hover {
+    color: #007bff;
+}
+
+/* Button Styles */
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-edit:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .action-icons i {
+        font-size: 16px;
+    }
+}
+.list-group-item {
+    cursor: pointer;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f8f9fa; /* Light grey background on hover */
+  }
+
+  .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: rgb(60, 13, 124);
+    border-color:rgb(60, 13, 124)
+}
+
+/* Customize the progress bar container */
+/* Base progress bar styling */
+.progress {
+    display: flex;
+    height: 20px;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #e9ecef;
+  }
+  
+  /* Gradient colors for different stages */
+  .bg-preview {
+    background: linear-gradient(90deg, #ffc107 0%, #ffecb3 100%); /* Yellow gradient for preview */
+  }
+  
+  .bg-approved {
+    background: linear-gradient(90deg, #28a745 0%, #a5d6a7 100%); /* Green gradient for approved */
+  }
+  
+  .bg-rejected {
+    background: linear-gradient(90deg, #dc3545 0%, #f5b7b1 100%); /* Red gradient for rejected */
+  }
+  
+  .bg-complete-success {
+    background: linear-gradient(90deg, #007bff 0%, #90caf9 100%); /* Blue gradient for successful completion */
+  }
+  
+  .bg-complete-rejected {
+    background: linear-gradient(90deg, #dc3545 0%, #f5b7b1 100%); /* Gray gradient for rejected completion */
+  }
+  .bg-danger{
+    background-color: red !important;
+  }
+  /* Styling for icons inside progress */
+  .progress-icon {
+    font-size: 14px;
+    color: white;
+    margin-right: 5px;
+  }
+  
+  /* Animated progress */
+  .progress-bar {
+    transition: width 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+  

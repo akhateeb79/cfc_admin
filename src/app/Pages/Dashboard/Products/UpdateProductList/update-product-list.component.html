@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{id ? LANG.Update :LANG.Add}} {{LANG.Products}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{id ? LANG.Update :LANG.Add}} {{LANG.Products}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.Product_Name}}</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="product_name"
+                      placeholder="{{LANG.Enter_Your_Product_Name}}"
+                      [(ngModel)]="product_name"
+                    />
+                    <span class="error" *ngIf="error.product_name">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1"
+                      >{{LANG.Product_Ar_Name}}</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control text-right"
+                      name="product_name_ar"
+                      placeholder="{{LANG.Enter_Your_Product_Ar_Name}}"
+                      [(ngModel)]="product_name_ar"
+                    />
+                    <span class="error" *ngIf="error.product_name_ar">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+              <div class="row p-t-20">
+                
+  
+                <div class="col-md-6">
+                  <div class="form-group has-success mb-0">
+                    <label class="control-label">{{LANG.Status}}</label>
+                    <select
+                      class="form-control custom-select"
+                      name="status"
+                      [(ngModel)]="status"
+                    >
+                      <option value="1">{{LANG.Active}}</option>
+                      <option value="2">{{LANG.Inactive}}</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">{{LANG.Position}}</label>
+                    <select
+                      class="form-control custom-select"
+                      name="position"
+                      [(ngModel)]="position"
+                    >
+                      <option *ngFor="let number of positions;let i = index" value="{{number}}">{{number}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row attributes" *ngFor="let data of productAttributes;let i=index;">
+                <div class="col-md-6">
+                  <h3>{{data.title}}</h3>
+                 
+                </div>
+                <div class="col-md-6">
+                  <ng-container *ngIf="data.multiselect == 1;else single_select;">
+                      <select class="js-example-basic-multiple multi-id" name="details{{i}}[]" multiple="multiple" id="multi{{i}}-{{data.id}}">
+                        <option *ngFor="let item of data.detail;let j=index;" value="{{item.id}}">{{item.title}}</option>
+                      </select>
+                  </ng-container>
+                  <ng-template #single_select>
+                    <select class="js-example-basic-single single-id" name="details{{i}}" id="single{{i}}-{{data.id}}">
+                      <option *ngFor="let item of data.detail;let j=index;" value="{{item.id}}">{{item.title}}</option>
+                    </select>
+                  </ng-template>
+
+                  
+                 
+                </div>
+              </div>
+              <button *ngIf="!load" type="submit" class="btn btn-primary" (click)="addProduct()">{{id ? LANG.Update : LANG.Add}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

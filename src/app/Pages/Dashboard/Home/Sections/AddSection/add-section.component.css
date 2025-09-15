@@ -1,0 +1,22 @@
+.image{
+    background: #d3d3d39e;
+    text-align: center;
+    border-radius: 12px;
+    padding: 15px;
+    width: 200px;
+    height: 200px;
+    margin: 10px 0;
+}
+.image img{
+    height: 100%;
+    width: 100%;
+}
+
+textarea{
+    height: 250px;
+}
+
+.video{
+    height: 250px;
+    width: 100%;
+}

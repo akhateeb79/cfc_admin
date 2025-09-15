@@ -1,0 +1,93 @@
+<div class="container">
+  <h1>CFC Bank Accounts Statements</h1>
+
+  <form #statementForm="ngForm" (ngSubmit)="getStatement()">
+    <div class="form-group">
+      <label for="accountNumber">Select Account Number *</label>
+      <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="account" required>
+        <option value="0190095517580017">0190095517580017</option>
+        <option value="0108095517580016">0108095517580016</option>
+        <option value="0190095517580024">0190095517580024</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="start_date">Start Date *</label>
+      <input type="date" id="start_date" name="start_date" class="form-control" [(ngModel)]="startDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="end_date">End Date *</label>
+      <input type="date" id="end_date" name="end_date" class="form-control" [(ngModel)]="endDate" required>
+    </div>
+    <div class="form-group">
+      <label for="accountNumber">Select Partial Transaction Type:</label>
+      <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="TransactionType">
+        <option value="CREDIT">CREDIT</option>
+        <option value="DEBIT">DEBIT</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="TransactionType=='CREDIT'">
+      <label for="to_account">To Account Number: </label>
+      <input type="text" id="to_account" name="to_account" class="form-control" [(ngModel)]="toAccount">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!statementForm.valid">Get Statement</button>
+  </form>
+  <button *ngIf="statement" style="border-radius: 2px;background-color: #00a200;color: white;border: none; margin-left: 0px;padding: 6px 15px;margin-top: 10px; margin-bottom: 10px;" (click)="exportDetailedTableToExcel()">Export to Excel</button>
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="message" class="error">{{ message }}</div>
+
+  <div *ngIf="statement" class="statement">
+    <p><strong>Account Number:</strong> {{ statement.accountNumber }}</p>
+    <p><strong>From Date:</strong> {{ statement.fromDate }}</p>
+    <p><strong>To Date:</strong> {{ statement.toDate }}</p>
+    <p><strong>Number of Records:</strong> {{ statement.numberOfRecords }}</p>
+    <p><strong>Completed:</strong> {{ statement.completed }}</p>
+    <p><strong>Offset:</strong> {{ statement.offset }}</p>
+    <p><strong>Brought Forward Balance:</strong> {{ statement.broughtFrwdBalance.amount }} {{ statement.broughtFrwdBalance.currencyCode }}</p>
+    <p><strong>Opening Clear Balance:</strong> {{ statement.openingClrBalance.amount }}</p>
+    <p><strong>Page Open Balance:</strong> {{ statement.pageOpenBalance.amount }} {{ statement.pageOpenBalance.currencyCode }}</p>
+    <p><strong>Closing Balance:</strong> {{ statement.closingBalance.amount }} {{ statement.closingBalance.currencyCode }}</p>
+
+    <h2>Transactions</h2>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Post Date</th>
+              <th>Posting Time</th>
+              <th>Value Date</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Narrative</th>
+              <th>Reference Number</th>
+              <th>Counter</th>
+              <th>STMT</th>
+              <th>Transaction Type</th>
+              <th>Running Balance</th>
+              <th>SAMA Narrative</th>
+              <th>Network</th>
+              <th>Particulars Code</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let transaction of statement.statement.transactions">
+              <td>{{ transaction?.postDate }}</td>
+              <td>{{ transaction?.postingTime }}</td>
+              <td>{{ transaction?.valueDate }}</td>
+              <td>{{ transaction?.type }}</td>
+              <td>{{ transaction?.amount?.amount }} {{ transaction?.amount?.currencyCode }}</td>
+              <td>{{ transaction?.narrative?.narr1 }} {{ transaction?.narrative?.narr2 }} {{ transaction?.narrative?.narr3 }}</td>
+              <td>{{ transaction?.refNum }}</td>
+              <td>{{ transaction?.counter }}</td>
+              <td>{{ transaction?.stmt }}</td>
+              <td>{{ transaction?.partTrnType }}</td>
+              <td>{{ transaction?.runningBalance?.amount }}{{ transaction?.runningBalance?.currencyCode }}</td>
+              <td>{{ transaction?.samaNarr }}</td>
+              <td>{{ transaction?.network }}</td>
+              <td>{{ transaction?.prtclrsCode }}</td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
+</div>

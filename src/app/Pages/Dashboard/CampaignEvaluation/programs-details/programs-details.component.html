@@ -1,0 +1,234 @@
+<div class="col-12">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h3 class="text-themecolor">{{ LANG.Program_List }}</h3>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0)">{{ LANG.Home }}</a>
+          </li>
+          <li
+            class="breadcrumb-item active"
+            (click)="goBack()"
+            style="cursor: pointer"
+          >
+            {{ LANG.Campaign_List }}
+          </li>
+          <li class="breadcrumb-item active">{{ LANG.Program_List }}</li>
+        </ol>
+        <!-- <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addKYC()"><i
+                class="fa fa-plus-circle"></i> Create New</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-4" style="height: 100vh">
+  <a
+    (click)="navigateToAddProgram()"
+    style="
+      border-style: none;
+      background-color: rgb(60, 13, 124);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+    "
+  >
+    Add Program
+  </a>
+
+  <div *ngIf="program && program.length > 0; else noData">
+    <div class="table-responsive">
+      <table
+        id="example23"
+        class="display nowrap table table-hover table-striped table-bordered"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th>الإجراءات</th>
+            <th>رقم الفرصة</th>
+            <th>الترخيص</th>
+            <th>غرض الترخيص</th>
+            <th>المديرون</th>
+            <th>وصي الكيان ذات الغرض الخاص</th>
+            <th>الكيان ذات الغرض الخاص</th>
+            <th>منتجات الصكوك</th>
+            <th>وكيل الدفع للمصدر</th>
+            <th>مسؤول المنصة</th>
+            <th>الصكوك</th>
+            <th>القيمة الاسمية للصك</th>
+            <th>القيمة الاسمية الإجمالية للبرنامج</th>
+            <th>استخدام عائدات الطرح</th>
+            <th>شروط خدمات الاستثمار</th>
+            <th>غرض التمويل</th>
+            <th>الراعي</th>
+            <th>وصف دور الراعي</th>
+            <th>التزام الراعي</th>
+            <th>ممثل الراعي</th>
+            <th>المستفيد</th>
+            <th>الصفة القانونية للجهة المستفيدة</th>
+            <th>أنشطة المستفيد</th>
+            <th>رأس مال المستفيد</th>
+            <th>ملاك الشركة</th>
+            <th>طريقة الاكتتاب</th>
+            <th>الحد الأدنى والأقصى للاكتتاب</th>
+            <th>قيود تخصيص الطرح</th>
+            <th>الاسترداد المبكر</th>
+            <th>إطفاء الصكوك</th>
+            <th>مبلغ التوزيع الدوري</th>
+            <th>وصف دور الحافظ</th>
+            <th>قيود الصكوك</th>
+            <th>أصول الصكوك</th>
+            <th>عقد المرابحة</th>
+            <th>سند إذني للعقار</th>
+            <th>سند إذني للمستفيد</th>
+            <th>وثيقة الصكوك</th>
+            <th>النظام القانوني</th>
+            <th>إعادة أموال الاكتتاب</th>
+            <th>عوامل المخاطرة</th>
+            <th>تاريخ الإصدار</th>
+            <th>تاريخ الاسترداد</th>
+            <th>تاريخ الإنشاء</th>
+            <th>تاريخ التحديث</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of paginatedRecords">
+            <td>
+              <button
+                class="btn btn-link"
+                (click)="editProgram(item.id)"
+              >
+                <i class="fas fa-edit" aria-hidden="true"></i>
+              </button>
+              <button
+                class="btn btn-link text-danger"
+                (click)="deleteProgram(item.id)"
+              >
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+            <td>{{ item.campagin_id }}</td>
+            <td>{{ item.Licensing }}</td>
+
+            <td>{{ item.Licensing_Purpose }}</td>
+            <td>
+              <div *ngIf="item.directors && item.directors.length > 0">
+                <button
+                  class="btn btn-link"
+                  type="button"
+                  data-toggle="collapse"
+                  [attr.data-target]="'#directorsCollapse' + item.id"
+                  aria-expanded="false"
+                  [attr.aria-controls]="'directorsCollapse' + item.id"
+                >
+                  View Directors
+                </button>
+                <div [id]="'directorsCollapse' + item.id" class="collapse">
+                  <div class="card card-body">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Nationality</th>
+                          <th>Relation</th>
+                          <!-- <th>Actions</th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let director of item.directors">
+                          <td>{{ director.psd_director_name }}</td>
+                          <td>{{ director.psd_director_nationality }}</td>
+                          <td>{{ director.psd_director_relation }}</td>
+                          <!-- <td>
+                            <button class="btn btn-link"  (click)="editDirector(director.id)">
+                              <i class="fas fa-edit" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-link text-danger" (click)="deleteDirector(director.id)">
+                              <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                              <button class="btn btn-link text-danger" (click)="AddDirector(director.id)">
+                              <i class="fas fa-trash" aria-hidden="true"></i>
+                            </button>
+                          </td> -->
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="item.directors.length === 0">No Directors</div>
+            </td>
+            <td>{{ item.SPV_trustee }}</td>
+            <td>{{ item.spv }}</td>
+            <td>{{ item.Sukuk_products }}</td>
+            <td>{{ item.Issuer_Paying_Agent }}</td>
+            <td>{{ item.Platform_Admin }}</td>
+            <td>{{ item.sukuk }}</td>
+            <td>{{ item.sukk_face_value }}</td>
+            <td>{{ item.program_tot_face_value }}</td>
+            <td>{{ item.offering_proceeds_use }}</td>
+            <td>{{ item.conditions_inv_services }}</td>
+            <td>{{ item.funding_purpose }}</td>
+            <td>{{ item.sponsor }}</td>
+            <td>{{ item.sponsor_Role_desc }}</td>
+            <td>{{ item.Sponsor_commitment }}</td>
+            <td>{{ item.sponsor_repres }}</td>
+            <td>{{ item.Beneficiary }}</td>
+            <td>{{ item.entity_beneficiary_Legal }}</td>
+            <td>{{ item.Beneficiary_activities }}</td>
+            <td>{{ item.Beneficiary_capital }}</td>
+            <td>{{ item.company_owners }}</td>
+            <td>{{ item.Subscription_method }}</td>
+            <td>{{ item.min_max_subscription }}</td>
+            <td>{{ item.Alloc_Offering_restricts }}</td>
+            <td>{{ item.early_redemption }}</td>
+            <td>{{ item.sukuk_extinguishing }}</td>
+            <td>{{ item.Periodic_distrib_amount }}</td>
+            <td>{{ item.role_custodian_Desc }}</td>
+            <td>{{ item.Sukuk_Restrictions }}</td>
+            <td>{{ item.Sukuk_assets }}</td>
+            <td>{{ item.Murabaha_contract }}</td>
+            <td>{{ item.property_Promissory_note }}</td>
+            <td>{{ item.beneficiary_promissory_note }}</td>
+            <td>{{ item.sukk_document }}</td>
+            <td>{{ item.ruling_regime }}</td>
+            <td>{{ item.subs_mony_Retur }}</td>
+            <td>{{ item.Risk_factors }}</td>
+             <td>{{ item.Release_Date | date : "short" }}</td>
+            <td>{{ item.Redemption_date | date : "short" }}</td>
+            <td>{{ item.created_at | date : "short" }}</td>
+            <td>{{ item.updated_at | date : "short" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-controls my-4" style="text-align: center">
+      <button
+        (click)="previousPage()"
+        class="btn"
+        [disabled]="currentPage === 1"
+      >
+        Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button
+        (click)="nextPage()"
+        class="btn"
+        [disabled]="currentPage === totalPages"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <div class="alert alert-warning text-center mt-4" role="alert">
+      No program data found.
+    </div>
+  </ng-template>
+</div>

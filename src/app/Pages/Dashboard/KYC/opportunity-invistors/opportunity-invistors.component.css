@@ -1,0 +1,11 @@
+table th,
+table td {
+  text-align: center; /* Center-align text */
+  vertical-align: middle; /* Center-align vertically */
+  width: auto; /* Or assign fixed widths if needed */
+ 
+}
+.table-responsive{
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}

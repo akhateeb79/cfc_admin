@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">{{LANG.Campaign_List}}</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                    <li class="breadcrumb-item active">Attachment</li>
+                </ol>
+                <!-- <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addKYC()"><i
+                    class="fa fa-plus-circle"></i> Create New</button> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <form [formGroup]="myForm" (ngSubmit)="submit()">
+  
+                       <h2>{{title}}</h2>
+                        <div class="form-group">
+                            <label for="file">Upload attachment</label>
+                            <input 
+                                formControlName="file"
+                                id="file" 
+                                type="file" 
+                                multiple
+                                class="form-control"
+                                (change)="onFileChange($event)">
+                            <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+                                <div *ngIf="f.file.errors.required">File is required.</div>
+                            </div>
+                        </div>
+                              
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                   
+                    <table id="example23"
+                            class="display nowrap table table-hover table-striped table-bordered"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No</th>
+                                    <th>Attachment</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of campaignList; let i=index;">
+                                    <td>{{i+1}}</td>
+                                    <td><a href="{{data.attachments}}" target="_blank">Attachment</a></td>
+                                   
+                                   
+                                    <td> 
+                                      <span class="del mr-3" (click)="showDeleteModal(data)"><i class="fa fa-trash"></i></span> 
+                                       
+                                    </td>
+                                </tr>   
+                               
+                            </tbody>
+                        </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>{{LANG.Are_you_sure_you_want_to_delete_this}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" *ngIf="!load" data-dismiss="modal" class="btn btn-primary btn-danger loader-btn w-30" id="delete" (click)="delete()">{{LANG.Delete}}</button>
+            <button type="button" *ngIf="load" class="btn btn-primary btn-danger loader-btn w-30"><loader></loader></button>
+            <button type="button" data-dismiss="modal" class="btn loader-btn w-30" (click)="cancel()" [disabled]="load">{{LANG.Cancel}}</button>
+        </div>
+      </div>
+    </div>
+</div>

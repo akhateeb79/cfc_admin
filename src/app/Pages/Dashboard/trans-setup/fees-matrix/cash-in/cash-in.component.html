@@ -1,0 +1,88 @@
+
+<div class="container">
+<h1>Cash In</h1>
+   
+<h3>{{ isEnabled ? "Status: Active" : "Status: Inactive" }}</h3>
+<div class="toggle-container">
+    <input (change)="toggleVisibility($event)" type="checkbox" id="toggle" class="toggle-checkbox">
+    <label for="toggle" class="toggle-label"></label>
+</div>
+<div *ngIf="isEnabled" class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>FEES_SOURCE_TYPE</th>
+                <th>TRANS_TYPE</th>
+                <th>TRANS_ACTION</th>
+                <th>USER_TYPE</th>
+                <th>checkMaxAmount</th>
+                <th>checkMinAmount</th>
+                <th>FEES_FIXED_SAR | FEES_PRCNTG</th>
+                <th>FEES_PRCNTG</th>
+                <th>START_DATE</th>
+                <th>END_DATE</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3</td>
+                <td>BANK ACCOUNT</td>
+                <td>CHASH-IN</td>
+                <td>CREDIT</td>
+                <td>RETAIL</td>
+                <td></td>
+                <td></td>
+                <td>2</td>
+                <td>0</td>
+                <td>2024-01-01</td>
+                <td></td>
+                <td>ACTIVE</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>BANK ACCOUNT</td>
+                <td>CHASH-IN</td>
+                <td>CREDIT</td>
+                <td>QUALIFIED</td>
+                <td></td>
+                <td></td>
+                <td>0</td>
+                <td>0</td>
+                <td>2024-01-01</td>
+                <td></td>
+                <td>ACTIVE</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>CREDIT CARD</td>
+                <td>CHASH-IN</td>
+                <td>CREDIT</td>
+                <td>RETAIL</td>
+                <td></td>
+                <td></td>
+                <td>0.5</td>
+                <td>2</td>
+                <td>2024-01-01</td>
+                <td></td>
+                <td>ACTIVE</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>CREDIT CARD</td>
+                <td>CHASH-IN</td>
+                <td>CREDIT</td>
+                <td>QUALIFIED</td>
+                <td></td>
+                <td></td>
+                <td>0.5</td>
+                <td>2</td>
+                <td>2024-01-01</td>
+                <td></td>
+                <td>ACTIVE</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>

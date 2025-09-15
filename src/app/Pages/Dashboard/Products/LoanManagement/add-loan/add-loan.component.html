@@ -1,0 +1,312 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_Loan}}</h4>
+      </div>
+      <!-- <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.  Home}}</a></li>
+            <li class="breadcrumb-item active">{{LANG.Add_Loan}}</li>
+          </ol>
+        </div>
+      </div> -->
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.TITLE}}</label>
+                    <input [disabled]="input_disabled"
+                      type="text"
+                      class="form-control"
+                      name="loan_title"
+                      placeholder="{{LANG.Enter_Your_Title}}"
+                      [(ngModel)]="loan_title"
+                    />
+                    <span class="error" *ngIf="error.loan_title">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1"
+                      >{{LANG.AR_TITLE}}</label
+                    >
+                    <input [disabled]="input_disabled"
+                      type="text"
+                      class="form-control text-right"
+                      name="loan_title_ar"
+                      placeholder="{{LANG.Enter_Your_Ar_Title}}"
+                      [(ngModel)]="loan_title_ar"
+                    />
+                    <span class="error" *ngIf="error.loan_title_ar">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+              <div class="row p-t-20">
+
+                <!-- <div class="col-md-3">
+                    <div class="form-group has-success">
+                      <label class="control-label">{{LANG.Product_Category}}</label>
+                      <select [disabled]="input_disabled"
+                        class="form-control custom-select"
+                        name="product_id"
+                        [(ngModel)]="product_id"
+                        (change)="changeProduct()"
+                      >
+                      <option value="" selected disabled>{{LANG.Select_Product_Category}}</option>
+
+                        <option *ngFor="let data of products;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                        <span class="error" *ngIf="error.product_error">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group has-success">
+                    <label class="control-label">{{LANG.Opportunities}}</label>
+                    <select [disabled]="input_disabled"
+                      class="form-control custom-select"
+                      name="opportunity_id"
+                      [(ngModel)]="opportunity_id"
+                    >
+                    <option value="" selected disabled>{{LANG.Select_Opportunity}}</option>
+
+                      <option *ngFor="let data of opportunity_list;let i = index" value="{{data.id}}">{{data.tagline}}</option>
+                    </select>
+                      <span class="error" *ngIf="error.evaluation_error">{{LANG.This_field_is_required}}</span>
+
+                  </div>
+              </div> -->
+
+                <div class="col-md-6">
+                <div class="form-group has-success">
+                    <label class="control-label">{{LANG.Loan_Type}}</label>
+                    <select [disabled]="input_disabled"
+                    class="form-control custom-select"
+                    name="loan_type_id"
+                    [(ngModel)]="loan_type_id"
+                    >
+                    <option value="" selected disabled>{{LANG.Select_Loan_Type}}</option>
+                    <option *ngFor="let data of loanType;let i = index" value="{{data.id}}">{{data.title}}</option>
+                    </select>
+                    <span class="error" *ngIf="error.loan_type_error">{{LANG.This_field_is_required}}</span>
+
+                </div>
+                </div>
+            
+
+            <div class="col-md-6">
+                <div class="form-group has-success mb-0">
+                <label class="control-label">{{LANG.Status}}</label>
+                <select [disabled]="input_disabled"
+                    class="form-control custom-select"
+                    name="status"
+                    [(ngModel)]="status"
+                >
+                    <option value="1">{{LANG.Active}}</option>
+                    <option value="2">{{LANG.Inactive}}</option>
+                </select>
+                </div>
+            </div>
+
+            
+            </div>
+
+
+            <div class="row border-class form-group kyc-section">
+            <div class="col-md-12">
+                <h4 class="card-title">{{LANG.Add_Interest_Details}}</h4>
+
+                <div class="row border-class form-group mb-0 p-2 kyc-section">
+                <div class="col-md-4">
+                    <div class="form-group has-success">
+                      <label class="control-label">{{LANG.Interest_Calculation_Method}}</label>
+                      <select [disabled]="input_disabled"
+                        class="form-control custom-select"
+                        name="interest_calculation_method"
+                        [(ngModel)]="interest_calculation_method" 
+                      >
+                      <!-- <option value="" selected disabled>{{LANG.Select_Calculation_Method}}</option> -->
+
+                        <option *ngFor="let data of calculation_list;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                        <span class="error" *ngIf="error.interest_calculation_method">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group has-success">
+                      <label class="control-label">{{LANG.Accured_Interest_Posting_Frequency}}</label>
+                      <select [disabled]="input_disabled"
+                        class="form-control custom-select"
+                        name="accured_interest_posting_frequency"
+                        [(ngModel)]="accured_interest_posting_frequency"
+                      >
+                      <!-- <option value="" selected disabled>{{LANG.Select_posting_frequency}}</option> -->
+
+                        <option *ngFor="let data of ir_frequency;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                        <span class="error" *ngIf="error.accured_interest_posting_frequency">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-4">
+                    <div class="form-group has-success">
+                      <label class="control-label">{{LANG.How_is_Interest_Rate_charged}}</label>
+                      <select [disabled]="input_disabled"
+                        class="form-control custom-select"
+                        name="ir_charged"
+                        [(ngModel)]="ir_charged"
+                      >
+                      <option value="" selected disabled>{{LANG.Select_Method}}</option>
+
+                        <option *ngFor="let data of charged_list;let i = index" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                        <span class="error" *ngIf="error.ir_charged">{{LANG.This_field_is_required}}</span>
+
+                    </div>
+                </div> -->
+
+                    
+                  </div>
+                </div>
+            </div>
+
+            <div class="row border-class form-group kyc-section">
+                <div class="col-md-12">
+                    <h4 class="card-title">{{LANG.Interest_Rate_Constrains}}</h4>
+    
+                    <div class="row border-class form-group mb-0 p-2 kyc-section">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{LANG.interest_rate}}</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="default"
+                              placeholder="{{LANG.Enter_Default_Title}}"
+                              [(ngModel)]="default"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.default">{{LANG.This_field_is_required}}</span>
+          
+                          </div>
+                    </div>
+    
+                    <!-- <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Min</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="min_value"
+                              placeholder="Enter Minimum Value"
+                              [(ngModel)]="min_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.min_value">{{LANG.This_field_is_required}}</span>
+          
+                          </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Max</label>
+                            <input [disabled]="input_disabled"
+                              type="text"
+                              class="form-control"
+                              name="max_value"
+                              placeholder="Enter Maximum value"
+                              [(ngModel)]="max_value"
+                              (keypress)="onlyNumbers($event)"
+
+                            />
+                            <span class="error" *ngIf="error.max_value">{{LANG.This_field_is_required}}</span>
+          
+                        </div>
+                    </div> -->
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">{{LANG.Fundraiser_Profit}}</label>
+                          <input [disabled]="input_disabled"
+                            type="text"
+                            class="form-control"
+                            name="fundraiser_profit"
+                            placeholder="{{LANG.Enter_Fundraiser_Profit}}"
+                            [(ngModel)]="fundraiser_profit"
+                            (keypress)="onlyNumbers($event)"
+
+                          />
+                          <span class="error" *ngIf="error.fundraiser_profit">{{LANG.This_field_is_required}}</span>
+        
+                        </div>
+                  </div>
+    
+                        
+                      </div>
+                    </div>
+            </div>
+
+
+            <app-add-payment-info [input_disabled]="input_disabled"></app-add-payment-info>
+<!-- 
+            <div class="row border-class form-group kyc-section">
+                <div class="col-md-12">
+                    <h4 class="card-title">Account Terms</h4>
+    
+                    <div class="row border-class form-group mb-0 p-2 kyc-section">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Interest Rate</label>
+                            <div class="d-flex align-items-center">
+                                <input [disabled]="input_disabled"
+                                  type="text"
+                                  class="form-control"
+                                  name="interest_rate"
+                                  placeholder="Enter Interest Rate"
+                                  [(ngModel)]="interest_rate"
+                                />
+                                <span class="ml-4">% {{ir_charged_title}}</span>
+                            </div>
+                            <span class="error" *ngIf="error.interest_rate">{{LANG.This_field_is_required}}</span>
+                            <span>Min: {{min_value}}</span>
+                          </div>
+                    </div>
+    
+                        
+                      </div>
+                    </div>
+            </div> -->
+
+
+
+              <div class="d-flex">
+                <button *ngIf="!load && !input_disabled" type="submit" class="btn btn-primary" (click)="addLoan()" [disabled]="input_disabled">{{loan_id ? LANG.Update : LANG.Submit}}</button>
+                <button class="btn btn-primary" *ngIf="load">                                
+                    <loader></loader>
+                </button>
+                <button *ngIf="!loan_loading && !input_disabled && show_apply_btn" [disabled]="btndisable==true" type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="applyLoan()">
+                  <i class="fa fa-plus-circle"></i> {{LANG.Apply_Loan}}</button>
+                  <button *ngIf="loan_loading" type="button" class="btn btn-info d-none d-lg-block m-l-15"><loader></loader></button>
+              </div>
+            </form>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+.dt-buttons {
+    padding-top: 5px;
+    margin-bottom: 15px;
+}
+.dt-buttons .dt-button {
+    padding: 5px 15px;
+    border-radius: 0.25rem;
+    background: #fb9678;
+    color: #fff;
+    margin-right: 3px;
+}
+
+button:disabled{
+    cursor: not-allowed;
+}
+
+.w-30{
+    width: 30%;
+}

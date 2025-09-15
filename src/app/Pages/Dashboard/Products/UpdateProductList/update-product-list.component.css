@@ -1,0 +1,7 @@
+.attributes{
+    margin:20px 0;
+}
+
+::ng-deep .select2-container{
+    width: 70% !important;
+}

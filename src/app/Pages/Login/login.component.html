@@ -1,0 +1,73 @@
+<section id="wrapper">
+    <div class="login-register">
+        <div class="login-box card" style="border-radius: 20px;">
+            <div class="card-body" style="border-radius: 20px;padding: 3.25rem;padding-bottom: 0;">
+                <img style="width: 100%;" src="assets/images/logoo.png" alt="logo">
+                <form class="form-horizontal form-material" id="loginform">
+                    <h3 class="text-center m-b-20" style="margin: 20px;">{{LANG.Sign_In}}</h3>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input type="text" class="form-control" name="email_id" id="email_id" placeholder="{{LANG.Email}}" [(ngModel)]="email_id">
+                            <span class="error" *ngIf="loginError.email_id">{{LANG.This_field_is_required}}</span>
+                            <span class="error" *ngIf="loginError.email_id_valid">{{LANG.Enter_valid_email_id}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="{{LANG.Password}}" [(ngModel)]="password">
+                            <span class="error" *ngIf="loginError.password">{{LANG.This_field_is_required}}</span>
+                            <span class="error" *ngIf="loginError.password_valid">{{LANG.Password_must_be_characters_or_more}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="d-flex no-block align-items-center">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">{{LANG.Remember_me}}</label>
+                                </div> 
+                                <div class="ml-auto">
+                                    <a (click)="forgetPassword()" class="text-muted cursor-pointer"><i class="fas fa-lock m-r-5"></i> {{LANG.Forgot_pwd}}</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="col-xs-12 p-b-20"> 
+                            <button (click)="loginUser()" *ngIf="!load" class="btn btn-block btn-lg btn-info btn-rounded" style="margin-top: 66px;padding: 5px 0px;" type="submit">{{LANG.Log_In}}</button>
+                            <button *ngIf="load" class="btn btn-block btn-lg btn-info btn-rounded loader-btn">
+                                <loader></loader>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            Don't have an account? <a href="pages-register.html" class="text-info m-l-5"><b>Sign Up</b></a>
+                        </div>
+                    </div> -->
+                </form>
+                <form class="form-horizontal" id="recoverform">
+                    <div class="icon-back" (click)="forgetPassword(1)"> 
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <h3>{{LANG.Recover_Password}}</h3>
+                            <p class="text-muted">{{LANG.Enter_your_Email_and_instructions_will_be_sent_to_you}} </p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required="" placeholder="{{LANG.Email}}"> </div>
+                    </div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">{{LANG.Reset}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,1325 @@
+<div class="modal-header">
+  <h4 class="modal-title" style="color: white">Edit Program</h4>
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="programForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="campaign_id">Campaign ID:</label>
+          <input
+            id="campaign_id"
+            formControlName="campaign_id"
+            type="text"
+            class="form-control custom-input"
+            disabled
+          />
+          <div
+            *ngIf="
+              programForm.get('campaign_id').invalid &&
+              programForm.get('campaign_id').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Campaign ID is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Licensing">Licensing:</label>
+          <input
+            id="Licensing"
+            formControlName="Licensing"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Licensing').invalid &&
+              programForm.get('Licensing').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Licensing is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="psd_director_name">director_name</label>
+          <input
+            id="psd_director_name"
+            formControlName="psd_director_name"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('psd_director_name').invalid &&
+              programForm.get('psd_director_name').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">psd_director_name is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="psd_director_relation">psd_director_relation</label>
+          <input
+            id="psd_director_relation"
+            formControlName="psd_director_relation"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('psd_director_relation').invalid &&
+              programForm.get('psd_director_relation').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >psd_director_relation is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div>
+          <label for="psd_director_nationality">psd_director_nationality</label>
+          <input
+            id="psd_director_nationality"
+            formControlName="psd_director_nationality"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('psd_director_nationality').invalid &&
+              programForm.get('psd_director_nationality').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >psd_director_nationality is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Licensing_Purpose">Licensing Purpose:</label>
+          <input
+            id="Licensing_Purpose"
+            formControlName="Licensing_Purpose"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Licensing_Purpose').invalid &&
+              programForm.get('Licensing_Purpose').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Licensing Purpose is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="SPV_trustee">SPV Trustee:</label>
+          <input
+            id="SPV_trustee"
+            formControlName="SPV_trustee"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('SPV_trustee').invalid &&
+              programForm.get('SPV_trustee').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">SPV Trustee is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="spv">SPV:</label>
+          <input
+            id="spv"
+            formControlName="spv"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('spv').invalid && programForm.get('spv').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">SPV is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sukuk">Sukuk:</label>
+          <input
+            id="sukuk"
+            formControlName="sukuk"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sukuk').invalid &&
+              programForm.get('sukuk').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Sukuk_products">Sukuk Products:</label>
+          <input
+            id="Sukuk_products"
+            formControlName="Sukuk_products"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Sukuk_products').invalid &&
+              programForm.get('Sukuk_products').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk Products are required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Issuer_Paying_Agent">Issuer Paying Agent:</label>
+          <input
+            id="Issuer_Paying_Agent"
+            formControlName="Issuer_Paying_Agent"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Issuer_Paying_Agent').invalid &&
+              programForm.get('Issuer_Paying_Agent').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Issuer Paying Agent is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sukk_face_value">Sukk Face Value:</label>
+          <input
+            id="sukk_face_value"
+            formControlName="sukk_face_value"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sukk_face_value').invalid &&
+              programForm.get('sukk_face_value').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukk Face Value is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Platform_Admin">Platform Admin:</label>
+          <input
+            id="Platform_Admin"
+            formControlName="Platform_Admin"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Platform_Admin').invalid &&
+              programForm.get('Platform_Admin').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Platform Admin is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="funding_purpose">Funding Purpose:</label>
+          <input
+            id="funding_purpose"
+            formControlName="funding_purpose"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('funding_purpose').invalid &&
+              programForm.get('funding_purpose').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Funding Purpose is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sponsor">Sponsor:</label>
+          <input
+            id="sponsor"
+            formControlName="sponsor"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sponsor').invalid &&
+              programForm.get('sponsor').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sponsor is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sponsor_Role_desc">Sponsor Role Description:</label>
+          <input
+            id="sponsor_Role_desc"
+            formControlName="sponsor_Role_desc"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sponsor_Role_desc').invalid &&
+              programForm.get('sponsor_Role_desc').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Sponsor Role Description is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Sponsor_commitment">Sponsor Commitment:</label>
+          <input
+            id="Sponsor_commitment"
+            formControlName="Sponsor_commitment"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Sponsor_commitment').invalid &&
+              programForm.get('Sponsor_commitment').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sponsor Commitment is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sponsor_repres">Sponsor Representative:</label>
+          <input
+            id="sponsor_repres"
+            formControlName="sponsor_repres"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sponsor_repres').invalid &&
+              programForm.get('sponsor_repres').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Sponsor Representative is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Beneficiary">Beneficiary:</label>
+          <input
+            id="Beneficiary"
+            formControlName="Beneficiary"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Beneficiary').invalid &&
+              programForm.get('Beneficiary').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Beneficiary is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="entity_beneficiary_Legal"
+            >Entity Beneficiary Legal:</label
+          >
+          <input
+            id="entity_beneficiary_Legal"
+            formControlName="entity_beneficiary_Legal"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('entity_beneficiary_Legal').invalid &&
+              programForm.get('entity_beneficiary_Legal').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Entity Beneficiary Legal is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Beneficiary_activities">Beneficiary Activities:</label>
+          <input
+            id="Beneficiary_activities"
+            formControlName="Beneficiary_activities"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Beneficiary_activities').invalid &&
+              programForm.get('Beneficiary_activities').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Beneficiary Activities are required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Beneficiary_capital">Beneficiary Capital:</label>
+          <input
+            id="Beneficiary_capital"
+            formControlName="Beneficiary_capital"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Beneficiary_capital').invalid &&
+              programForm.get('Beneficiary_capital').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Beneficiary Capital is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="company_owners">Company Owners:</label>
+          <input
+            id="company_owners"
+            formControlName="company_owners"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('company_owners').invalid &&
+              programForm.get('company_owners').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Company Owners are required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Subscription_method">Subscription Method:</label>
+          <input
+            id="Subscription_method"
+            formControlName="Subscription_method"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Subscription_method').invalid &&
+              programForm.get('Subscription_method').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Subscription Method is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="min_max_subscription">Min/Max Subscription:</label>
+          <input
+            id="min_max_subscription"
+            formControlName="min_max_subscription"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('min_max_subscription').invalid &&
+              programForm.get('min_max_subscription').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Min/Max Subscription is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Alloc_Offering_restricts"
+            >Allocation Offering Restrictions:</label
+          >
+          <input
+            id="Alloc_Offering_restricts"
+            formControlName="Alloc_Offering_restricts"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Alloc_Offering_restricts').invalid &&
+              programForm.get('Alloc_Offering_restricts').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Allocation Offering Restrictions are required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="early_redemption">Early Redemption:</label>
+          <input
+            id="early_redemption"
+            formControlName="early_redemption"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('early_redemption').invalid &&
+              programForm.get('early_redemption').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Early Redemption is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sukuk_extinguishing">Sukuk Extinguishing:</label>
+          <input
+            id="sukuk_extinguishing"
+            formControlName="sukuk_extinguishing"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sukuk_extinguishing').invalid &&
+              programForm.get('sukuk_extinguishing').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk Extinguishing is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Periodic_distrib_amount"
+            >Periodic Distribution Amount:</label
+          >
+          <input
+            id="Periodic_distrib_amount"
+            formControlName="Periodic_distrib_amount"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Periodic_distrib_amount').invalid &&
+              programForm.get('Periodic_distrib_amount').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Periodic Distribution Amount must be a valid input.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="role_custodian_Desc">Role Custodian Description:</label>
+          <input
+            id="role_custodian_Desc"
+            formControlName="role_custodian_Desc"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('role_custodian_Desc').invalid &&
+              programForm.get('role_custodian_Desc').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Role Custodian Description is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Sukuk_Restrictions">Sukuk Restrictions:</label>
+          <input
+            id="Sukuk_Restrictions"
+            formControlName="Sukuk_Restrictions"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Sukuk_Restrictions').invalid &&
+              programForm.get('Sukuk_Restrictions').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk Restrictions are required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Sukuk_assets">Sukuk Assets:</label>
+          <input
+            id="Sukuk_assets"
+            formControlName="Sukuk_assets"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Sukuk_assets').invalid &&
+              programForm.get('Sukuk_assets').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk Assets are required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Murabaha_contract">Murabaha Contract:</label>
+          <input
+            id="Murabaha_contract"
+            formControlName="Murabaha_contract"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Murabaha_contract').invalid &&
+              programForm.get('Murabaha_contract').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Murabaha Contract is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Investment_custody">Investment Custody:</label>
+          <input
+            id="Investment_custody"
+            formControlName="Investment_custody"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Investment_custody').invalid &&
+              programForm.get('Investment_custody').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Investment Custody is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Investment_management">Investment Management:</label>
+          <input
+            id="Investment_management"
+            formControlName="Investment_management"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Investment_management').invalid &&
+              programForm.get('Investment_management').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Investment Management is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Management_fee">Management Fee:</label>
+          <input
+            id="Management_fee"
+            formControlName="Management_fee"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Management_fee').invalid &&
+              programForm.get('Management_fee').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Management Fee is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Fund_distribution">Fund Distribution:</label>
+          <input
+            id="Fund_distribution"
+            formControlName="Fund_distribution"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Fund_distribution').invalid &&
+              programForm.get('Fund_distribution').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Fund Distribution is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Valuation_frequency">Valuation Frequency:</label>
+          <input
+            id="Valuation_frequency"
+            formControlName="Valuation_frequency"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Valuation_frequency').invalid &&
+              programForm.get('Valuation_frequency').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Valuation Frequency is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Legal_documents">Legal Documents:</label>
+          <input
+            id="Legal_documents"
+            formControlName="Legal_documents"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Legal_documents').invalid &&
+              programForm.get('Legal_documents').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Legal Documents are required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Final_approved_documents"
+            >Final Approved Documents:</label
+          >
+          <input
+            id="Final_approved_documents"
+            formControlName="Final_approved_documents"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Final_approved_documents').invalid &&
+              programForm.get('Final_approved_documents').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Final Approved Documents are required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Approval_date">Approval Date:</label>
+          <input
+            id="Approval_date"
+            formControlName="Approval_date"
+            type="date"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Approval_date').invalid &&
+              programForm.get('Approval_date').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Approval Date is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div>
+          <label for="Release_Date">Release Date:</label>
+          <input
+            class="form-control"
+            id="Release_Date"
+            formControlName="Release_Date"
+            type="date"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Release_Date').invalid &&
+              programForm.get('Release_Date').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Release Date is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div>
+          <label for="Redemption_date">Redemption Date:</label>
+          <input
+            class="form-control"
+            id="Redemption_date"
+            formControlName="Redemption_date"
+            type="date"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Redemption_date').invalid &&
+              programForm.get('Redemption_date').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Redemption Date is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Approval_user">Approval User:</label>
+          <input
+            id="Approval_user"
+            formControlName="Approval_user"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Approval_user').invalid &&
+              programForm.get('Approval_user').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Approval User is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Approval_status">Approval Status:</label>
+          <input
+            id="Approval_status"
+            formControlName="Approval_status"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Approval_status').invalid &&
+              programForm.get('Approval_status').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Approval Status is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="Funding_amount">Funding Amount:</label>
+          <input
+            id="Funding_amount"
+            formControlName="Funding_amount"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('Funding_amount').invalid &&
+              programForm.get('Funding_amount').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Funding Amount is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="contract_start_date">Contract Start Date:</label>
+          <input
+            id="contract_start_date"
+            formControlName="contract_start_date"
+            type="date"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('contract_start_date').invalid &&
+              programForm.get('contract_start_date').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Contract Start Date is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="contract_end_date">Contract End Date:</label>
+          <input
+            id="contract_end_date"
+            formControlName="contract_end_date"
+            type="date"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('contract_end_date').invalid &&
+              programForm.get('contract_end_date').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Contract End Date is required.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="program_tot_face_value">Program Total Face Value:</label>
+          <input
+            id="program_tot_face_value"
+            formControlName="program_tot_face_value"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('program_tot_face_value').invalid &&
+              programForm.get('program_tot_face_value').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Program Total Face Value is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="offering_proceeds_use">Offering Proceeds Use:</label>
+          <input
+            id="offering_proceeds_use"
+            formControlName="offering_proceeds_use"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('offering_proceeds_use').invalid &&
+              programForm.get('offering_proceeds_use').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Offering Proceeds Use is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="conditions_inv_services"
+            >Conditions for Investment Services:</label
+          >
+          <input
+            id="conditions_inv_services"
+            formControlName="conditions_inv_services"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('conditions_inv_services').invalid &&
+              programForm.get('conditions_inv_services').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Conditions for Investment Services is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="opportunity__program__infos"
+            >Opportunity Program Infos:</label
+          >
+          <input
+            id="opportunity__program__infos"
+            formControlName="opportunity__program__infos"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('opportunity__program__infos').invalid &&
+              programForm.get('opportunity__program__infos').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Opportunity Program Infos is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="property_Promissory_note"
+            >Property Promissory Note:</label
+          >
+          <input
+            id="property_Promissory_note"
+            formControlName="property_Promissory_note"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('property_Promissory_note').invalid &&
+              programForm.get('property_Promissory_note').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Property Promissory Note is required.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="beneficiary_promissory_note"
+            >Beneficiary Promissory Note:</label
+          >
+          <input
+            id="beneficiary_promissory_note"
+            formControlName="beneficiary_promissory_note"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('beneficiary_promissory_note').invalid &&
+              programForm.get('beneficiary_promissory_note').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger"
+              >Beneficiary Promissory Note is required.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="sukk_document">Sukuk Document:</label>
+          <input
+            id="sukk_document"
+            formControlName="sukk_document"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('sukk_document').invalid &&
+              programForm.get('sukk_document').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Sukuk Document is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div>
+          <label for="ruling_regime">Ruling Regime:</label>
+          <input
+            id="ruling_regime"
+            formControlName="ruling_regime"
+            type="text"
+            class="form-control custom-input"
+          />
+          <div
+            *ngIf="
+              programForm.get('ruling_regime').invalid &&
+              programForm.get('ruling_regime').touched
+            "
+            class="error-message"
+          >
+            <small class="text-danger">Ruling Regime is required.</small>
+          </div>
+        </div>
+      </div>
+     <div class="col-md-6 col-12">
+  <div>
+    <label for="subs_mony_Retur">Subs Money Return:</label>
+    <input
+      id="subs_mony_Retur"
+      formControlName="subs_mony_Retur"
+      type="text"
+      class="form-control custom-input"
+    />
+    <div
+      *ngIf="
+        programForm.get('subs_mony_Retur')?.invalid &&
+        programForm.get('subs_mony_Retur')?.touched
+      "
+      class="error-message"
+    >
+      <small class="text-danger">
+        Subs Money Return must be a valid input.
+      </small>
+    </div>
+  </div>
+</div>
+
+    </div>
+    <div>
+      <label for="Risk_factors">Risk Factors:</label>
+      <input
+        id="Risk_factors"
+        formControlName="Risk_factors"
+        type="text"
+        class="form-control custom-input"
+      />
+      <div
+        *ngIf="
+          programForm.get('Risk_factors').invalid &&
+          programForm.get('Risk_factors').touched
+        "
+        class="error-message"
+      >
+        <small class="text-danger">Risk Factors is required.</small>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="dismiss()">
+    Cancel
+  </button>
+  <button
+    type="button"
+    class="my-3 btn btn-primary valid-button"
+    *ngIf="programForm.valid"
+    (click)="save()"
+  >
+    Save
+  </button>
+</div>

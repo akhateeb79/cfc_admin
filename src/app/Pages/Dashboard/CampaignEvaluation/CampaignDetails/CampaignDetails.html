@@ -1,0 +1,679 @@
+<section class="container-fluid tabs px-0 row">
+    <ul class="nav nav-tabs col-md-2">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#kyc">
+                <span>{{LANG.KYC}}</span>
+            </a>
+        </li>
+        <li class="nav-item" (click)="showCampaign()">
+            <a class="nav-link " data-toggle="tab" href="#campaign">
+                <span>{{LANG.Campaign}}</span>
+            </a>
+        </li>
+        <li class="nav-item" *ngFor="let data of details?.evaluation;let i=index" (click)="changeTab(data)">
+            <a class="nav-link" data-toggle="tab" href="#evaluation">
+                <span>{{data.title}}</span>
+            </a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-2">
+                <span>Risk Assessment</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-3">
+                <span>Financial Assessment</span>
+            </a>
+        </li> -->
+        <li class="nav-item" (click)="showDashboard()">
+            <a class="nav-link " data-toggle="tab" href="#tab-4">
+                <span>{{LANG.Dashboard}}</span>
+            </a>
+        </li>
+        <li class="nav-item" (click)="showInvestorStatements()" *ngIf="details?.investor_detail?.role_type == user_data?.role_type && details?.investorCount != 0">
+            <a class="nav-link " data-toggle="tab" href="#investor_statement">
+                <span>{{LANG.Investment_Details}}</span>
+            </a>
+        </li>
+        <li class="nav-item" (click)="showLoan()" *ngIf="details?.loan?.role_type == user_data?.role_type && details?.loan?.activity != 0">
+            <a class="nav-link " data-toggle="tab" href="#tab-5">
+                <span>{{LANG.Loan_Management}}</span>
+            </a>
+        </li>
+
+        <!-- <li class="nav-item" (click)="showInvestorStatements()">
+            <a class="nav-link " data-toggle="tab" href="#investor_statement">
+                <span>{{LANG.investor_statement}}</span>
+            </a>
+        </li>
+        <li class="nav-item" (click)="showLoan()">
+            <a class="nav-link " data-toggle="tab" href="#tab-5">
+                <span>{{LANG.Loan_Management}}</span>
+            </a>
+        </li> -->
+
+        <!-- <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-5">
+                <span>Business Planning Readiness</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-6">
+                <span>Human Capital Enablers</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-7">
+                <span>Structural Capital Readiness</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-8">
+                <span>Structural Capital Readiness</span>
+            </a>
+        </li> -->
+
+    </ul>
+
+    <div class="tab-content col-md-10 ml-0">
+        <div class="tab-pane" id="evaluation">
+            <div class="tab-background col-md-12" *ngIf="evaluation_details?.rank_type == 1 && graph_data_loaded">
+                <div class="row">
+                    <div class="col-md-6 business">
+                        <h2 class="pb-4">{{evaluation_details.title}}</h2>
+                        <!-- <p>Short by Attribute :
+                            <span> <b></b> Readiness</span>
+                            <span> <b></b> Weight</span>
+                        </p> -->
+                        <div id="chart1"></div>
+                    </div>
+                    <div class="col-md-6 business-right">
+                        <div class="weight" *ngFor="let data of evaluation_details?.category;let i=index;">
+                            <h5>{{data.title}}</h5>
+                            <div class="form-group" *ngFor="let items of data.detail;let j = index">
+                                <label for="customRange3" class="form-label">{{items.title}}</label>
+                                <div class="position-relative mt-4">
+                                    <span class="min">{{items.minrange}}</span>
+                                    <input type="range" class="form-range w-100" name="range{{i}}{{j}}" min="{{items.minrange}}" max="{{items.maxrange}}" step="1" [value]="0" [(ngModel)]="items.value" (focus)="storeOriginalValue(items.value)" (change)="rangeChanged(items);onFieldChange(items.title, $event.target.value)" [disabled]="evaluation_details?.activity != 1 || evaluation_details?.role_type != user_data?.role_type">
+                                    <span class="max">{{items.maxrange}}</span>
+                                </div>
+                                <span class="error" *ngIf="items.required">{{LANG.This_field_is_required}}</span>
+                                <p *ngIf="items.value > 0">{{LANG.Selected_value}} {{items.value}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="evaluation_details?.activity == 1 && evaluation_details?.role_type == user_data?.role_type">
+                            <button  *ngIf="!load" class="btn apply-btn w-100" (click)="applyRanges()">{{LANG.APPLY_DATA}}</button>
+                            <button *ngIf="load" class="btn apply-btn w-100 loader-btn"><loader></loader></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-background col-md-12" *ngIf="evaluation_details?.rank_type == 2 && risk_graph_data_loaded">
+                <div class="row">
+                    <div class="col-md-6 business">
+                        <h2>{{evaluation_details.title}}</h2>
+                        <div id="chart2"></div>
+                    </div>
+                    <div class="col-md-6 business-right pr-0">
+                        <div class="weight weight-1" *ngFor="let data of evaluation_details?.category;let i=index;">
+                            <h5>{{data.title}}</h5>
+                            <div class="form-group" *ngFor="let items of data?.detail;let j=index;">
+                                <label>{{items.title}}</label>
+                                <div class="low-btn">
+                                    <div class="row">
+                                        <div class="col-md-3 low-btn-wrapper" *ngFor="let cat of risk_cat;">
+                                            <button class="btn" [class.active]="items.value == cat.value" (click)="selectRiskCat(items,cat)">{{cat.title}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="error" *ngIf="items.required">{{LANG.This_field_is_required}}</span>
+                            </div>
+                            <div *ngIf="evaluation_details?.activity == 1 && evaluation_details?.role_type == user_data?.role_type">
+                                <button  *ngIf="!load" class="btn apply-btn w-100" (click)="applyRiskData()">{{LANG.APPLY_DATA}}</button>
+                                <button *ngIf="load" class="btn apply-btn w-100 loader-btn"><loader></loader></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-background col-md-12" *ngIf="evaluation_details?.rank_type == 3">
+                <div class="business risk-assesment text-center">
+                    <h2>{{evaluation_details.title}}</h2>
+                    <div class="distress zone">
+                        <div class="zone-wrapper">
+                            <p *ngFor="let data of evaluation_details?.category">{{data.title}}</p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4 zone1" *ngFor="let data of evaluation_details?.category"></div>
+
+                            </div>
+                        </div>
+                        <div class="zone-last">
+                            <!-- <div class="border"></div> -->
+                            <input type="range" name="fin_minmax" class="w-100" (change)="onFieldChange('fin_minmax', $event.target.value)" (focus)="storeOriginalValue(fin_minmax)" [(ngModel)]="fin_minmax" min="{{fin_min}}" max="{{fin_max}}" step=".1" [disabled]="evaluation_details?.activity != 1 || evaluation_details?.role_type != user_data?.role_type">
+                            <div class="zone-wrapper">
+                                <span *ngFor="let data of min_max;">{{data}}</span>
+                            </div>
+                            <h4 class="mt-3 text-left">{{LANG.Selected_value}} {{fin_minmax}}</h4>
+                            <!-- <div class="tooltip-cont"><span> 3.2</span></div> -->
+                        </div>
+                    </div>
+                    <div *ngIf="evaluation_details?.activity == 1 && evaluation_details?.role_type == user_data?.role_type">
+                        <button *ngIf="!load" class="btn apply-btn loader-btn" [disabled]="fin_minmax <=  0" (click)="applyFinancial()">{{LANG.APPLY_DATA}}</button>
+                        <button *ngIf="load" class="btn apply-btn loader-btn"><loader></loader></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab-4">
+            <div class=" col-md-12 tab-graph" *ngIf="show_dashboard">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row graph-row">
+                            <div class="col-md-6" *ngFor="let data of details?.evaluation;let i=index;">
+                                <div class="graph-wrapper">
+                                    <h5>{{data.title}}</h5>
+                                    <!-- <canvas id="oilChart" height="80"></canvas> -->
+                                    <div id="dash-chart{{i}}"></div>
+                                    <!-- <a href="#">KNOW MORE</a> -->
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <div class="graph-wrapper">
+                                    <h5>Human Capital</h5>
+                                    <canvas id="oilChart1" height="80"></canvas>
+                                    <a href="#">KNOW MORE</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="graph-wrapper">
+                                    <h5>Structural Capital</h5>
+                                    <canvas id="oilChart2" height="80"></canvas>
+                                    <a href="#">KNOW MORE</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="graph-wrapper">
+                                    <h5>Relational Capital</h5>
+                                    <canvas id="oilChart3" height="80"></canvas>
+                                    <a href="#">KNOW MORE</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="graph-wrapper">
+                                    <h5>Risk Assessment</h5>
+                                    <canvas id="oilChart4" height="80"></canvas>
+                                    <a href="#">KNOW MORE</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="graph-wrapper">
+                                    <h5>Financial Assessment</h5>
+                                    <div class="safe">3.2 <span>Safe</span></div>
+                                    <a href="#">KNOW MORE</a>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="opportunity">
+                            <h2>Opportunity data overview</h2>
+                            <div id="chart2-1"></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane statements-data" id="tab-5">
+            <div class="business tab-background col-md-12" *ngIf="show_loan_statement">
+                <!-- <div class="d-flex">
+                    <button *ngIf="!loan_loading" type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addLoan()">
+                        <i class="fa fa-plus-circle"></i> {{LANG.Apply_Loan}}</button>
+                    <button *ngIf="loan_loading" type="button" class="btn btn-info d-none d-lg-block m-l-15"><loader></loader></button>
+                    <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addNewLoan()"><i
+                        class="fa fa-plus-circle"></i> {{LANG.Create_New}}</button>
+                </div> -->
+                <ul class="nav nav-tabs statements mt-4" *ngIf="data_loaded">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#loan_management">
+                            <span>{{LANG.Loan_Management}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#borrower" (click)="loadDataTable(1)">
+                            <span>{{LANG.Borrowers}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#investors" (click)="loadDataTable(2)">
+                            <span>{{LANG.Investors}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#organizers">
+                            <span>{{LANG.Organizers}}</span>
+                        </a>
+                    </li>
+
+                </ul>
+                    <div class="tab-content ml-0">
+                        <div class="tab-pane show active" id="loan_management">
+                            <app-add-loan [product_id]="details?.campaign?.product_id" [opportunity_id]="details?.campaign?.id" [apply_loan_status]="details?.apply_loan_status" [loan_id]="details?.loan?.id" [loan_loading]="loan_loading" (onSubmit)="onSubmit($event)" (apply)="apply($event)"></app-add-loan>
+                        </div>
+
+
+                        <div class="tab-pane" id="borrower" *ngIf="loanDetails.borrower_statement.length > 0">
+                            <div class="tab-background col-md-12 p-0">
+                                <div class="table-responsive">
+                                    <table id="borrowers"
+                                        class="display nowrap table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Due Date</th>
+                                                <th>Principle Expected</th>
+                                                <th>Interest Expected</th>
+                                                <th>Fees Expected</th>
+                                                <th>Tax Expected</th>
+                                                <th>Total Expected</th>
+                                                <th>Principle Paid</th>
+                                                <th>Interest Paid</th>
+                                                <th>Fees Paid</th>
+                                                <th>Total Paid</th>
+                                                <th>Paid Date</th>
+                                                <th>Principle Due</th>
+                                                <th>Interest Due</th>
+                                                <th>Fees Due</th>
+                                                <th>Total Due</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of loanDetails.borrower_statement; let i=index;">
+                                                <td>{{data.due_date | date:'mediumDate'}}</td>
+                                                <td>{{data.principle_expected}}</td>
+                                                <td>{{data.interest_expected}}</td>
+                                                <td>{{data.fees_expected}}</td>
+                                                <td>{{data.tax_expected}}</td>
+                                                <td>{{data.total_expected}}</td>
+                                                <td>{{data.principle_paid ? data.principle_paid : '-'}}</td>
+                                                <td>{{data.interest_paid ? data.interest_paid : '-'}}</td>
+                                                <td>{{data.fees_paid ? data.fees_paid : '-'}}</td>
+                                                <td>{{data.total_paid ? data.total_paid : '-'}}</td>
+                                                <td>{{data.paid_date ?  (data.paid_date | date:'mediumDate') : '-'}}</td>
+                                                <td>{{data.principle_due ? data.principle_due : '-'}}</td>
+                                                <td>{{data.interest_due ? data.interest_due : '-'}}</td>
+                                                <td>{{data.fees_due ? data.fees_due : '-'}}</td>
+                                                <td>{{data.total_due ? data.total_due : '-'}}</td>
+                                                <td>{{data.status == '0' ? 'Pending' : 'Paid'}}</td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="investors" *ngIf="loanDetails.investor_statement.length > 0">
+                            <div class="tab-background col-md-12 p-0">
+                                <div class="table-responsive">
+                                    <table id="investor"
+                                        class="display nowrap table table-hover table-striped table-bordered" style="width: 100% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th>{{LANG.Due_Date}}</th>
+                                                <th>{{LANG.Principle_Amount}}</th>
+                                                <th>Fees</th>
+                                                <th>Tax</th>
+                                                <th>{{LANG.Profit_Amount}}</th>
+                                                <th>{{LANG.Total_Amount}}</th>
+                                                <!-- <th>Level</th> -->
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of loanDetails.investor_statement; let i=index;">
+                                                <td>{{data.date | date:'mediumDate'}}</td>
+                                                <td>{{data.principle}}</td>
+                                                <td>{{data.fees}}</td>
+                                                <td>{{data.tax}}</td>
+                                                <td>{{data.profit}}</td>
+                                                <td>{{data.total}}</td>
+                                                <td>
+                                                    <button (click)="pay(data.invester_id,data.campaign_id,data.date)" style="background-color: #310075;color: white;border: none;border-radius: 5px;
+                                                    padding: 5px 15px;">Pay</button>
+                                                </td>
+                                                <!-- <td>
+                                                    <button (click)="Acceptance(data.campaign_id)" style="background-color: #310075;color: white;border: none;border-radius: 5px;
+                                                    padding: 5px 15px;">approval</button>
+                                                </td> -->
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="organizers" *ngIf="loanDetails.organiser_statement.length > 0">
+                            <div class="tab-background col-md-12 p-0">
+                                <div class="table-responsive">
+                                    <table id="organizors"
+                                        class="display nowrap table table-hover table-striped table-bordered" style="width: 100% !important;">
+                                        <thead>
+                                            <tr>
+                                                <th>{{LANG.Investors_Expected_Profit}}</th>
+                                                <th>{{LANG.Organizers_Expected_Profit}}</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of loanDetails.organiser_statement; let i=index;">
+                                                <td>{{data.invester_profit_expected}}</td>
+                                                <td>{{data.organiser_profit_expected}}</td>
+
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="business tab-background col-md-12" *ngIf="show_add_loan">
+                <app-add-loan [product_id]="details?.campaign?.product_id" [opportunity_id]="details?.campaign?.id" [apply_loan_status]="details?.apply_loan_status" [loan_id]="details?.loan?.id" [loan_loading]="loan_loading" (onSubmit)="onSubmit($event)" (apply)="apply($event)"></app-add-loan>
+            </div>
+
+
+        </div>
+        <!-- <div class="tab-pane active" id="kyc">
+            <div class="business tab-background tab-pad col-md-12">
+                <ng-container *ngFor="let data of details?.kyc">
+                    <h2>{{data.title}}</h2>
+                    <div class="weight pb-0">
+                        <ng-container *ngFor="let item of data.info_type;let j=index;">
+                            <p>{{item.title}}</p>
+                            <div class="row">
+                                <ng-container *ngFor="let fields of item.detail;let k=index;">
+                                    <div class="form-group col-md-6">
+                                        <label>{{fields.title}}</label>
+                                        <input *ngIf="fields.type == field_types.Email || fields.type == field_types.Mobile || fields.type == field_types.Characters || fields.type == field_types.Number" type="text" class="form-control" placeholder="{{fields.title}}"  name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value" disabled>
+                                        <input *ngIf="fields.type == field_types.Date" type="date" class="form-control" placeholder="{{fields.title}}"  name="field{{i}}{{j}}{{k}}" [(ngModel)]="fields.value" disabled>
+                                        <textarea *ngIf="fields.type == field_types.Textarea" class="form-control" placeholder="Tell about your {{fields.title}}" name="textarea{{i}}{{j}}{{k}}" [(ngModel)]="fields.value" disabled></textarea>
+                                        <div class="row campaign-row" *ngIf="fields.type == field_types.Yes_No">
+                                            <div class="form-check">
+                                                <div class="radio-1">
+                                                    <input type="radio" class="radio-buttons" id="yes{{i}}{{j}}{{k}}" name="field{{i}}{{j}}{{k}}" value="{{fields.value}}" [checked]="fields.value == '1'">
+                                                    <label name="gender" for="yes{{i}}{{j}}{{k}}">Yes</label>
+                                                </div>
+                                                <div class="radio-2">
+                                                    <input type="radio" class="radio-buttons" id="no{{i}}{{j}}{{k}}" name="field{{i}}{{j}}{{k}}" value="{{fields.value}}" [checked]="fields.value == '0'">
+                                                    <label name="gender" for="no{{i}}{{j}}{{k}}">No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="fields.type == field_types.Fileupload">
+                                            <div class="add-image">
+                                                <span *ngIf="fields.value">
+                                                    <img src="{{fields.value}}" class="">
+                                                </span>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </ng-container>
+
+            </div>
+        </div> -->
+        <div class="tab-pane active" id="campaign">
+            <div class="tab-background col-md-12">
+                <div class="weight">
+                    <div class="row">
+                        <ng-container *ngFor="let data of campaign_details;let i=index">
+                            <div class="form-group col-md-6" *ngIf="data?.value">
+                                <label class="title-case">{{data.title}}</label>
+                                <input type="text" class="form-control" (change)="onFieldChange(data.title, $event.target.value)" (focus)="storeOriginalValue(data.value)" placeholder="Enter {{data.title}}" [(ngModel)]="data.value" disabled>
+                            </div>
+                        </ng-container>
+                        <div class="col-md-12" *ngIf="details?.campaign?.campaign_images?.length > 0">
+                            <label class="title-case">{{LANG.Campaign_Images}}</label>
+                            <div class="row">
+                                <div class="add-image col-md-4" *ngFor="let images of details?.campaign?.campaign_images;let i=index">
+                                    <span *ngIf="images.image">
+                                        <img src="{{images.image}}" class="">
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12" *ngIf="details?.campaign?.team?.length > 0">
+                            <label class="title-case">{{LANG.Team}}</label>
+                            <ng-container *ngFor="let data of details.campaign.team;let i=index">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="title-case">{{data.title}}</label>
+                                        <input type="text" class="form-control" (change)="onFieldChange(data.title, $event.target.value)" (focus)="storeOriginalValue(data.name)" placeholder="{{LANG.Enter}} {{data.title}}" [(ngModel)]="data.name" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="title-case">{{data.title}}</label>
+                                        <input type="text" class="form-control" (change)="onFieldChange(data.title, $event.target.value)" (focus)="storeOriginalValue(data.designation)" placeholder="{{LANG.Enter}} {{data.title}}" [(ngModel)]="data.designation" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="add-image">
+                                            <span *ngIf="data.image">
+                                                <img src="{{data.image}}" class="">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </ng-container>
+
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="col-md-8 p-0 mb-5" *ngIf="details?.campaign && details?.campaign?.approved_status == '1' && details?.campaign_product?.role_type == user_data?.role_type &&  details?.campaign_product?.activity == 1">
+                                <select class="form-control" name="product_id" [(ngModel)]="product_id" [disabled]="details?.campaign?.product_id">
+                                    <option value="" selected disabled>{{LANG.Select_Product}}</option>
+                                    <option *ngFor="let data of productList;" value="{{data.id}}">{{data.title}}</option>
+                                </select>
+
+
+                            </div>
+
+                            <div *ngIf="details?.campaign && details?.campaign?.approved_status == '1' && details?.campaign_product?.role_type == user_data?.role_type && productListDisplay== true &&  details?.campaign_product?.activity == 1 ">
+                                <input (change)="onFieldChange('close date', $event.target.value)" (focus)="storeOriginalValue(close_date)" type="date" class="form-control form-size" placeholder="Enter close date" [(ngModel)]="close_date">
+                                <button class="btn btn-primary"  (click)="changeDate()">change close date    </button>
+                            </div>
+                            <div *ngIf="details?.campaign && details?.campaign?.approved_status == '1' && details?.campaign_product?.role_type == user_data?.role_type && productListDisplay==true &&  details?.campaign_product?.activity == 1 ">
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Minimum investment</label>
+                                    <input (change)="onFieldChange('Minimum investment', $event.target.value)" (focus)="storeOriginalValue(min)" type="text" class="form-control" placeholder="Enter minimum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="min" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Maximum Investment</label>
+                                    <input (change)="onFieldChange('Maximum Investment', $event.target.value)" (focus)="storeOriginalValue(max)" type="text" class="form-control" placeholder="Enter maximum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="max" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="details?.campaign_pulisher?.role_type == user_data?.role_type && details?.campaign?.status != 1 && details?.campaign?.approved_status == 1 && details?.campaign?.product_id ">
+                                <input type="date" (change)="onFieldChange('close date', $event.target.value)" (focus)="storeOriginalValue(close_date)" class="form-control  form-size" placeholder="Enter close date" [(ngModel)]="close_date">
+                                <button class="btn btn-primary"  (click)="changeDate()">change close date    </button>
+                            </div>
+                            <div *ngIf="details?.campaign_pulisher?.role_type == user_data?.role_type && details?.campaign?.status != 1 && details?.campaign?.approved_status == 1 && details?.campaign?.product_id">
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Minimum investment</label>
+                                    <input type="text" (change)="onFieldChange('Minimum investment', $event.target.value)" (focus)="storeOriginalValue(min)" class="form-control" placeholder="Enter minimum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="min" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Maximum Investment</label>
+                                    <input type="text" (change)="onFieldChange('Maximum investment', $event.target.value)" (focus)="storeOriginalValue(max)" class="form-control" placeholder="Enter maximum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="max" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="details?.campaign?.status==1">
+                                <input type="date" (change)="onFieldChange('close date', $event.target.value)" (focus)="storeOriginalValue(close_date)" class="form-control  form-size" placeholder="Enter close date" [(ngModel)]="close_date">
+                                <button  class="btn btn-primary" (click)="changeDate()">change close date    </button>
+                            </div>
+                            <div *ngIf="details?.campaign?.status==1">
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Minimum investment</label>
+                                    <input (change)="onFieldChange('Minimum investment', $event.target.value)"  (focus)="storeOriginalValue(min)" type="text" class="form-control" placeholder="Enter minimum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="min" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                                <div class="form-group col-md-6" >
+                                    <label class="title-case">Maximum Investment</label>
+                                    <input (change)="onFieldChange('Maximum investment', $event.target.value)" (focus)="storeOriginalValue(max)" type="text" class="form-control" placeholder="Enter maximum investment" [value]="details?.campaign?.min_investment" [(ngModel)]="max" [disabled]="details?.campaign_product?.activity == 2" >
+                                </div>
+
+                            </div>
+
+<!--
+
+                                <div class="form-group col-md-6 row"   >
+                                    <label class="title-case">Select closing date</label>
+
+                                    <div class="btn-class">
+
+                                </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12 mb-3" *ngIf="details?.campaign?.approved_status == 1 ">
+                                    <div class="skip">
+                                        <span class="status">{{LANG.Status}}:
+                                            <span class="text-success" style="font-weight: 600;">Approved</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="details?.campaign?.role_type == user_data?.role_type || details?.campaign_product?.role_type == user_data?.role_type || details?.campaign_pulisher?.role_type == user_data?.role_type">
+                                    <div class="button-wrapper col-md-4 mt-0" *ngIf="details?.campaign?.role_type == user_data?.role_type && details?.campaign?.approved_status != 1">
+                                        <button *ngIf="!load" class="btn success" (click)="approveRejectKYC('1',1);setActionType('Approve')">{{LANG.Approve}}</button>
+                                        <button *ngIf="load" class="btn success loader-btn"><loader></loader></button>
+                                    </div>
+                                    <div class="button-wrapper col-md-4 mt-0" *ngIf="details?.campaign_pulisher?.role_type == user_data?.role_type && details?.campaign?.status != 1 && details?.campaign?.approved_status == 1 && details?.campaign?.product_id">
+                                        <button *ngIf="!load" class="btn success" (click)="approveRejectKYC('1',1);setActionType('Publish')">{{LANG.Publish}}</button>
+                                        <button *ngIf="load" class="btn success loader-btn"><loader></loader></button>
+                                    </div>
+                                    <div class="button-wrapper col-md-4 mt-0" *ngIf="details?.campaign_product?.role_type == user_data?.role_type && !details?.campaign?.product_id && details?.campaign_product?.activity == 1">
+                                        <button *ngIf="!load" class="btn success" (click)="approveRejectKYC('1',1);setActionType('Approve')">{{LANG.Approve}}</button>
+                                        <button *ngIf="load" class="btn success loader-btn"><loader></loader></button>
+                                    </div>
+                                    <div class="button-wrapper col-md-4 mt-0" *ngIf="details?.campaign?.approved_status != 1"><button class="btn cancel" data-toggle="modal" data-target="#reject" [disabled]="load" (click)="reject(1)">{{LANG.Reject}}</button></div>
+
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="investor_statement">
+            <div class="tab-background col-md-12 p-0">
+                <section class="container-fluid sec6">
+                    <div>
+
+                        <div class="col-md-12 project mx-auto">
+                            <div class="row project-row">
+                                <div class="col-md-3 col-6">
+                                    <div class="count">
+                                        <h4>{{investor_data.no_of_invested}}</h4>
+                                        <p>{{LANG.No_Of_Investors}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="count count1">
+                                        <h4>{{investor_data.invested| number:'1.2'}} SAR</h4>
+                                        <p>{{LANG.Total_Investment}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="count count2">
+                                        <h4>{{investor_data.investment_required | number:'1.2'}} SAR</h4>
+                                        <p>{{LANG.Required_Investment}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="count count3">
+                                        <h4>{{investor_data.remaining_investment | number:'1.2'}} SAR</h4>
+                                        <p>{{LANG.Remaining_Investment}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="table-responsive">
+                    <table
+                        class="display nowrap table table-hover table-striped table-bordered" style="width: 100% !important;">
+                        <thead>
+                            <tr>
+                                <th>{{LANG.date}}</th>
+                                <th>{{LANG.invester_name}}</th>
+                                <th>{{LANG.Mobile_Number}}</th>
+                                <th>{{LANG.Email}}</th>
+                                <th>{{LANG.invested_amount}}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of investor_statement; let i=index;">
+                                <td>{{data.date | date:'mediumDate'}}</td>
+                                <td>{{data.invester_name}}</td>
+                                <td>{{data.mobile_number}}</td>
+                                <td>{{data.email}}</td>
+                                <td>{{data.amount}}</td>
+
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+<div class="modal fade" id="reject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reject">{{LANG.Reject}} {{rejection_data?.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                    <div class="form-group col-md-12">
+                        <label>{{LANG.Reason_for_rejection}}</label>
+                        <textarea type="text"  class="form-control" placeholder="{{LANG.Reason}}"  name="reason" [(ngModel)]="reason" (focus)="storeOriginalValue(reason)"(change)="onFieldChange(LANG.Reason_for_rejection, $event.target.value)"></textarea>
+                    </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary loader-btn" data-dismiss="modal" [disabled]="load">{{LANG.Close}}</button>
+          <button type="button" class="btn btn-primary loader-btn w-50" *ngIf="!load" (click)="approveRejectKYC('2');setActionType('Reject')">{{LANG.Save_changes}}</button>
+          <button type="button" *ngIf="load" class="btn btn-primary loader-btn w-50"><loader></loader></button>
+
+
+        </div>
+      </div>
+    </div>
+</div>

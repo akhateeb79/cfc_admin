@@ -1,0 +1,28 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+    z-index: 9999; /* Ensure the spinner is on top of other content */
+  }
+  
+  .custom-spinner {
+    border: 8px solid #f3f3f3;  /* Light gray color */
+    border-top: 8px solid rgb(60, 13, 124); /* Blue color for the spinner */
+    border-radius: 50%;
+    width: 50px; /* Set the size of the spinner */
+    height: 50px;
+    animation: spin 2s linear infinite; /* Create the spinning animation */
+  }
+  
+  /* Define the spinning animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

@@ -1,0 +1,58 @@
+<div class="container">
+    <h1>Transfer Between two Accounts</h1>
+
+    <div class="form-group">
+        <label for="accountNumber">Select Account Number to transfer from:</label>
+        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="fromAccount">
+            <option *ngFor="let account of fromAccounts" [value]="account">
+                {{ account }}
+            </option>
+        </select>
+    </div>
+    <div class="form-group" *ngIf="userList.length>0">
+        <label for="user">Select a user to transfer to:</label>
+        <select id="user" name="user" class="form-control" [(ngModel)]="toAccount" (change)="pickedUser()">
+            <option *ngFor="let account of userList" [value]="account.id">
+                {{ account.name }}
+            </option>
+        </select>
+    </div>
+    <div *ngIf="toAccount" class="content">ID:{{ this.pickedAccountData?.user_id||'' }}</div>
+    <div *ngIf="toAccount" class="content">Name: {{ this.pickedAccountData?.name||'' }}</div>
+    <div *ngIf="toAccount" class="content">Account Number: {{ this.pickedAccountData?.creditAccount||'' }}</div>
+    <div *ngIf="toAccount" class="content">Bank: {{ this.pickedAccountData?.bank||'' }}</div>
+    <div class="form-group" *ngIf="toAccount">
+        <label for="bank">Choose the user's bank: (must be same as user bank)</label>
+        <select id="bank" name="bank" class="form-control" [(ngModel)]="pickedBank" (change)="selectedBank()">
+            <option *ngFor="let bank of banks" [value]="bank.bic">
+                {{ bank.nameAr }}
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="debitAccount">Enter Amount:</label>
+        <input type="number" id="amount" name="amount" class="form-control" step="1" oncopy="return false;"
+            oncut="return false;" onpaste="return false;" [min]="1" (keydown)="validateKey($event)"
+            [(ngModel)]="amount" />
+    </div>
+    <button [disabled]="amount==0||amount==null||toAccount==null||fromAccount==null||pickedBank==null"
+        class="btn btn-primary" style="margin-bottom: 20px;" (click)="transferBalance()">
+        Transfer Amount
+    </button>
+    <div *ngIf="info">
+        <div *ngIf="info?.status=='INITIATED'" class="accepted">Status: {{ info?.status }}</div>
+    <div *ngIf="info?.status!='INITIATED'" class="warn">Status: {{ info?.status }}</div>
+    <hr>
+    </div>
+    
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="info" class="content">ID:{{ info.id }}</div>
+    <div *ngIf="info" class="content">Sequence Number: {{ info.sequenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Reference Number: {{ info.transactionReferenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Comment: {{ info.transactionComment }}</div>
+    <div *ngIf="info" class="content">External Reference Number: {{ info.externalReferenceNumber }}</div>
+    <div *ngIf="info" class="content">Transaction Comment: {{ info.transactionComment }}</div>
+    <div *ngIf="info" class="content">createdAt: {{ info.createdAt }}</div>
+    <div *ngIf="info" class="content">updatedAt: {{ info.updatedAt }}</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+</div>

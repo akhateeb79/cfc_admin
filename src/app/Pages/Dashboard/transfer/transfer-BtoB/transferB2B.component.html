@@ -1,0 +1,119 @@
+<ng-container *ngIf="itemId === 1">
+
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <!-- Show New Request button only in the initiated section -->
+    <div class="mt-4">
+      <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-request-form [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-request-form> </ng-container>
+    </div>
+
+  </div>
+
+</ng-container>
+
+
+
+
+
+
+<ng-container *ngIf="itemId === 2">
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <div class="mt-4"> <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-request-formb2c [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-request-formb2c>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="itemId === 3">
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <div class="mt-4"> <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-app-request-formb2-prtner [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-app-request-formb2-prtner>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+
+
+
+
+<ng-container *ngIf="itemId === 4">
+
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <div class="mt-4">
+      <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-fund-processing [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-fund-processing> </ng-container>
+    </div>
+
+  </div>
+
+</ng-container>
+
+
+
+
+
+<ng-container *ngIf="itemId === 5">
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <div class="mt-4"> <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-refund-incomplete-opportunity [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-refund-incomplete-opportunity>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="itemId === 6">
+  <div class=" my-5 p-4 bg-light shadow-sm rounded">
+    <div class="mt-4">
+      <ng-container *ngIf="!isInInitiatedSection">
+        <app-our-requests [requestData]="requestData"
+          (requestDataChange)="handleRequestDataChange($event)"></app-our-requests>
+      </ng-container>
+      <ng-container *ngIf="isInInitiatedSection">
+        <app-pay [itemId]="itemId" [approvalLevelId]="approvalLevelId"
+          (requestDataChange)="handleRequestDataChange($event)">
+          <app-our-requests [requestData]="requestData"></app-our-requests>
+        </app-pay> </ng-container>
+    </div>
+
+  </div>
+
+</ng-container>

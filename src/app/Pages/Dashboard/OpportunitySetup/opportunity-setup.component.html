@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">{{LANG.Opportunity_setup}}</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                    <li class="breadcrumb-item active">{{LANG.Opportunity_setup}}</li>
+                </ol>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-6">
+                        <div class="form-group has-success">
+                            <label class="control-label">{{LANG.Opportunity_List}}</label>
+                            <select class="form-control custom-select"
+                                name="opportunity_id"
+                                [(ngModel)]="opportunity_id"
+                            >
+                            <option value="" selected disabled>{{LANG.Select_Opportunity}}</option>
+                                <option *ngFor="let data of opportunity_list;let i = index" value="{{data.id}}">{{data.tagline}}</option>
+                            </select>
+                            <span class="error" *ngIf="opportunity_error">{{LANG.This_field_is_required}}</span>
+            
+                        </div>
+                    </div>
+                    <div class="row attributes mt-3" *ngFor="let data of post_data;let i = index">
+                        <div class="col-md-4 static" >
+                          <h3>{{data.title}}</h3>
+                         
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group has-success">
+                                <label class="control-label">Step</label>
+
+                                <select
+                                    class="form-control custom-select"
+                                    name="steps{{i}}"
+                                    [(ngModel)]="data.steps"
+                                >
+                                <!-- <option value="" selected disabled>{{LANG.Select_Loan_Type}}</option> -->
+                                    <option *ngFor="let data of steps">{{data}}</option>
+
+                                </select>
+                                <!-- <span class="error" *ngIf="error.loan_type_error">{{LANG.This_field_is_required}}</span> -->
+            
+                            </div>
+        
+                          
+                         
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group has-success">
+                                <label class="control-label">Role</label>
+
+                                <select
+                                    class="form-control custom-select"
+                                    name="role{{i}}"
+                                    [(ngModel)]="data.role"
+                                >
+                                <option value="" selected disabled>{{LANG.Select_Role}}</option>
+                                    <option *ngFor="let data of roles" value="{{data.id}}">{{data.title}}</option>
+                                </select>
+                                <span class="error" *ngIf="data.role_error">{{LANG.This_field_is_required}}</span>
+            
+                            </div>
+        
+                          
+                         
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="col-md-12 text-center mt-3">
+                    <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="updateRole()">{{LANG.Add}}</button>
+                    <button class="btn btn-primary" *ngIf="load">                                
+                        <loader></loader>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

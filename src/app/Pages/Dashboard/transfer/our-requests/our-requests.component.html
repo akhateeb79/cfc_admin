@@ -1,0 +1,187 @@
+<ng-container *ngIf="userPermissions.includes('Approval') && userPermissions.includes('Approver') || userPermissions.includes('initiated')&& userPermissions.includes('Initiator') ">
+  <div class="mt-4">
+    <div *ngIf="paginatedRecords && paginatedRecords.length > 0; else noData">
+      <div class="card-columns">
+        <div class="card mb-4" *ngFor="let item of paginatedRecords">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <ng-container *ngIf="userPermissions.includes('preview') && userPermissions.includes('Reviewer')">
+                <button class="btn btn-link" (click)="Acceptance(item.id)">Reviewer</button>
+              </ng-container>
+              <ng-container *ngIf="userPermissions.includes('Approval') && userPermissions.includes('Approver')">
+                <button class="btn btn-link" (click)="approvallevel(item.id)">Approval</button>
+              </ng-container>
+            </div>
+            <h5 class="card-title">{{ item.userName }} <ng-container *ngIf=" userPermissions.includes('initiated') &&userPermissions.includes('Initiator')">
+                <button class="btn btn-link" (click)="tracking(item.id)"><i class="fas fa-check"></i></button>
+              </ng-container></h5>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" [style.width.%]="getProgressWidth(item.status)" [ngClass]="{
+      'bg-complete-rejected': item.status == 0,
+      'bg-complete-success': item.status == 1,
+      'bg-secondary': item.status == 2,
+      'bg-success': item.status == 3,
+      'bg-danger': item.status == 4
+    }" [attr.aria-valuenow]="getProgressWidth(item.status)" aria-valuemin="0" aria-valuemax="100">
+                {{ getProgressText(item.status) }}
+              </div>
+            </div>
+
+            <p class="card-text" *ngIf="item.amount"><strong>Amount:</strong> {{ item.amount }}</p>
+            <p class="card-text" *ngIf="item.createdAt"><strong>Created At:</strong> {{ item.createdAt | date:
+              'yyyy-MM-dd HH:mm:ss' }}</p>
+            <p class="card-text" *ngIf="item.updatedAt"><strong>Updated At:</strong> {{ item.updatedAt | date:
+              'yyyy-MM-dd HH:mm:ss' }}</p>
+
+            <p class="card-text" *ngIf="item.fromAccount"><strong>From Account:</strong> {{ item.fromAccount }}</p>
+            <p class="card-text" *ngIf="item.toAccount"><strong>To Account:</strong> {{ item.toAccount }}</p>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination Controls -->
+      <!-- <div class="pagination-controls d-flex justify-content-center mt-4">
+      <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span class="mx-3">{{ currentPage }} / {{ totalPages }}</span>
+      <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div> -->
+    </div>
+
+    <!-- No Data Template -->
+    <ng-template #noData>
+      <div class="alert alert-warning text-center mt-4" role="alert">
+        No WorkflowInstance data found.
+      </div>
+    </ng-template>
+  </div>
+</ng-container>
+
+
+
+
+<ng-container *ngIf="userPermissions.includes('preview') && userPermissions.includes('Reviewer')">
+  <div class="mt-4">
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#pending" role="tab">Pending</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#accepted" role="tab">Accepted</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#rejected" role="tab">Rejected</a>
+      </li>
+    </ul>
+
+    <!-- Tabs Content -->
+    <div class="tab-content">
+      <!-- Pending Tab -->
+      <div id="pending" class="tab-pane fade show active" role="tabpanel">
+        <ng-container *ngIf="getFilteredRecords(2).length > 0; else noPendingData">
+          <div class="card-columns">
+            <div class="card mb-4" *ngFor="let item of getFilteredRecords(2)">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.userName }}</h5>
+                <div class="progress-bar" role="progressbar" [style.width.%]="getProgressWidth(item.status)" [ngClass]="{
+      'bg-danger': item.status == 0,
+      'bg-success': item.status == 1,
+      'bg-secondary': item.status == 2,
+      'bg-success': item.status == 3,
+      'bg-danger': item.status == 4
+    }" [attr.aria-valuenow]="getProgressWidth(item.status)" aria-valuemin="0" aria-valuemax="100">
+                  {{ getProgressText(item.status) }}
+                </div>
+                <p class="card-text" *ngIf="item.amount"><strong>Amount:</strong> {{ item.amount }}</p>
+                <p class="card-text" *ngIf="item.fromAccount"><strong>From Account:</strong> {{ item.fromAccount }}</p>
+                <p class="card-text" *ngIf="item.toAccount"><strong>To Account:</strong> {{ item.toAccount }}</p>
+                <p class="card-text" *ngIf="item.createdAt"><strong>Created At:</strong> {{ item.createdAt | date:
+                  'yyyy-MM-dd HH:mm:ss' }}</p>
+                <p class="card-text" *ngIf="item.updatedAt"><strong>Updated At:</strong> {{ item.updatedAt | date:
+                  'yyyy-MM-dd HH:mm:ss' }}</p>
+
+                <ng-container *ngIf="userPermissions.includes('preview') && userPermissions.includes('Reviewer')">
+                  <button class="btn btn-link" (click)="Acceptance(item.id)">Reviewer</button>
+                </ng-container>
+                <ng-container *ngIf="userPermissions.includes('Approval') && userPermissions.includes('Approver')">
+                  <button class="btn btn-link" (click)="approvallevel(item.id)">Approval</button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noPendingData>
+          <div class="alert alert-warning text-center mt-4" role="alert">
+            No Pending data found.
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Accepted Tab -->
+      <div id="accepted" class="tab-pane fade" role="tabpanel">
+        <ng-container *ngIf="getFilteredRecords(1).length > 0; else noAcceptedData">
+          <div class="card-columns">
+            <div class="card mb-4" *ngFor="let item of getFilteredRecords(1)">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.userName }}</h5>
+                <div class="progress-bar" role="progressbar" [style.width.%]="getProgressWidth(item.status)" [ngClass]="{
+                  'bg-danger': item.status == 0,
+                  'bg-success': item.status == 1,
+                  'bg-secondary': item.status == 2,
+                  'bg-success': item.status == 3,
+                  'bg-danger': item.status == 4
+                }" [attr.aria-valuenow]="getProgressWidth(item.status)" aria-valuemin="0" aria-valuemax="100">
+                  {{ getProgressText(item.status) }}
+                </div>
+                <p class="card-text"><strong>Amount:</strong> {{ item.amount }}</p>
+                <p class="card-text"><strong>From Account:</strong> {{ item.fromAccount }}</p>
+                <p class="card-text"><strong>To Account:</strong> {{ item.toAccount }}</p>
+                <p class="card-text"><strong>Created At:</strong> {{ item.createdAt| date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                <p class="card-text"><strong>Updated At:</strong> {{ item.updatedAt| date:'yyyy-MM-dd HH:mm:ss' }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noAcceptedData>
+          <div class="alert alert-warning text-center mt-4" role="alert">
+            No Accepted data found.
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Rejected Tab -->
+      <div id="rejected" class="tab-pane fade" role="tabpanel">
+        <ng-container *ngIf="getFilteredRecords(0).length > 0; else noRejectedData">
+          <div class="card-columns">
+            <div class="card mb-4" *ngFor="let item of getFilteredRecords(0)">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.userName }}</h5>
+                <div class="progress-bar" role="progressbar" [style.width.%]="getProgressWidth(item.status)" [ngClass]="{
+                  'bg-complete-rejected': item.status == 0,
+                  'bg-complete-success': item.status == 1,
+                  'bg-secondary': item.status == 2,
+                  'bg-success': item.status == 3,
+                  'bg-danger': item.status == 4
+                }" [attr.aria-valuenow]="getProgressWidth(item.status)" aria-valuemin="0" aria-valuemax="100">
+                  {{ getProgressText(item.status) }}
+                </div>
+                <p class="card-text"><strong>Amount:</strong> {{ item.amount }}</p>
+                <p class="card-text"><strong>From Account:</strong> {{ item.fromAccount }}</p>
+                <p class="card-text"><strong>To Account:</strong> {{ item.toAccount }}</p>
+                <p class="card-text"><strong>Created At:</strong> {{ item.createdAt| date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                <p class="card-text"><strong>Updated At:</strong> {{ item.updatedAt| date:'yyyy-MM-dd HH:mm:ss' }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noRejectedData>
+          <div class="alert alert-warning text-center mt-4" role="alert">
+            No Rejected data found.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

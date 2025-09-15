@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_Admin}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{LANG.Add_Admin}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.IP}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="name"
+                      placeholder="{{LANG.Enter_Ip}}"
+                      [(ngModel)]="name"
+                    />
+                    <span class="error" *ngIf="error.name">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+
+
+              <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="AddIp()">{{id ? LANG.Update : LANG.Submit}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,160 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{id ? 'Add Section' : 'Edit Section'}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{id ? 'Add Section' : 'Edit Section'}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.TITLE}}</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      name="title"
+                      placeholder="{{LANG.Enter_Title}}"
+                      [(ngModel)]="title"
+                    />
+                    <span class="error" *ngIf="error.title">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1"
+                      >{{LANG.AR_TITLE}}</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control text-right"
+                      name="title_ar"
+                      placeholder="{{LANG.Enter_Ar_title}}"
+                      [(ngModel)]="title_ar"
+                    />
+                    <span class="error" *ngIf="error.title_ar">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+              <div class="row pb-3" *ngIf="type != '7' && type != '9'">
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">{{LANG.Image}}</label>
+                    <div class="add-image">
+                        <input type="file" (change)="changeImage($event)" id="fileInput" [disabled]="disabled_inputs" class="form-control">
+                        <div [class.image]="type != '0'" *ngIf="image">
+                            <img [src]="image" class="" *ngIf="type != '0'"> 
+                            <video width="400" controls *ngIf="type == '0'" class="video mt-2">
+                              <source [src]="image" id="video">
+                                Your browser does not support HTML5 video.
+                            </video>
+                            <ng-container *ngIf="progress && progress !== 100">
+                                <div class="text-center mt-2">
+                                  <progress max="100" [value]="progress"></progress>
+                                </div>
+                            </ng-container>   
+                        </div>
+                    </div>
+                    <!-- <span class="error mt-2 mb-5" *ngIf="error.image">{{LANG.This_field_is_required}}</span> -->
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group has-success">
+                    <label class="control-label">{{LANG.AR_Image}}</label>
+                    <div class="add-image">
+                        <input type="file" (change)="changeImage($event,1)" id="ar_fileInput" [disabled]="disabled_inputs" class="form-control">
+                        <div [class.image]="type != '0'" *ngIf="ar_image">
+                            <img [src]="ar_image" class="" *ngIf="type != '0'">
+                            <video width="400" controls *ngIf="type == '0'" class="video mt-2">
+                              <source [src]="ar_image" id="ar_video">
+                                Your browser does not support HTML5 video.
+                            </video>
+                            <ng-container *ngIf="ar_progress && ar_progress !== 100">
+                                <div class="text-center mt-2">
+                                  <progress max="100" [value]="ar_progress"></progress>
+                                </div>
+                            </ng-container>   
+                        </div>
+                    </div>
+                    <!-- <span class="error mt-2 mb-5" *ngIf="error.image">{{LANG.This_field_is_required}}</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row pb-3">
+                <div class="col-md-6">
+                  <div class="form-group has-success mb-0">
+                    <label class="control-label">{{LANG.Status}}</label>
+                    <select
+                      class="form-control custom-select"
+                      name="status"
+                      [(ngModel)]="status" 
+                    >
+                      <option value="1">{{LANG.Active}}</option>
+                      <option value="2">{{LANG.Inactive}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.description}}</label>
+                    <textarea
+                      type="text-right"
+                      class="form-control"
+                      name="description"
+                      placeholder="{{LANG.enter_description}}"
+                      [(ngModel)]="description"
+                      id="editor"
+                    ></textarea>
+                    <span class="error" *ngIf="error.description">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword2"
+                      >{{LANG.ar_description}}</label
+                    >
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      name="ar_description"
+                      placeholder="{{LANG.enter_ar_description}}"
+                      [(ngModel)]="ar_description"
+                      id="editor1"
+
+                    ></textarea>
+                    <span class="error" *ngIf="error.ar_description">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+              </div>
+              
+  
+              <button *ngIf="!load" type="submit" class="btn btn-primary" (click)="addSection()">{{id ? LANG.Update : LANG.Submit}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

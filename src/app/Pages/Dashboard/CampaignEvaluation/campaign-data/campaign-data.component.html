@@ -1,0 +1,177 @@
+<br/>
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h3 class="text-themecolor">Campaign Update Data ({{campaign.tagline}})</h3>
+    </div>
+  </div>
+<br/>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form id="campaignUpd" class="mt-4">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="program_number">Program Number</label>
+                  <input type="text" #program_number class="form-control" name="program_number" id="program_number" placeholder="{{campaign.program_number}}"/>
+                  <span class="error" *ngIf="error.program_number">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="version_number">Version Number</label>
+                  <input type="text" #version_number class="form-control" name="version_number" id="version_number" placeholder="{{campaign.version_number}}"/>
+                  <span class="error" *ngIf="error.version_number">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="open_date">Open Date</label>
+                  <input type="date" #open_date class="form-control" name="open_date" id="open_date" placeholder="{{campaign.open_date}}" value="{{campaign.open_date}}"/>
+                  <span class="error" *ngIf="error.open_date">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="net_sales">Net Sales</label>
+                  <input type="text" #net_sales class="form-control" name="net_sales" id="net_sales" placeholder="{{campaign.net_sales}}"/>
+                  <span class="error" *ngIf="error.net_sales">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="net_sales_years">Net Sales Years</label>
+                  <input type="text" #net_sales_years class="form-control" name="net_sales_years" id="net_sales_years" placeholder="{{campaign.net_sales_years}}"/>
+                  <span class="error" *ngIf="error.net_sales_years">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="net_profit">Net Profit</label>
+                  <input type="text" #net_profit class="form-control" name="net_profit" id="net_profit" placeholder="{{campaign.net_profit}}"/>
+                  <span class="error" *ngIf="error.net_profit">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="net_profit_years">Pet Profit Years</label>
+                  <input type="text" #net_profit_years class="form-control" name="net_profit_years" id="net_profit_years" placeholder="{{campaign.net_profit_years}}"/>
+                  <span class="error" *ngIf="error.net_profit_years">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="cash_flow">Cash Flow</label>
+                  <input type="number" #cash_flow class="form-control" name="cash_flow" id="cash_flow" placeholder="{{campaign.cash_flow}}" />
+                  <span class="error" *ngIf="error.cash_flow">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="return_on_assets">Return On Assets</label>
+                  <input type="text" #return_on_assets class="form-control" name="return_on_assets" id="return_on_assets" placeholder="{{campaign.return_on_assets}}" />
+                  <span class="error" *ngIf="error.return_on_assets">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="debt_of_assets">Debt On Assets</label>
+                  <input type="text" #debt_of_assets class="form-control" name="debt_of_assets" id="debt_of_assets" placeholder="{{campaign.debt_of_assets}}" />
+                  <span class="error" *ngIf="error.debt_of_assets">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="fin_statement_year">Fin Statement Year</label>
+                  <input type="text" #fin_statement_year class="form-control" name="fin_statement_year" id="fin_statement_year" placeholder="{{campaign.fin_statement_year}}" />
+                  <span class="error" *ngIf="error.fin_statement_year">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="due_date">Due Date</label>
+                  <input type="date" #due_date class="form-control" name="due_date" id="due_date" value="{{campaign.due_date}}" placeholder="{{campaign.due_date}}"/>
+                  <span class="error" *ngIf="error.due_date">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="APR">APR</label>
+                  <input type="text" #APR class="form-control" name="APR" id="APR" placeholder="{{campaign.APR}}" />
+                  <span class="error" *ngIf="error.APR">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="info_Statement_date_G">Info Statement Date_G</label>
+                  <input type="date" #info_Statement_date_G class="form-control" name="info_Statement_date_G" id="info_Statement_date_G" value="{{campaign.info_Statement_date_G}}" placeholder="{{campaign.info_Statement_date_G}}" />
+                  <span class="error" *ngIf="error.info_Statement_date_G">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="info_Statement_date_h">Info Statement Date_h</label>
+                  <input type="date" #info_Statement_date_h class="form-control" name="info_Statement_date_h" id="info_Statement_date_h" value="{{campaign.info_Statement_date_h}}" placeholder="{{campaign.info_Statement_date_h}}" />
+                  <span class="error" *ngIf="error.info_Statement_date_h">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="financing_type">Financing Type</label>
+                  <!-- <input type="text" class="form-control" name="financing_type" id="financing_type" placeholder="{{campaign.financing_type}}" [(ngModel)]="campaign.financing_type"/> -->
+                  <select class="form-control" #financing_type name="financingType" >
+                    <option *ngFor="let item of financingType | keyvalue" [value]="item.key"> {{item.value}}</option>
+                  </select>
+                  <span class="error" *ngIf="error.financing_type">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="fund_use">Fund Use</label>
+                  <!-- <input type="number" class="form-control" name="fund_use" id="fund_use" placeholder="{{campaign.fund_use}}" [(ngModel)]="campaign.fund_use"/> -->
+                  <select #fund_use class="form-control" name="fundUse">
+                    <option *ngFor="let item of fundUseList  | keyvalue" [value]="item.key">{{item.value}}</option>
+                </select>
+                  <span class="error" *ngIf="error.fund_use">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="financing_period">Financing Period</label>
+                  <input type="text" #financing_period class="form-control" name="financing_period" id="financing_period" placeholder="{{campaign.financing_period}}" />
+                  <span class="error" *ngIf="error.financing_period">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="obtain_finance_dt">Obtain Finance Date</label>
+                  <input type="date" #obtain_finance_dt class="form-control" name="obtain_finance_dt" id="obtain_finance_dt" placeholder="{{campaign.obtain_finance_dt}}" />
+                  <span class="error" *ngIf="error.obtain_finance_dt">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="finance_repayment_dt">Finance Repayment Date</label>
+                  <input type="date" #finance_repayment_dt class="form-control" name="finance_repayment_dt" id="finance_repayment_dt" value="{{campaign.finance_repayment_dt}}" placeholder="{{campaign.finance_repayment_dt}}"/>
+                  <span class="error" *ngIf="error.finance_repayment_dt">{{LANG.This_field_is_required}}</span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="updateCampaignData()">{{LANG.Update}}</button>
+            <button class="btn btn-primary" *ngIf="load">
+                <loader></loader>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

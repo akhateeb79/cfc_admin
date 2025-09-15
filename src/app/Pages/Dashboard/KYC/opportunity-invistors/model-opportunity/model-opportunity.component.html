@@ -1,0 +1,171 @@
+<div class="modal-content shadow-lg rounded-4">
+  <!-- Modal Header -->
+  <div class="p-3 text-center bg-primary text-white">
+    <h5 class="mb-0">Edit Opportunity</h5>
+  </div>
+
+  <!-- Modal Body -->
+  <div class="modal-body p-4">
+    <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+      <div class="row g-4">
+        <!-- Campaign Name -->
+        <div class="col-md-6">
+          <label for="campaignName" class="form-label fw-semibold">Campaign Name</label>
+          <input
+            id="campaignName"
+            type="text"
+            class="form-control rounded-pill"
+            [(ngModel)]="campaign_name"
+            name="campaign_name"
+            placeholder="Enter campaign name"
+            required
+            #campaignName="ngModel"
+          />
+          <small *ngIf="campaignName.invalid && campaignName.touched" class="text-danger">
+            Campaign name is required.
+          </small>
+        </div>
+
+        <!-- Open Date -->
+        <div class="col-md-6">
+          <label for="openDate" class="form-label fw-semibold">Open Date</label>
+          <input
+            id="openDate"
+            type="date"
+            class="form-control rounded-pill"
+            [(ngModel)]="open_date"
+            name="open_date"
+            required
+            #openDate="ngModel"
+          />
+          <small *ngIf="openDate.invalid && openDate.touched" class="text-danger">
+            Open date is required.
+          </small>
+        </div>
+
+        <!-- Close Date -->
+        <div class="col-md-6">
+          <label for="closeDate" class="form-label fw-semibold">Close Date</label>
+          <input
+            id="closeDate"
+            type="date"
+            class="form-control rounded-pill"
+            [(ngModel)]="close_date"
+            name="close_date"
+            required
+            #closeDate="ngModel"
+          />
+          <small *ngIf="closeDate.invalid && closeDate.touched" class="text-danger">
+            Close date is required.
+          </small>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="col-md-6 mb-3">
+          <label for="investmentstatus" class="form-label fw-semibold">Investment Status</label>
+          <div class="input-group shadow-sm" style="    height: 50%;">
+          
+            <select 
+              id="investmentstatus" 
+              class="form-select border-primary rounded"  style="width: 100%;"
+              [(ngModel)]="investment_status"
+              name="investmentstatus" 
+              #investmentStatement="ngModel" 
+              required>
+              <option value="" disabled>Select an option...</option>
+              <option value="opend">opend</option>
+              <option value="pending">pending</option>
+              <option value="close_incompleted">close_incompleted</option>
+              <option value="close_completed">close_completed</option>
+              <option value="close_distributed">close_distributed</option>
+            </select>
+          </div>
+          <small *ngIf="investmentStatement.invalid && investmentStatement.touched" class="text-danger">
+            Please select an investment status to proceed.
+          </small>
+        </div>
+
+
+
+
+        <!-- Minimum Investment -->
+        <div class="col-md-6">
+          <label for="minInvestment" class="form-label fw-semibold">Minimum Investment</label>
+          <input
+            id="minInvestment"
+            type="number"
+            class="form-control rounded-pill"
+            [(ngModel)]="min_investment"
+            name="min_investment"
+            required
+            #minInvestment="ngModel"
+            placeholder="Enter minimum investment"
+          />
+          <small *ngIf="minInvestment.invalid && minInvestment.touched" class="text-danger">
+            Minimum investment is required.
+          </small>
+        </div>
+
+        <!-- Maximum Investment -->
+        <div class="col-md-6">
+          <label for="maxInvestment" class="form-label fw-semibold">Maximum Investment</label>
+          <input
+            id="maxInvestment"
+            type="number"
+            class="form-control rounded-pill"
+            [(ngModel)]="max_investment"
+            name="max_investment"
+            required
+            #maxInvestment="ngModel"
+            placeholder="Enter maximum investment"
+          />
+          <small *ngIf="maxInvestment.invalid && maxInvestment.touched" class="text-danger">
+            Maximum investment is required.
+          </small>
+        </div>
+
+        <!-- Share Price -->
+        <div class="col-md-6">
+          <label for="sharePrice" class="form-label fw-semibold">Share Price</label>
+          <input
+            id="sharePrice"
+            type="number"
+            class="form-control rounded-pill"
+            [(ngModel)]="share_price"
+            name="share_price"
+            required
+            #sharePrice="ngModel"
+            placeholder="Enter share price"
+          />
+          <div *ngIf="sharePrice.invalid && sharePrice.touched" class="text-danger">
+            Share price is required.
+          </div>
+        </div>
+       
+        
+        
+        
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal Footer -->
+  <div class="modal-footer d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" (click)="dismiss()">
+      Cancel
+    </button>
+    <button 
+      type="submit"
+      class="btn btn-primary rounded-pill px-4" 
+      [disabled]="editForm.invalid"
+      (click)="updateOpportunity(editForm)">
+      Update Opportunity
+    </button>
+  </div>
+</div>

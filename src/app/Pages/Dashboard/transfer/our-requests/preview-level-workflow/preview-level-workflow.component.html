@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <h4 class="modal-title">Reviewer Level Workflow</h4>
+  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body" 
+*ngIf="!displayAsTable">
+  <div class="form-group">
+    <label for="fromAccount">From Account</label>
+    <input type="text" id="fromAccount" class="form-control" [(ngModel)]="fromAccount" readonly>
+  </div>
+  <div class="form-group">
+    <label for="toAccount">To Account</label>
+    <input type="text" id="toAccount" class="form-control" [(ngModel)]="toAccount" readonly>
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" class="form-control" [(ngModel)]="amount" readonly>
+  </div>
+</div>
+<div class="modal-body" 
+*ngIf="displayAsTable">
+<div >
+  <p>CHeck this is payemnt procees!</p>
+</div></div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+
+  <!-- Accept and Reject buttons only if status is Pending -->
+  <button *ngIf="requestData?.status === '2'" type="button" class="btn btn-primary" (click)="handleAcceptance('accept')">Accept</button>
+  <button *ngIf="requestData?.status === '2'" type="button" class="btn btn-danger" (click)="handleAcceptance('reject')">Reject</button>
+</div>
+
+

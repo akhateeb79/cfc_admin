@@ -1,0 +1,38 @@
+.cursor-pointer{
+    cursor: pointer !important;
+} 
+
+.error{
+    color: red;
+    font-size: 12px;
+}
+
+.loader-btn{
+    height: 56px;
+}
+
+.breadcrumb{
+    margin-bottom: 0;
+}
+
+.nav-item .nav-link.dropdown-toggle img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.cursor-pointer{
+    cursor: pointer !important;
+}
+
+.header{
+    background: #3c0d7c;
+}
+
+.topbar .top-navbar .navbar-header .navbar-brand .dark-logo{
+    width: 200px;
+}
+
+#main-wrapper .left-sidebar, #main-wrapper .left-sidebar ul{
+    background: #fff !important;
+}

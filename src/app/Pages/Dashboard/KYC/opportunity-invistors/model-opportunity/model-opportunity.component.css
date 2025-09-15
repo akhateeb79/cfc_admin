@@ -1,0 +1,18 @@
+.modal-content {
+    border-radius: 12px;
+  }
+  
+  .modal-body {
+    max-height: 80vh; /* Limit height for larger screens */
+    overflow-y: auto; /* Add scroll for overflow */
+  }
+  
+  .modal-lg {
+    max-width: 900px; /* Adjust the width of the larger modal */
+  }
+  
+  h5#editOpportunityModalLabel {
+    font-size: 1.5rem; /* Slightly larger title */
+    font-weight: bold;
+  }
+  

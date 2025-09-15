@@ -1,0 +1,131 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">{{LANG.Add_Templates}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+        <div class="d-flex justify-content-end align-items-center">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+            <li class="breadcrumb-item active">{{LANG.Add_Templates}}</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="mt-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">{{LANG.TITLE}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="title"
+                      placeholder="{{LANG.Enter_Title}}"
+                      [(ngModel)]="title"
+                    />
+                    <span class="error" *ngIf="error.title">{{LANG.This_field_is_required}}</span>
+  
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.AR_TITLE}}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="ar_title"
+                        placeholder="{{LANG.Enter_Ar_title}}"
+                        [(ngModel)]="ar_title"
+                      />
+                      <span class="error" *ngIf="error.ar_title">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.Subject}}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="subject"
+                        placeholder="{{LANG.Enter_Subject}}"
+                        [(ngModel)]="subject"
+                      />
+                      <span class="error" *ngIf="error.subject">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.Ar_Subject}}</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="ar_subject"
+                        placeholder="Enter {{LANG.Enter_Ar_Subject}}"
+                        [(ngModel)]="ar_subject"
+                      />
+                      <span class="error" *ngIf="error.ar_subject">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.Template_Type}}</label>
+                      <select class="form-control" name="module" [(ngModel)]="module">
+                        <option selected disabled value="">{{LANG.Select_Template_type}}</option>
+                        <option *ngFor="let data of templates_type;" value="{{data.id}}">{{data.title}}</option>
+                      </select>
+                      <span class="error" *ngIf="error.module">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.Message}}</label>
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        name="message"
+                        placeholder="{{LANG.Paste_your_HTML_content_here}}"
+                        [(ngModel)]="message"
+                      ></textarea>
+                      <span class="error" *ngIf="error.message">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">{{LANG.Ar_Message}}</label>
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        name="ar_message"
+                        placeholder="{{LANG.Paste_your_HTML_content_here}}"
+                        [(ngModel)]="ar_message"
+                      ></textarea>
+                      <span class="error" *ngIf="error.ar_message">{{LANG.This_field_is_required}}</span>
+    
+                    </div>
+                  </div>
+              </div>
+
+
+              <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="addTemplate()">{{id ? 'Update' : 'Submit'}}</button>
+              <button class="btn btn-primary" *ngIf="load">                                
+                  <loader></loader>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,29 @@
+<!-- ============================================================== -->
+<!-- toggle and nav items -->
+<!-- ============================================================== -->
+<ul class="navbar-nav float-left mr-auto align-items-center justify-content-between w-100" style="background-color: #3c0d7c;">
+    <li class="nav-item d-none d-md-block d-lg-none">
+        <a (click)="toggleSidebar.emit()" class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)">
+            <i class="mdi mdi-menu font-24"></i>
+        </a>
+    </li>
+	<li class="d-none d-md-block">
+		<form class="app-search">
+            <input type="text" class="form-control" placeholder="{{LANG.Search}}">
+			<a class="srh-btn"><i class="ti-search"></i></a>
+		</form>
+    </li>
+    <li class="nav-item dropdown u-pro pl-3 pr-3">
+        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="./assets/images/users/1.jpg" alt="user" class="">
+            <span class="hidden-md-down ml-3" style="font-weight: 900;font-size: 16px;color: white;">{{name}} &nbsp;<i class="fa fa-angle-down"></i></span>
+        </a>
+        <div class="dropdown-menu animated flipInY">
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item cursor-pointer" (click)="logout()">{{LANG.Logout}}</a>
+        </div>
+    </li>
+</ul>
+<!-- ============================================================== -->
+<!-- Right side toggle and nav items -->
+<!-- ============================================================== -->

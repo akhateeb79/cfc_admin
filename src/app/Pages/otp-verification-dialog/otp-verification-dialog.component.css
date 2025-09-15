@@ -1,0 +1,29 @@
+.otp-input {
+    width: 80px;
+    text-align: center;
+    font-size: 24px;
+    margin-right: 10px;
+    border: 1px solid #ced4da;
+  }
+  
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  /* For most browsers */
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

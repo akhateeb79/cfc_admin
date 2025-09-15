@@ -1,0 +1,33 @@
+td{
+    height: 100px !important;
+}
+.dt-buttons {
+    padding-top: 5px;
+    margin-bottom: 15px;
+}
+.dt-buttons .dt-button {
+    padding: 5px 15px;
+    border-radius: 0.25rem;
+    background: #fb9678;
+    color: #fff;
+    margin-right: 3px;
+}
+/* .card{
+    margin-right: 250px;
+} */
+
+
+.col-3 {
+   
+    flex: 2 0 60px;
+    margin-top: 0px;
+    font-size: 14;
+}
+
+.card-body-1 {
+    /* background-color: #7460ee; */
+}
+.table-zoom {
+    zoom: 62%;
+}
+

@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    max-height: 82vh;
+overflow-y: scroll;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin-top: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  thead th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  tbody td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  tbody td:first-child {
+    font-weight: bold;
+  }
+  
+  tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  

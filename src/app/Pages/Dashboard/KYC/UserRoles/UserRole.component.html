@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="row page-titles">
+      <div class="col-md-5 align-self-center">
+          <h4 class="text-themecolor">{{LANG.User_roles}}</h4>
+      </div>
+      <div class="col-md-7 align-self-center text-right">
+          <div class="d-flex justify-content-end align-items-center">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="javascript:void(0)">{{LANG.Home}}</a></li>
+                  <li class="breadcrumb-item active">{{LANG.User_roles}}</li>
+              </ol>
+              <button type="button" class="btn btn-info d-none d-lg-block m-l-15" (click)="addInfoType()"><i
+                  class="fa fa-plus-circle"></i> {{LANG.Create_New}}</button>
+          </div>
+      </div>
+  </div> 
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="row attributes mt-3" *ngFor="let data of userTypeList;let i=index;">
+                      <div class="col-md-6">
+                        <h3>{{data.title}}</h3>
+                       
+                      </div>
+                      <div class="col-md-6">
+                        <ng-container>
+                            <select class="js-example-basic-multiple multi-id" name="details{{i}}[]" multiple="multiple" id="{{i}}_multi-{{data.id}}">
+                              <option *ngFor="let item of kycList;let j=index;" value="{{item.id}},{{item.title}}">{{item.title}}</option>
+                            </select>
+                        </ng-container>
+                        <!-- <ng-template #single_select>
+                          <select class="js-example-basic-single single-id" name="details{{i}}" id="single{{i}}-{{data.id}}">
+                            <option *ngFor="let item of data.detail;let j=index;" value="{{item.id}}">{{item.title}}</option>
+                          </select> 
+                        </ng-template> -->
+      
+                        
+                       
+                      </div>
+                      
+                    </div>
+                    <div class="col-md-12 text-center mt-3">
+                      <button *ngIf="!load" type="submit" class="btn btn-primary mt-2" (click)="updateUserRole()">{{LANG.Update}}</button>
+                      <button class="btn btn-primary" *ngIf="load">                                
+                          <loader></loader>
+                      </button>
+                    </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
