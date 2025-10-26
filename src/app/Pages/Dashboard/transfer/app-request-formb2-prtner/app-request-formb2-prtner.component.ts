@@ -106,7 +106,7 @@ banks =[
       console.error('User ID not found in localStorage');
       return;
     }
-    this.addWorkflowInstance()
+    // this.addWorkflowInstance()
 
   }
   pickedUser() {
@@ -145,42 +145,40 @@ banks =[
         }
       );
   }
-  addWorkflowInstance() {
-    const status = '2';
-    this.requestNumber = Date.now();
+  // addWorkflowInstance() {
+  //   const status = '2';
+  //   this.requestNumber = Date.now();
 
-    const requestPayload = {
-      fromAccount: this.fromAccount,
-      toAccount: this.toAccount,
-      amount: this.amount
-    };
+  //   const requestPayload = {
+  //     fromAccount: this.fromAccount,
+  //     toAccount: this.toAccount,
+  //     amount: this.amount
+  //   };
 
-    // Call the service method and pass all the parameters
-    this.kycService.addWorkflowInstance(
-      this.itemId, // work_flow_id
-      this.userId, // user_id
-      this.requestNumber, // request_number
-      'initi', // approval_level_id
-      status, // status
-      requestPayload // request JSON object
-    ).subscribe(
-      (response) => {
-        // Update requestData with the new response item
+  //   // Call the service method and pass all the parameters
+  //   this.kycService.addWorkflowInstance(
+  //     this.itemId, // work_flow_id
+  //     this.userId, // user_id
+  //     this.requestNumber, // request_number
+  //     'initi', // approval_level_id
+  //     status, // status
+  //     requestPayload // request JSON object
+  //   ).subscribe(
+  //     (response) => {
+  //       // Update requestData with the new response item
 
-        this.kycService.notifyWorkflowDataUpdated();
-        this.fromAccount = null;
+  //       this.kycService.notifyWorkflowDataUpdated();
+  //       this.fromAccount = null;
+  //       this.toAccount = null;
+  //       this.amount = null;
+  //       this.toast.successToastr(this.LANG.updated_successfully);
 
-
-        this.toAccount = null;
-        this.amount = null;
-        this.toast.successToastr(this.LANG.updated_successfully);
-
-      },
-      (error) => {
-        console.error('Error adding workflow instance:', error);
-        this.toast.errorToastr(this.LANG.Something_went_wrong_Please_try_again_later);
-      }
-    );
-  }
+  //     },
+  //     (error) => {
+  //       console.error('Error adding workflow instance:', error);
+  //       this.toast.errorToastr(this.LANG.Something_went_wrong_Please_try_again_later);
+  //     }
+  //   );
+  // }
 
 }

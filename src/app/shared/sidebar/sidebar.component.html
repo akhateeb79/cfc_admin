@@ -1,10 +1,8 @@
-
-
-<nav class="sidebar-nav" >
-    <ul id="sidebarnav">
-		<li class="nav-devider"></li>
-        <!-- First level menu -->
-        <!-- <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
+<nav class="sidebar-nav">
+  <ul id="sidebarnav">
+    <li class="nav-devider"></li>
+    <!-- First level menu -->
+    <!-- <li class="sidebar-item" [class.active]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
             [routerLinkActive]="sidebarnavItem.submenu.length != 0 ? '' : 'active'">
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">{{sidebarnavItem.title}}</div>
             <a class="sidebar-link waves-effect waves-dark" [routerLink]="sidebarnavItem.class === '' ? [sidebarnavItem.path] : null"
@@ -14,464 +12,765 @@
                 <span class="hide-menu">{{sidebarnavItem.title}}</span>
             </a>
         </li> -->
-        <!-- <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/login">
+    <!-- <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/login">
             <a class="sidebar-link waves-effect waves-dark">
                 <span class="hide-menu">Login</span>
             </a>
         </li> -->
 
-        <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">{{LANG.Products}}</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample">
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/product-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Produc_List}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/list-product-attribute">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Product_Attributes}}</span>
-                    </a>
-                </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">{{ LANG.Products }}</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample">
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/product-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Produc_List }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/list-product-attribute"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Product_Attributes }}</span>
+          </a>
+        </li>
 
-                <!-- <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/list-loan">
+        <!-- <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/list-loan">
                     <a class="sidebar-link waves-effect waves-dark">
                         <span class="hide-menu">{{LANG.Loan_Management}}</span>
                     </a>
                 </li> -->
-
-
-            </ul>
-        </li>
-
-        <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">{{LANG.KYC}}</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample1">
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/list-kyc">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.KYC_List}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/user-role">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.User_roles}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/info-type">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Info_Type}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/user-type">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.User_Type}}</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="sidebar-item">
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample4">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">{{LANG.Users_Management}}</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample4">
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/users-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Admin_List}}</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/admin-ip-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Admin_IP_List}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/admin-ip-logs">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Admin_IP_Log}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/tracking">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Tracking}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/director-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Program_Directors}}</span>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/edit-user">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Edit_Users}}</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExampleLOGS" role="button" aria-expanded="false" aria-controls="collapseExample44">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">Reporting system</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExampleLOGS">
-                <li class="sidebar-item" routerLink="/dashboard/balances">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Bank accounts balances</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLink="/dashboard/logs">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Bank accounts statements</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLink="/dashboard/CFClogs">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">CFC accounts statements</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLink="/dashboard/CFCStatus">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">CFC account status</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-       
-        <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample44" role="button" aria-expanded="false" aria-controls="collapseExample44">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">CMS</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample44">
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample444" role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Home</span>
-                            <i class="fas fa-angle-right"></i>
-                        </div>
-                    </a>
-                    <ul class="collapse sub-menu" id="collapseExample444">
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('0')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 0</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('1')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 1</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('2')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 2</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('3')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 3</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('4')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 4</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('5')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 5</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('6')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 6</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('7')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 7</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('8')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 8</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="goToSections('9')">
-                            <a class="sidebar-link waves-effect waves-dark">
-                                <span class="hide-menu">Section 9</span>
-                            </a>
-                        </li>
-
-
-
-                    </ul>
-                </li>
-
-
-
-            </ul>
-        </li>
-
-        <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample4444" role="button" aria-expanded="false" aria-controls="collapseExample4444">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">Trans-Setup</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample4444">
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample44444" role="button" aria-expanded="false" aria-controls="collapseExample44444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Fees Matrix</span>
-                            <i class="fas fa-angle-right"></i>
-                        </div>
-                    </a>
-                    <ul class="collapse sub-menu" id="collapseExample44444">
-                        <li class="sidebar-item" routerLink="/dashboard/fees-matrix/cash-out">
-                            <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample44444">
-                                <div class="d-flex align-center justify-content-between w-100">
-                                    <span class="hide-menu">Cash-Out</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="sidebar-item" routerLink="/dashboard/fees-matrix/cash-in">
-                            <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample44444">
-                                <div class="d-flex align-center justify-content-between w-100">
-                                    <span class="hide-menu">Cash-In</span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-
-            </ul>
-        </li>
-    
-  <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExampleTRANSFER" role="button" aria-expanded="false" aria-controls="collapseExample44">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">Operations</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExampleTRANSFER" style="margin-inline-start: -15px;">
-               
-
-                <li class="sidebar-item" routerLink="/dashboard/BetweenTwoAccounts" (click)="navigateToTransferB2B(3)">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Transfer Investments to Partner's IBAN</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLink="/dashboard/BetweenTwoAccounts" (click)="navigateToTransferB2B(4)">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Fund Processing Fees Payment</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item" routerLink="/dashboard/BetweenTwoAccounts" (click)="navigateToTransferB2B(5)">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Refund for Incomplete Opportunity</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li class="sidebar-item" routerLink="/dashboard/BetweenTwoAccounts" (click)="navigateToTransferB2B(6)">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Investors disbursement </span>
-                        </div>
-                    </a>
-                </li>
-
-
-                
-
-
-
-            </ul>
-        </li>
-        <li class="sidebar-item"   routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/Approva-llevel">
-            <a class="sidebar-link waves-effect waves-dark">
-              <span class="hide-menu">Approval</span>
-            </a>
-          </li>
-          
-
-        <li class="sidebar-item"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/campaign-list">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Opportunity_List}}</span>
-            </a>
-        </li>
-
-        
-
-        <li class="sidebar-item"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/opprtunity-invistor">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">Opportunity Operations</span>
-            </a>
-        </li>
-
-
-
-        <li class="sidebar-item" *ngIf="checkRoute(navigation_options.INVESTORS)">
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExampleINVESTORS" role="button" aria-expanded="false" aria-controls="collapseExample44">
-                <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">Investors</span>
-                    <i class="fas fa-angle-right"></i>
-                </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExampleINVESTORS">
-
-                <li class="sidebar-item" *ngIf="checkRoute(navigation_options.INVESTORS)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/inverstors-kyc">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Investors}}</span>
-            </a>
-        </li>
-
-
-
-                <li class="sidebar-item" routerLink="/dashboard/Report-investoers">
-                    <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                        <div class="d-flex align-center justify-content-between w-100">
-                            <span class="hide-menu">Reports</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-
-
-    
-    <li class="sidebar-item" *ngIf="checkRoute(navigation_options.BORROWERS)">
-        <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExampleBorrowers" role="button" aria-expanded="false" aria-controls="collapseExample44">
-            <div class="d-flex align-center justify-content-between w-100">
-                <span class="hide-menu">Borrowers</span>
-                <i class="fas fa-angle-right"></i>
-            </div>
-        </a>
-        <ul class="collapse sub-menu" id="collapseExampleBorrowers">
-
-
-           <li class="sidebar-item"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/borrowers-kyc">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Borrowers}}</span>
-            </a>
-        </li>
-
-
-
-            <li class="sidebar-item" routerLink="/dashboard/borrowers-reports">
-                <a class="sidebar-link waves-effect waves-dark" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample444">
-                    <div class="d-flex align-center justify-content-between w-100">
-                        <span class="hide-menu">Borrowers Reports</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
+      </ul>
     </li>
 
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample1"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">{{ LANG.KYC }}</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample1">
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/list-kyc"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.KYC_List }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/user-role"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.User_roles }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/info-type"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Info_Type }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/user-type"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.User_Type }}</span>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-      
-
-
-
-        <li class="sidebar-item" *ngIf="checkRoute(navigation_options.EVALUATION)" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/evaluation-list">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Evaluation_List}}</span>
-            </a>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample4"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample4"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">{{ LANG.Users_Management }}</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample4">
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/users-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Admin_List }}</span>
+          </a>
         </li>
 
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/admin-ip-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Admin_IP_List }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/admin-ip-logs"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Admin_IP_Log }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/tracking"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Tracking }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/director-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Program_Directors }}</span>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/edit-user"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Edit_Users }}</span>
+          </a>
+        </li>
+      </ul>
+    </li>
 
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExampleLOGS"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample44"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">Reporting system</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExampleLOGS">
+        <li class="sidebar-item" routerLink="/dashboard/balances">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Bank accounts balances</span>
+            </div>
+          </a>
+        </li>
+        <li class="sidebar-item" routerLink="/dashboard/logs">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Bank accounts statements</span>
+            </div>
+          </a>
+        </li>
+        <li class="sidebar-item" routerLink="/dashboard/CFClogs">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">CFC accounts statements</span>
+            </div>
+          </a>
+        </li>
+        <li class="sidebar-item" routerLink="/dashboard/CFCStatus">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">CFC account status</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-        <li class="sidebar-item" >
-            <a class="sidebar-link waves-effect waves-dark d-block" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample4">
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample44"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample44"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">CMS</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample44">
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link waves-effect waves-dark d-block"
+            data-toggle="collapse"
+            href="#collapseExample444"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Home</span>
+              <i class="fas fa-angle-right"></i>
+            </div>
+          </a>
+          <ul class="collapse sub-menu" id="collapseExample444">
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('0')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 0</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('1')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 1</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('2')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 2</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('3')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 3</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('4')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 4</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('5')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 5</span>
+              </a>
+            </li>
+
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('6')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 6</span>
+              </a>
+            </li>
+
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('7')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 7</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('8')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 8</span>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="goToSections('9')"
+            >
+              <a class="sidebar-link waves-effect waves-dark">
+                <span class="hide-menu">Section 9</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample4444"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample4444"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">Trans-Setup</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample4444">
+        <li class="sidebar-item">
+          <a
+            class="sidebar-link waves-effect waves-dark d-block"
+            data-toggle="collapse"
+            href="#collapseExample44444"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample44444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Fees Matrix</span>
+              <i class="fas fa-angle-right"></i>
+            </div>
+          </a>
+          <ul class="collapse sub-menu" id="collapseExample44444">
+            <li
+              class="sidebar-item"
+              routerLink="/dashboard/fees-matrix/cash-out"
+            >
+              <a
+                class="sidebar-link waves-effect waves-dark"
+                data-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapseExample44444"
+              >
                 <div class="d-flex align-center justify-content-between w-100">
-                    <span class="hide-menu">{{LANG.Notifications}}</span>
-                    <i class="fas fa-angle-right"></i>
+                  <span class="hide-menu">Cash-Out</span>
                 </div>
-            </a>
-            <ul class="collapse sub-menu" id="collapseExample6">
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/email-templates-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.Email_Notifications}}</span>
-                    </a>
-                </li>
+              </a>
+            </li>
+            <li
+              class="sidebar-item"
+              routerLink="/dashboard/fees-matrix/cash-in"
+            >
+              <a
+                class="sidebar-link waves-effect waves-dark"
+                data-toggle="collapse"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapseExample44444"
+              >
+                <div class="d-flex align-center justify-content-between w-100">
+                  <span class="hide-menu">Cash-In</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
 
-                <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/sms-templates-list">
-                    <a class="sidebar-link waves-effect waves-dark">
-                        <span class="hide-menu">{{LANG.SMS_Notifications}}</span>
-                    </a>
-                </li>
-
-
-            </ul>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExampleTRANSFER"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample44"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">Operations</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul
+        class="collapse sub-menu"
+        id="collapseExampleTRANSFER"
+        style="margin-inline-start: -15px"
+      >
+        <li
+          class="sidebar-item"
+          routerLink="/dashboard/BetweenTwoAccounts"
+          (click)="navigateToTransferB2B(3)"
+        >
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu"
+                >Transfer Investments to Partner's IBAN</span
+              >
+            </div>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLink="/dashboard/BetweenTwoAccounts"
+          (click)="navigateToTransferB2B(4)"
+        >
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Fund Processing Fees Payment</span>
+            </div>
+          </a>
+        </li>
+        <li
+          class="sidebar-item"
+          routerLink="/dashboard/BetweenTwoAccounts"
+          (click)="navigateToTransferB2B(5)"
+        >
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Refund for Incomplete Opportunity</span>
+            </div>
+          </a>
         </li>
 
-        <li class="sidebar-item"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/pages">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Pages}}</span>
-            </a>
+        <li
+          class="sidebar-item"
+          routerLink="/dashboard/BetweenTwoAccounts"
+          (click)="navigateToTransferB2B(6)"
+        >
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Investors disbursement </span>
+            </div>
+          </a>
         </li>
-        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/page-parameters">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">Pages Parameters</span>
-            </a>
+      </ul>
+    </li>
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/Approva-llevel"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">Approval</span>
+      </a>
+    </li>
+
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/campaign-list"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">{{ LANG.Opportunity_List }}</span>
+      </a>
+    </li>
+
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/opprtunity-invistor"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">Opportunity Operations</span>
+      </a>
+    </li>
+
+    <li class="sidebar-item" *ngIf="checkRoute(navigation_options.INVESTORS)">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExampleINVESTORS"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample44"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">Investors</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExampleINVESTORS">
+        <li
+          class="sidebar-item"
+          *ngIf="checkRoute(navigation_options.INVESTORS)"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/inverstors-kyc"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Investors }}</span>
+          </a>
         </li>
 
-        <li class="sidebar-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/opportunity-setup">
-            <a class="sidebar-link waves-effect waves-dark">
-                <span class="hide-menu">{{LANG.Opportunity_setup}}</span>
-            </a>
+        <li class="sidebar-item" routerLink="/dashboard/Report-investoers">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Reports</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="sidebar-item" *ngIf="checkRoute(navigation_options.BORROWERS)">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExampleBorrowers"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample44"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">Borrowers</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExampleBorrowers">
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/borrowers-kyc"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Borrowers }}</span>
+          </a>
         </li>
 
-        <li class="sidebar-item" (click)="logout()">
-            <a class="sidebar-link waves-effect waves-dark">
-                <i class="fa fa-sign-out" aria-hidden="true"></i> <span class="hide-menu">{{LANG.Logout}}</span>
-            </a>
+        <li class="sidebar-item" routerLink="/dashboard/borrowers-reports">
+          <a
+            class="sidebar-link waves-effect waves-dark"
+            data-toggle="collapse"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample444"
+          >
+            <div class="d-flex align-center justify-content-between w-100">
+              <span class="hide-menu">Borrowers Reports</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li
+      class="sidebar-item"
+      *ngIf="checkRoute(navigation_options.EVALUATION)"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/evaluation-list"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">{{ LANG.Evaluation_List }}</span>
+      </a>
+    </li>
+
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link waves-effect waves-dark d-block"
+        data-toggle="collapse"
+        href="#collapseExample6"
+        role="button"
+        aria-expanded="false"
+        aria-controls="collapseExample4"
+      >
+        <div class="d-flex align-center justify-content-between w-100">
+          <span class="hide-menu">{{ LANG.Notifications }}</span>
+          <i class="fas fa-angle-right"></i>
+        </div>
+      </a>
+      <ul class="collapse sub-menu" id="collapseExample6">
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/email-templates-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.Email_Notifications }}</span>
+          </a>
         </li>
 
+        <li
+          class="sidebar-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard/sms-templates-list"
+        >
+          <a class="sidebar-link waves-effect waves-dark">
+            <span class="hide-menu">{{ LANG.SMS_Notifications }}</span>
+          </a>
+        </li>
+      </ul>
+    </li>
 
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/pages"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">{{ LANG.Pages }}</span>
+      </a>
+    </li>
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/page-parameters"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">Pages Parameters</span>
+      </a>
+    </li>
 
+    <li
+      class="sidebar-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/dashboard/opportunity-setup"
+    >
+      <a class="sidebar-link waves-effect waves-dark">
+        <span class="hide-menu">{{ LANG.Opportunity_setup }}</span>
+      </a>
+    </li>
 
-
-
-
-
-    </ul>
+    <li class="sidebar-item" (click)="logout()">
+      <a class="sidebar-link waves-effect waves-dark">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        <span class="hide-menu">{{ LANG.Logout }}</span>
+      </a>
+    </li>
+  </ul>
 </nav>

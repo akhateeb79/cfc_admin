@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { apiServiceComponent } from "../Services/api.service";
-import { BehaviorSubject, Observable, of, Subject,ReplaySubject } from "rxjs";
+import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from "rxjs";
 import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { format } from "url";
 
@@ -15,16 +15,15 @@ export class KYCService {
   otpVerified$ = this.otpVerifiedSubject.asObservable();
 
   private requestDataSubject: ReplaySubject<any>;
-  requestData$: Observable<any>; 
+  requestData$: Observable<any>;
   private Compinlist: any[] = [];
   constructor(private api: apiServiceComponent) {
     this.requestDataSubject = new ReplaySubject<any>();
-    this.requestData$ = this.requestDataSubject.asObservable(); 
-    const storedPermissions = localStorage.getItem('userPermissions');
+    this.requestData$ = this.requestDataSubject.asObservable();
+    const storedPermissions = localStorage.getItem("userPermissions");
     if (storedPermissions) {
       this.userPermissions = JSON.parse(storedPermissions);
     }
-
   }
   notifyWorkflowDataUpdated() {
     this.workflowDataUpdated.next();
@@ -32,7 +31,6 @@ export class KYCService {
 
   setRequestData(data: any): void {
     this.requestDataSubject.next(data);
-    
   }
 
   setProgram(program: any) {
@@ -41,33 +39,26 @@ export class KYCService {
 
   setPermissions(permissions: string[]): void {
     this.userPermissions = permissions;
-    localStorage.setItem('userPermissions', JSON.stringify(permissions)); 
+    localStorage.setItem("userPermissions", JSON.stringify(permissions));
   }
 
   getPermissions(): Observable<string[]> {
-    
     return of(this.userPermissions);
   }
   hasPermission(permission: string): boolean {
-    return Array.isArray(this.userPermissions) && this.userPermissions.includes(permission);
+    return (
+      Array.isArray(this.userPermissions) &&
+      this.userPermissions.includes(permission)
+    );
   }
 
-
-
-
-
-
-
-
   updateProgram(id: number, programData: any): Observable<any> {
-
     this.url = `update-program/${id}`;
     let query = "";
 
     return this.api.post(this.url, programData);
   }
   sendUserStatus(userStatus: any): Observable<any> {
-
     this.url = `send_user_status`;
 
     return this.api.post(this.url, userStatus);
@@ -79,24 +70,44 @@ export class KYCService {
   //   return this.api.post(this.url, {investorId,userStatus});
   // }
   uploadFile(wordFile: FormData) {
-    return this.api.postRaw('uploadSuk', wordFile);
+    return this.api.postRaw("uploadSuk", wordFile);
   }
-  insertDirector(psd_director_name: string, psd_director_relation: string, psd_director_nationality: string): Observable<any> {
-    this.url = `director-insert?psd_director_name=${encodeURIComponent(psd_director_name)}&psd_director_relation=${encodeURIComponent(psd_director_relation)}&psd_director_nationality=${encodeURIComponent(psd_director_nationality)}`;
+  insertDirector(
+    psd_director_name: string,
+    psd_director_relation: string,
+    psd_director_nationality: string
+  ): Observable<any> {
+    this.url = `director-insert?psd_director_name=${encodeURIComponent(
+      psd_director_name
+    )}&psd_director_relation=${encodeURIComponent(
+      psd_director_relation
+    )}&psd_director_nationality=${encodeURIComponent(
+      psd_director_nationality
+    )}`;
 
     let query = "";
 
     return this.api.post(this.url, query);
   }
-  getWorkflowInstance(workFlowId: number, userId: number, requestNumber: number, approvalLevelId: any): Observable<any> {
+  getWorkflowInstance(
+    workFlowId: number,
+    userId: number,
+    requestNumber: number,
+    approvalLevelId: any
+  ): Observable<any> {
     // Construct the URL with query parameters
-    const url = `get-workFlowInstance?work_flow_id=${encodeURIComponent(workFlowId.toString())}&user_id=${encodeURIComponent(userId.toString())}&request_number=${encodeURIComponent(requestNumber.toString())}&approval_level_id=${encodeURIComponent(approvalLevelId.toString())}`;
+    const url = `get-workFlowInstance?work_flow_id=${encodeURIComponent(
+      workFlowId.toString()
+    )}&user_id=${encodeURIComponent(
+      userId.toString()
+    )}&request_number=${encodeURIComponent(
+      requestNumber.toString()
+    )}&approval_level_id=${encodeURIComponent(approvalLevelId.toString())}`;
     let query = "";
 
     // Perform the GET request using your API service
     return this.api.get(url, query);
   }
-
 
   addWorkflowInstance(
     workFlowId: number,
@@ -104,44 +115,60 @@ export class KYCService {
     requestNumber: number,
     approvalLevelId: any,
     status: any,
-    request: { fromAccount?: string; toAccount?: string; amount?: number,  request?: any }
+    request: {
+      fromAccount?: string;
+      toAccount?: string;
+      amount?: number;
+      request?: any;
+    }
   ): Observable<any> {
     const requestJson = encodeURIComponent(JSON.stringify(request));
-    const url = `add-workFlowInstance?work_flow_id=${encodeURIComponent(workFlowId.toString())}&user_id=${encodeURIComponent(userId.toString())}&approval_level_id=${encodeURIComponent(approvalLevelId.toString())}&request_number=${encodeURIComponent(requestNumber.toString())}&status=${encodeURIComponent(status)}&request=${requestJson}`;
-  
+    const url = `add-workFlowInstance?work_flow_id=${encodeURIComponent(
+      workFlowId.toString()
+    )}&user_id=${encodeURIComponent(
+      userId.toString()
+    )}&approval_level_id=${encodeURIComponent(
+      approvalLevelId.toString()
+    )}&request_number=${encodeURIComponent(
+      requestNumber.toString()
+    )}&status=${encodeURIComponent(status)}&request=${requestJson}`;
+
     return this.api.post(url, {});
   }
-  
+
   updateWorkflowInstance(
     id: number,
 
-    status: any,
-
+    status: any
   ): Observable<any> {
     // Convert the request object to a JSON string
 
     // Construct the URL with query parameters
-    const url = `update-workFlowInstance?id=${encodeURIComponent(id.toString())}&status=${encodeURIComponent(status)}`;
+    const url = `update-workFlowInstance?id=${encodeURIComponent(
+      id.toString()
+    )}&status=${encodeURIComponent(status)}`;
 
     // Perform the POST request using your API service
     return this.api.post(url, {});
   }
 
-
-
-
-
-
-
-  updateDirector(id: number, psd_director_name: string, psd_director_relation: string, psd_director_nationality: string): Observable<any> {
-
-    this.url = `director-update/${id}?psd_director_name=${encodeURIComponent(psd_director_name)}&psd_director_relation=${encodeURIComponent(psd_director_relation)}&psd_director_nationality=${encodeURIComponent(psd_director_nationality)}`;
+  updateDirector(
+    id: number,
+    psd_director_name: string,
+    psd_director_relation: string,
+    psd_director_nationality: string
+  ): Observable<any> {
+    this.url = `director-update/${id}?psd_director_name=${encodeURIComponent(
+      psd_director_name
+    )}&psd_director_relation=${encodeURIComponent(
+      psd_director_relation
+    )}&psd_director_nationality=${encodeURIComponent(
+      psd_director_nationality
+    )}`;
     let query = "";
-
 
     return this.api.post(`${this.url}/`, query);
   }
-
 
   getPrograms(): Observable<any> {
     this.url = "getAll";
@@ -149,23 +176,19 @@ export class KYCService {
     return this.api.get(this.url, query);
   }
 
-
-  getWorkFlowInstanceById(workFlowId: number, requestNumber: number): Observable<any> {
+  getWorkFlowInstanceById(
+    workFlowId: number,
+    requestNumber: number
+  ): Observable<any> {
     const url = `get-workFlowInstancebById?work_flow_id=${workFlowId}&request_number=${requestNumber}`;
     let query = "";
     const params = {
       work_flow_id: workFlowId.toString(),
-      request_number: requestNumber.toString()
+      request_number: requestNumber.toString(),
     };
 
     return this.api.get(url, query);
   }
-
-
-
-
-
-
 
   getDirectors(): Observable<any> {
     this.url = "director-index";
@@ -173,7 +196,6 @@ export class KYCService {
     return this.api.get(this.url, query);
   }
   getProgram() {
-
     return this.Compinlist;
   }
 
@@ -195,14 +217,12 @@ export class KYCService {
     return this.api.post(this.url, query);
   }
 
-
-  verifyOtp(email: string,otp:any) {
+  verifyOtp(email: string, otp: any) {
     this.url = `verify_otp?email=${email}&otp=${otp}`;
     let query = "";
 
     return this.api.post(this.url, query);
   }
-
 
   getKYCList() {
     this.url = "kyc_list";
@@ -276,46 +296,40 @@ export class KYCService {
   }
 
   getProgramById(id): Observable<any> {
-
     this.url = `program-index-id?id=${id}`;
     let query = "";
     return this.api.get(this.url, query);
   }
 
   getworkflows(): Observable<any> {
-    this.url = "get-workFlow"
-    let query = ""
-    return this.api.get(this.url, query)
+    this.url = "get-workFlow";
+    let query = "";
+    return this.api.get(this.url, query);
   }
-
-
 
   getapprovallevel(id: number): Observable<any> {
     this.url = `get-approval?user_id=${id}`;
-    let query = ""
-    return this.api.get(this.url, query)
+    let query = "";
+    return this.api.get(this.url, query);
   }
 
-
-
   addworkflow(name: string, description: string): Observable<any> {
-    this.url = `add-workFlow?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}`;
-
+    this.url = `add-workFlow?name=${encodeURIComponent(
+      name
+    )}&description=${encodeURIComponent(description)}`;
 
     return this.api.post(this.url, {});
   }
-
-
 
   addapproval(name: string, user_type: Array<any>): Observable<any> {
     // Define the request body based on the API requirements
     const body = {
       name: name,
-      user_type_id: user_type,  // Assuming you always want to include user_type_id: [2]
+      user_type_id: user_type, // Assuming you always want to include user_type_id: [2]
     };
 
     // Update the URL to remove query parameters since we're using the body
-    this.url = 'add-approval'; // Update with the correct endpoint
+    this.url = "add-approval"; // Update with the correct endpoint
 
     // Call the post method with the URL and the body
     return this.api.post(this.url, body);
@@ -415,7 +429,6 @@ export class KYCService {
     return this.api.post(this.url, data);
   }
 
-
   updateUserRole(data) {
     this.url = "update_user_type";
     return this.api.post(this.url, data);
@@ -430,7 +443,7 @@ export class KYCService {
     this.url = `get_user_detail/${id}`;
     return this.api.get(this.url, "");
   }
-  changeIsQualified(id,status) {
+  changeIsQualified(id, status) {
     this.url = `changeIsQualified/${status}?is_qualified=${id}`;
     return this.api.post(this.url, "");
   }
@@ -464,7 +477,7 @@ export class KYCService {
   }
   commercialregistration(id: any) {
     this.url = `commercialregistration/${id}`;
-    return this.api.get(this.url, '');
+    return this.api.get(this.url, "");
   }
   getCampaignAttachment(data) {
     this.url = "getcampaignattachment";
@@ -476,7 +489,7 @@ export class KYCService {
     return this.api.post(this.url, data);
   }
   addCampaignAttachment(data: FormData) {
-    return this.api.postRaw('addcampaignattachment', data);
+    return this.api.postRaw("addcampaignattachment", data);
   }
   updatePages(data) {
     this.url = "update_page";
@@ -487,7 +500,7 @@ export class KYCService {
     return this.api.post(this.url, data);
   }
   addKyc(data: Object) {
-    this.url = 'modify_userkyc';
+    this.url = "modify_userkyc";
     return this.api.post(this.url, data);
   }
   deleteparams(data) {
@@ -552,52 +565,54 @@ export class KYCService {
     return this.api.get(this.url, "");
   }
 
-
   getListingCampaign(): Observable<any> {
     const url = `listing_campaign`;
-   
-    
 
-    return this.api.get(url,"");
+    return this.api.get(url, "");
   }
 
   editOpportunitySide(
     id: number,
     open_date: string,
     close_date: string,
-    tagline:string,
+    tagline: string,
     investment_status: string,
     min_investment: number,
     max_investment: number,
-    share_price: number,
-   
+    share_price: number
   ): Observable<any> {
     // Construct the URL dynamically
     const url = `edit_oppourtunity_side?id=${id}&open_date=${encodeURIComponent(
       open_date
     )}&close_date=${encodeURIComponent(
       close_date
-    )}&investment_status=${encodeURIComponent(
-      investment_status
-    )}
-    &tagline=${encodeURIComponent(
-      tagline)}
+    )}&investment_status=${encodeURIComponent(investment_status)}
+    &tagline=${encodeURIComponent(tagline)}
     &min_investment=${min_investment}&max_investment=${max_investment}&share_price=${share_price}`;
 
     // Make the GET request with the constructed URL
-    return this.api.get(url,"");
+    return this.api.get(url, "");
   }
 
-  insertNote(adminId: number, adminEmail: string, notes: string, screen: number, id: number): Observable<any> {
+  insertNote(
+    adminId: number,
+    adminEmail: string,
+    notes: string,
+    screen: number,
+    id: number
+  ): Observable<any> {
     // Construct the URL with query parameters
-    this.url = `note-insert?admin_id=${encodeURIComponent(adminId.toString())}&admin_email=${encodeURIComponent(adminEmail)}&notes=${encodeURIComponent(notes)}&screen=${encodeURIComponent(screen.toString())}&id=${encodeURIComponent(id.toString())}`;
+    this.url = `note-insert?admin_id=${encodeURIComponent(
+      adminId.toString()
+    )}&admin_email=${encodeURIComponent(adminEmail)}&notes=${encodeURIComponent(
+      notes
+    )}&screen=${encodeURIComponent(screen.toString())}&id=${encodeURIComponent(
+      id.toString()
+    )}`;
 
     // Send a POST request with an empty body if necessary
     let query = "";
 
     return this.api.post(this.url, query);
   }
-
-
-
 }
