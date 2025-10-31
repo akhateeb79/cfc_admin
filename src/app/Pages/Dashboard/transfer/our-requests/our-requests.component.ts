@@ -1,24 +1,32 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { KYCService } from 'src/app/shared/Services/kyc.service';
-import { environment } from 'src/environments/environment';
-import { PreviewLevelWorkflowComponent } from './preview-level-workflow/preview-level-workflow.component';
-import { ApprovalLevelWorkflowComponent } from './approval-level-workflow/approval-level-workflow.component';
-import { DatePipe } from '@angular/common';
-import { TrakingRequestComponent } from './traking-request/traking-request.component';
-import { map } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
-
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrManager } from "ng6-toastr-notifications";
+import { KYCService } from "src/app/shared/Services/kyc.service";
+import { environment } from "src/environments/environment";
+import { PreviewLevelWorkflowComponent } from "./preview-level-workflow/preview-level-workflow.component";
+import { ApprovalLevelWorkflowComponent } from "./approval-level-workflow/approval-level-workflow.component";
+import { DatePipe } from "@angular/common";
+import { TrakingRequestComponent } from "./traking-request/traking-request.component";
+import { map } from "rxjs/operators";
+import { Observable, Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-our-requests',
-  templateUrl: './our-requests.component.html',
-  styleUrls: ['./our-requests.component.css']
+  selector: "app-our-requests",
+  templateUrl: "./our-requests.component.html",
+  styleUrls: ["./our-requests.component.css"],
 })
-export class OurRequestsComponent implements OnInit, OnChanges    {
-
+export class OurRequestsComponent implements OnInit, OnChanges {
   LANG = environment.english_translations;
   program: any[] = [];
   tableHeaders: string[] = [];
@@ -38,65 +46,74 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
 
   @Input() requestData: any;
   displayAsTable: boolean = false;
-  approvallevelpath:boolean =false
+  approvallevelpath: boolean = false;
   displayAsTable5: boolean = false;
   @Input() itemId: any;
-  constructor(private route: ActivatedRoute, private kycService: KYCService, private datePipe: DatePipe,private toast: ToastrManager,private cdr: ChangeDetectorRef, private modalService: NgbModal, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private kycService: KYCService,
+    private datePipe: DatePipe,
+    private toast: ToastrManager,
+    private cdr: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private router: Router
+  ) {
+    this.routeSubscription = this.route.url
+      .pipe(
+        map((segments) => segments.map((segment) => segment.path).join("/"))
+      )
+      .subscribe((currentPath) => {
+        switch (true) {
+          case currentPath.includes("transfer-b2b/6"):
+            this.displayAsTable = true;
+            this.displayAsTable5 = false;
+            break;
+          case currentPath.includes("transfer-b2b/5"):
+            this.displayAsTable = false;
+            this.displayAsTable5 = true;
+            break;
+          default:
+            this.displayAsTable = false;
+            this.displayAsTable5 = false;
+        }
+      });
+  }
 
-    this.routeSubscription = this.route.url.pipe(
-      map(segments => segments.map(segment => segment.path).join('/'))
-    ).subscribe(currentPath => {
-      switch (true) {
-        case currentPath.includes('transfer-b2b/6'):
-          this.displayAsTable = true;
-          this.displayAsTable5 = false;
-          break;
-        case currentPath.includes('transfer-b2b/5'):
-          this.displayAsTable = false;
-          this.displayAsTable5 = true;
-          break;
-        default:
-          this.displayAsTable = false;
-          this.displayAsTable5 = false;
-      }
-    });
-  }    
- 
-    
   ngOnInit(): void {
-//       this.route.paramMap.subscribe(params => {
-//       this.programId = +params.get('id'); // Get the 'id' from the route parameter
-//       // this.fetchProgramData(this.programId); // Fetch program data and set pagination
-// console.log("hiiiiiii",  this.programId)
-//     });
+    //       this.route.paramMap.subscribe(params => {
+    //       this.programId = +params.get('id'); // Get the 'id' from the route parameter
+    //       // this.fetchProgramData(this.programId); // Fetch program data and set pagination
+    // console.log("hiiiiiii",  this.programId)
+    //     });
 
     this.currentPage = 1; // Ensure current page starts at 1
- 
-    const storedPermissions = localStorage.getItem('userPermissions');
-    
+
+    const storedPermissions = localStorage.getItem("userPermissions");
+
     if (storedPermissions) {
       try {
         this.userPermissions = JSON.parse(storedPermissions);
       } catch (error) {
-        console.error('Failed to parse user permissions from localStorage:', error);
+        console.error(
+          "Failed to parse user permissions from localStorage:",
+          error
+        );
         this.userPermissions = []; // Fallback to an empty array if parsing fails
       }
     } else {
-      console.warn('No user permissions found in localStorage.');
+      console.warn("No user permissions found in localStorage.");
     }
-    this.kycService.requestData$.subscribe(newData => {
-      this.handleRequestDataChange(newData); 
-      
+    this.kycService.requestData$.subscribe((newData) => {
+      this.handleRequestDataChange(newData);
     });
   }
-
 
   handleRequestDataChange(newData: any) {
     this.requestData = { ...newData }; // Assign new data to requestData
   }
 
   formatDate(date: string) {
-    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+    return this.datePipe.transform(date, "yyyy-MM-dd HH:mm:ss");
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.requestData) {
@@ -105,28 +122,28 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
       if (newRequestData && Array.isArray(newRequestData.response)) {
         this.paginatedRecords = []; // Reset records for new data
 
-        newRequestData.response.forEach(item => {
+        newRequestData.response.forEach((item) => {
           let parsedRequest = {};
-          
+
           if (this.isJSON(item.request)) {
             parsedRequest = JSON.parse(item.request);
           } else {
-            console.warn('Invalid JSON format in request');
+            console.warn("Invalid JSON format in request");
           }
 
-          const fromAccount = parsedRequest['fromAccount'] || '';
-          const toAccount = parsedRequest['toAccount'] || '';
-          const amount = parsedRequest['amount'] || 0;
-          const createdAt = parsedRequest['created_at'] || '';
-          const updatedAt = parsedRequest['updated_at'] || 0;
+          const fromAccount = parsedRequest["fromAccount"] || "";
+          const toAccount = parsedRequest["toAccount"] || "";
+          const amount = parsedRequest["amount"] || 0;
+          const createdAt = parsedRequest["created_at"] || "";
+          const updatedAt = parsedRequest["updated_at"] || 0;
           const formattedRecord = {
             id: item.id,
             userId: item.user_id,
-            userName: item.user?.name || 'Unknown User',
+            userName: item.user?.name || "Unknown User",
             fromAccount,
             toAccount,
             amount,
-            status: item.status || 'Unknown Status',
+            status: item.status || "Unknown Status",
             createdAt: item.created_at,
             updatedAt: item.updated_at,
           };
@@ -134,7 +151,7 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
           this.paginatedRecords.push(formattedRecord);
         });
       } else {
-        console.warn('Invalid requestData structure', );
+        console.warn("Invalid requestData structure:");
         this.paginatedRecords = []; // Fallback for invalid structure
       }
     }
@@ -143,13 +160,13 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
     if (!this.paginatedRecords || this.paginatedRecords.length === 0) {
       return [];
     }
-  
+
     const filtered = this.paginatedRecords.filter((item) => {
       return item.status == status;
     });
     return filtered;
   }
-  
+
   // Helper function to check if a string is valid JSON
   private isJSON(str: string): boolean {
     try {
@@ -160,9 +177,6 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
     }
   }
 
-  
-  
-  
   // navigateToAddProgram(): void {
   //   this.router.navigate(['/dashboard/add-programs'], { queryParams: { id: this.programId } });
   // }
@@ -186,15 +200,17 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
   paginateRecords(): void {
     // Check if this.requestData is an array before proceeding
     if (Array.isArray(this.requestData)) {
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        const endIndex = Math.min(startIndex + this.itemsPerPage, this.requestData.length);
-        this.paginatedRecords = this.requestData.slice(startIndex, endIndex);
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = Math.min(
+        startIndex + this.itemsPerPage,
+        this.requestData.length
+      );
+      this.paginatedRecords = this.requestData.slice(startIndex, endIndex);
     } else {
-        console.error('requestData is not an array');
-        this.paginatedRecords = []; // Reset to an empty array if not valid
+      console.error("requestData is not an array");
+      this.paginatedRecords = []; // Reset to an empty array if not valid
     }
-}
-
+  }
 
   // Navigate to the previous page
   previousPage(): void {
@@ -203,10 +219,6 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
       this.paginateRecords();
     }
   }
-
-
-
-  
 
   // Navigate to the next page
   nextPage(): void {
@@ -261,39 +273,43 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
     const modalRef = this.modalService.open(PreviewLevelWorkflowComponent);
     modalRef.componentInstance.displayAsTable = this.displayAsTable;
     modalRef.componentInstance.displayAsTable5 = this.displayAsTable5;
-  
-
 
     if (this.requestData && this.requestData.response) {
+      const specificRequestData = this.requestData.response.find(
+        (item) => item.id === id
+      );
 
-      const specificRequestData = this.requestData.response.find(item => item.id === id);
-  
       modalRef.componentInstance.requestData = specificRequestData;
       modalRef.componentInstance.acceptedId = id;
-  
-      modalRef.result.then((result) => {
-        if (result) {
-          const itemIndex = this.requestData.response.findIndex(item => item.id === id);
-  
-          if (itemIndex > -1) {
-            // Append the new response with updated status to the response array
-            const updatedResponse = [
-              ...this.requestData.response,
-              { ...result.response, status: result.status }
-            ];
-            // Reassign requestData with a new object
-            this.requestData = { ...this.requestData, response: updatedResponse };
+
+      modalRef.result
+        .then((result) => {
+          if (result) {
+            const itemIndex = this.requestData.response.findIndex(
+              (item) => item.id === id
+            );
+
+            if (itemIndex > -1) {
+              // Append the new response with updated status to the response array
+              const updatedResponse = [
+                ...this.requestData.response,
+                { ...result.response, status: result.status },
+              ];
+              // Reassign requestData with a new object
+              this.requestData = {
+                ...this.requestData,
+                response: updatedResponse,
+              };
+            }
           }
-        }
-  
-        this.requestDataChange.emit(this.requestData);
-      }).catch((reason) => {
-        console.error('Modal dismissed with reason:');
-      });
+
+          this.requestDataChange.emit(this.requestData);
+        })
+        .catch((reason) => {
+          console.error("Modal dismissed with reason:");
+        });
     }
   }
-  
- 
 
   approvallevel(id: number): void {
     const modalRef = this.modalService.open(ApprovalLevelWorkflowComponent);
@@ -302,39 +318,52 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
     modalRef.componentInstance.displayAsTable5 = this.displayAsTable5;
 
     if (this.requestData && this.requestData.response) {
-      const specificRequestData = this.requestData.response.find(item => item.id === id);
-  
-      modalRef.componentInstance.requestData = specificRequestData; 
-      modalRef.componentInstance.acceptedId = id; 
-  
-      modalRef.result.then((result) => {
-        if (result) {
-          const itemIndex = this.requestData.response.findIndex(item => item.id === id);
-  
-          if (itemIndex > -1) {
-            const updatedResponse = [
-              ...this.requestData.response,
-              { ...result.response.response, status: result.status }
-            ];
-            this.requestData = { ...this.requestData, response: updatedResponse };
+      const specificRequestData = this.requestData.response.find(
+        (item) => item.id === id
+      );
+
+      modalRef.componentInstance.requestData = specificRequestData;
+      modalRef.componentInstance.acceptedId = id;
+
+      modalRef.result
+        .then((result) => {
+          if (result) {
+            const itemIndex = this.requestData.response.findIndex(
+              (item) => item.id === id
+            );
+
+            if (itemIndex > -1) {
+              const updatedResponse = [
+                ...this.requestData.response,
+                { ...result.response.response, status: result.status },
+              ];
+              this.requestData = {
+                ...this.requestData,
+                response: updatedResponse,
+              };
+            }
           }
-        }
-  
-        this.requestDataChange.emit(this.requestData);
-      }).catch((reason) => {
-      
-      });
+
+          this.requestDataChange.emit(this.requestData);
+        })
+        .catch((reason) => {});
     }
   }
-  
+
   getProgressWidth(status: any): number {
     switch (status) {
-      case '1': return 50;   // 50% for "Approved "
-      case '0': return 100;    // 0% for "Rejected"
-      case '2': return 30;  // 100% for "In Progress"
-      case '3': return 100;   // 50% for "Approved "
-      case '4': return 100;    // 0% for "Rejected"
-      default: return -1;   // Fallback for unknown status
+      case "1":
+        return 50; // 50% for "Approved "
+      case "0":
+        return 100; // 0% for "Rejected"
+      case "2":
+        return 30; // 100% for "In Progress"
+      case "3":
+        return 100; // 50% for "Approved "
+      case "4":
+        return 100; // 0% for "Rejected"
+      default:
+        return -1; // Fallback for unknown status
     }
   }
   ngOnDestroy(): void {
@@ -345,51 +374,48 @@ export class OurRequestsComponent implements OnInit, OnChanges    {
   }
   getProgressText(status: any): string {
     switch (status) {
-      case '2': return 'In Progress ';
-      case '1': return 'Approved from Reviewer';
-      case '0': return 'Rejected from Reviewer';
-      case '3': return 'Approved from Apporver';
-      case '4': return 'Rejected from Apporver';
-      default: return 'status not appear';
+      case "2":
+        return "In Progress ";
+      case "1":
+        return "Approved from Reviewer";
+      case "0":
+        return "Rejected from Reviewer";
+      case "3":
+        return "Approved from Apporver";
+      case "4":
+        return "Rejected from Apporver";
+      default:
+        return "status not appear";
     }
   }
-  
-
-
-
-
-
-
-
-
-
 
   tracking(id: number): void {
-
-    if (!this.requestData || !this.requestData.response || this.requestData.response.length === 0) {
-       
-        return;
+    if (
+      !this.requestData ||
+      !this.requestData.response ||
+      this.requestData.response.length === 0
+    ) {
+      return;
     }
 
-    const filteredData = this.requestData.response.filter((item: any) => item.id === id);
+    const filteredData = this.requestData.response.filter(
+      (item: any) => item.id === id
+    );
 
-    if (filteredData.length > 0) {  
-        const modalRef = this.modalService.open(TrakingRequestComponent);
+    if (filteredData.length > 0) {
+      const modalRef = this.modalService.open(TrakingRequestComponent);
 
-        modalRef.componentInstance.work_flow_id = filteredData[0].work_flow_id;
-        modalRef.componentInstance.request_number = filteredData[0].request_number;
+      modalRef.componentInstance.work_flow_id = filteredData[0].work_flow_id;
+      modalRef.componentInstance.request_number =
+        filteredData[0].request_number;
 
-        modalRef.result.then((result) => {
-            if (result) {
-              
-            }
-        }).catch((reason) => {
-          
-        });
+      modalRef.result
+        .then((result) => {
+          if (result) {
+          }
+        })
+        .catch((reason) => {});
     } else {
-       
     }
+  }
 }
-
-
-}  

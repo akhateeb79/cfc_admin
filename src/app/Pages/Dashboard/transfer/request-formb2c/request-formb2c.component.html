@@ -38,7 +38,7 @@
             [(ngModel)]="amount" />
     </div>
     <button [disabled]="amount==0||amount==null||toAccount==null||fromAccount==null||pickedBank==null"
-        class="btn btn-primary" style="margin-bottom: 20px;" (click)="addWorkflowInstance()">
+        class="btn btn-primary" style="margin-bottom: 20px;" (click)="transferBalance()">
         Transfer Amount
     </button>
     <div *ngIf="info">

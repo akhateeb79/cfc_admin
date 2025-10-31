@@ -14,18 +14,18 @@ export class UsersService {
     let query = "";
     return this.api.get(this.url, query);
   }
-  allUsers()
-{ this.url = "allUsers";
-  let query = "";
-  return this.api.get(this.url, query);
-}  
+  allUsers() {
+    this.url = "allUsers";
+    let query = "";
+    return this.api.get(this.url, query);
+  }
   accounts(account, startDate, endDate) {
     this.url = `statment?account=${account}&start_date=${startDate}&end_date=${endDate}`;
     let query = "";
     return this.api.get(this.url, query);
   }
   changeUserPassword(data) {
-    this.url = 'changeUserPassword';
+    this.url = "changeUserPassword";
     return this.api.post(this.url, data);
   }
   getStatment(account, startDate, endDate) {
@@ -33,58 +33,55 @@ export class UsersService {
     let query = "";
     return this.api.get(this.url, query);
   }
-  transferBetweenOurAccounts(debitAccount, creditAccount,amount) {
+  transferBetweenOurAccounts(debitAccount, creditAccount, amount) {
     this.url = `internalTransfer?amount=${amount}&creditAccount=${creditAccount}&debitAccount=${debitAccount}`;
     let query = "";
     return this.api.get(this.url, query);
   }
-  
-  getotppertinity(): Observable<any> {
-    this.url = "get_oppourtunity"
 
-    
-    let query = ""
-    return this.api.get(this.url, query)
+  getotppertinity(): Observable<any> {
+    this.url = "get_oppourtunity";
+
+    let query = "";
+    return this.api.get(this.url, query);
   }
 
-
-  getotppertinityById(opportunity_id){
+  getotppertinityById(opportunity_id) {
     this.url = `refund?opportunity_id=${opportunity_id}`;
     let query = "";
     return this.api.post(this.url, query);
   }
-
-
-
-
 
   getUsersAccounts() {
     this.url = `getUsers`;
     let query = "";
     return this.api.get(this.url, query);
   }
-  getAccountData(accountId){
+
+  getAccountData(accountId) {
     this.url = `getIban?user_id=${accountId}`;
     let query = "";
     return this.api.get(this.url, query);
   }
-  transferBetweenTwoAccounts(amount,creditAccount,debitAccount,bic ,user_id) {
+
+  transferBetweenTwoAccounts(
+    amount,
+    creditAccount,
+    debitAccount,
+    bic,
+    user_id
+  ) {
     this.url = `payemtAdmin?amount=${amount}&creditAccount=${creditAccount}&debitAccount=${debitAccount}&bic=${bic}&user_id=${user_id}`;
     let query = "";
     return this.api.get(this.url, query);
   }
 
-
   postData(ids: number[]): Observable<any> {
-    this.url = 'invest-profit_all';
+    this.url = "invest-profit_all";
 
     const body = { id: ids };
     return this.api.post(this.url, body);
   }
-
-
-
-
 
   getStatus(IBAN) {
     this.url = `bankStatus?debitAccount=${IBAN}`;
@@ -106,9 +103,7 @@ export class UsersService {
     return this.api.get(this.url, "");
   }
 
-
-  
-  adminLevels(id:number) {
+  adminLevels(id: number) {
     this.url = `show_user_type?${id}=1`;
     return this.api.get(this.url, "");
   }

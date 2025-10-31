@@ -1,29 +1,34 @@
 <div class="container">
-    <h1>Refund incomplete opportunity</h1>
-    <div class="form-group">
-        <label for="accountNumber">Select Account Number to transfer from:</label>
-        <select id="accountNumber" name="accountNumber" class="form-control" [(ngModel)]="fromAccount">
-            <option *ngFor="let account of fromAccounts" [value]="account">
-                {{ account }}
-            </option>
-        </select>
-    </div>
-    <div class="form-group" *ngIf="userList.length>0">
-        <label for="user">opportunity to refund:</label>
-        <select id="user" name="user" class="form-control" [(ngModel)]="toAccount"  >
-            <option *ngFor="let account of userList" [value]="account.id" >
-                {{ account.tagline }}
-            </option>
-        </select>
-    </div>
-    <!-- <ng-container *ngIf="this.pickedAccountData" >
+  <h1>Refund incomplete opportunity</h1>
+  <div class="form-group">
+    <label for="accountNumber">Select Account Number to transfer from:</label>
+    <select
+      id="accountNumber"
+      name="accountNumber"
+      class="form-control"
+      [(ngModel)]="fromAccount"
+    >
+      <option *ngFor="let account of fromAccounts" [value]="account">
+        {{ account }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group" *ngIf="userList.length > 0">
+    <label for="user">opportunity to refund:</label>
+    <select id="user" name="user" class="form-control" [(ngModel)]="toAccount">
+      <option *ngFor="let account of userList" [value]="account.id">
+        {{ account.tagline }}
+      </option>
+    </select>
+  </div>
+  <!-- <ng-container *ngIf="this.pickedAccountData" >
         <div *ngIf="toAccount" class="content">ID:{{ this.pickedAccountData.user_id }}</div>
         <div *ngIf="toAccount" class="content">Name: {{ this.pickedAccountData.name }}</div>
         <div *ngIf="toAccount" class="content">Account Number: {{ this.pickedAccountData.creditAccount }}</div>
         <div *ngIf="toAccount" class="content">Bank: {{ this.pickedAccountData.bank }}</div>
     </ng-container> -->
-  
-    <!-- <div class="form-group" *ngIf="toAccount">
+
+  <!-- <div class="form-group" *ngIf="toAccount">
         <label for="bank">Choose the user's bank: (must be same as user bank)</label>
         <select id="bank" name="bank" class="form-control" [(ngModel)]="pickedBank" (change)="selectedBank()">
             <option *ngFor="let bank of banks" [value]="bank.bic">
@@ -31,21 +36,25 @@
             </option>
         </select>
     </div> -->
-    <!-- <div class="form-group">
+  <!-- <div class="form-group">
         <label for="debitAccount">Enter Amount:</label>
         <input type="number" id="amount" name="amount" class="form-control" step="1" oncopy="return false;"
             oncut="return false;" onpaste="return false;" [min]="1" (keydown)="validateKey($event)"
             [(ngModel)]="amount" />
     </div> -->
 
-    <!-- <input type="number" id="amount" name="amount" class="form-control mb-2" step="1" oncopy="return false;"
+  <!-- <input type="number" id="amount" name="amount" class="form-control mb-2" step="1" oncopy="return false;"
     oncut="return false;" onpaste="return false;" [min]="1" (keydown)="validateKey($event)"
     [(ngModel)]="amount" /> -->
-    <button [disabled]="toAccount==null||fromAccount==null"
-        class="btn btn-primary" style="margin-bottom: 20px;" (click)="addWorkflowInstance()">
-        Refund 
-    </button>
-    <!-- <div *ngIf="info">
+  <button
+    [disabled]="toAccount == null || fromAccount == null"
+    class="btn btn-primary"
+    style="margin-bottom: 20px"
+    (click)="transferBalance()"
+  >
+    Refund
+  </button>
+  <!-- <div *ngIf="info">
         <div *ngIf="info?.status=='INITIATED'" class="accepted">Status: {{ info?.status }}</div>
     <div *ngIf="info?.status!='INITIATED'" class="warn">Status: {{ info?.status }}</div>
     <hr>

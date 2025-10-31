@@ -473,7 +473,7 @@
       </ul>
     </li>
 
-    <li class="sidebar-item">
+    <li class="sidebar-item" *ngIf="checkRoute(1) || checkRoute(2)">
       <a
         class="sidebar-link waves-effect waves-dark d-block"
         data-toggle="collapse"

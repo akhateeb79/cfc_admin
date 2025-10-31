@@ -184,7 +184,7 @@ export class RequestFormb2cComponent implements OnInit {
 
     if (storedUserId) {
       this.userId = +storedUserId;
-      console.error("User ID not found in localStorage");
+      console.log("User ID loaded:", this.userId);
     } else {
       console.error("User ID not found in localStorage");
       return;

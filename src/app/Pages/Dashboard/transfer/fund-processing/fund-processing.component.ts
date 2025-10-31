@@ -164,22 +164,11 @@ export class FundProcessingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usersService.getUsersAccounts().subscribe((res: any) => {
-      if (res.status) {
-        for (let i = 0; i < res.response.length; i++) {
-          this.userList[i] = {
-            id: res.response[i].id,
-            name: res.response[i].name,
-          };
-        }
-      }
-    });
-
     const storedUserId = localStorage.getItem("user-id");
 
     if (storedUserId) {
       this.userId = +storedUserId;
-      console.error("User ID not found in localStorage", this.userId);
+      console.log("User ID loaded:", this.userId);
     } else {
       console.error("User ID not found in localStorage");
       return;
@@ -187,38 +176,22 @@ export class FundProcessingComponent implements OnInit {
 
     // Subscribe to the method after setting itemId, userId, etc.
   }
-  pickedUser() {
-    this.usersService.getAccountData(this.toAccount).subscribe((res: any) => {
-      if (res.status) {
-        this.pickedAccountData = {
-          user_id: res.response.filter((field) => field.kyc_detail_id === 37)[0]
-            .user_id,
-          name: res.response.filter((field) => field.kyc_detail_id === 137)[0]
-            .value,
-          creditAccount: res.response.filter(
-            (field) => field.kyc_detail_id === 37
-          )[0].value,
-          bank: res.response.filter((field) => field.kyc_detail_id === 121)[0]
-            .value,
-        };
-      }
-    });
-  }
-  selectedBank() {
-    this.pickedAccountData.bic = this.pickedBank;
-  }
 
   transferBalance() {
+    console.log(this.amount);
+    console.log(this.toAccount);
+    console.log(this.fromAccount);
+    console.log(this.userId);
     this.loading = true;
     this.error = "";
     this.info = null;
     this.usersService
       .transferBetweenTwoAccounts(
         this.amount,
-        this.pickedAccountData.creditAccount,
+        this.toAccount,
         this.fromAccount,
-        this.pickedAccountData.bic,
-        this.pickedAccountData.user_id
+        "ARNBSARI",
+        this.userId
       )
       .subscribe(
         (data: any) => {

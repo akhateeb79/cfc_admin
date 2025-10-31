@@ -39,7 +39,7 @@ export class OpportunityModelNoteComponent implements OnInit {
   }
 
   fetchNotes() {
-    this.KYCService.getNotes().subscribe({
+    this.KYCService.getNotes(this.id).subscribe({
       next: (data: any) => {
         if (data?.status && data.response?.status === "Success") {
           this.notes = data.response.response || [];
@@ -58,7 +58,7 @@ export class OpportunityModelNoteComponent implements OnInit {
       this.Admin_Id,
       this.Admin_name,
       this.note,
-      this.type,
+      this.id,
       this.id
     ).subscribe(
       (response) => {

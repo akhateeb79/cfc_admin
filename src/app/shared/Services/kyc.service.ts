@@ -560,8 +560,8 @@ export class KYCService {
     this.url = `insertLog`;
     return this.api.post(this.url, data);
   }
-  getNotes() {
-    this.url = `note-get`;
+  getNotes(screen: number) {
+    this.url = `note-get?screen=${encodeURIComponent(screen)}`;
     return this.api.get(this.url, "");
   }
 
@@ -606,7 +606,7 @@ export class KYCService {
       adminId.toString()
     )}&admin_email=${encodeURIComponent(adminEmail)}&notes=${encodeURIComponent(
       notes
-    )}&screen=${encodeURIComponent(screen.toString())}&id=${encodeURIComponent(
+    )}&screen=${encodeURIComponent(screen)}&id=${encodeURIComponent(
       id.toString()
     )}`;
 
